@@ -288,11 +288,15 @@
 
   <div class="print-bar">
     <div>
-      <strong>📄 Резюме готово к печати</strong> &bull; Рекомендуемый масштаб: 100%, поля: минимальные
+      <strong>📄 Резюме готово к печати (RU)</strong> &bull; Масштаб: 100%, поля: минимальные
     </div>
-    <button class="print-btn" onclick="window.print()">
-      🖨️ Сохранить в PDF / Распечатать
-    </button>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <a href="index.html" class="print-btn" style="background:transparent; border:1px solid #475569; text-decoration:none;">&larr; На сайт</a>
+      <a href="cv-en.html" class="print-btn" style="background:transparent; border:1px solid #475569; text-decoration:none;">🇬🇧 EN Version</a>
+      <button class="print-btn" onclick="window.print()">
+        🖨️ Сохранить в PDF / Распечатать
+      </button>
+    </div>
   </div>
 
   <div class="cv-container">

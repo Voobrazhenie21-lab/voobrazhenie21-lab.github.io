@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aleksei Zharkou — CV (Security Engineer / SOC Analyst / DFIR / DevSecOps)</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 10mm 12mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      color: #111827;
+      background: #ffffff;
+      line-height: 1.42;
+      font-size: 9.4pt;
+      max-width: 210mm;
+      margin: 0 auto;
+      padding: 10mm 12mm;
+    }
+    @media print {
+      body { padding: 0; }
+      .no-print { display: none !important; }
+    }
+    .print-bar {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 9.5pt;
+    }
+    .bar-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .print-btn {
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 9pt;
+    }
+    .print-btn.outline {
+      background: transparent;
+      border: 1px solid #475569;
+      color: #e2e8f0;
+    }
+    header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    h1 {
+      font-size: 19pt;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+    .role-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #0369a1;
+      margin-top: 2px;
+    }
+    .contact-block {
+      text-align: right;
+      font-size: 8.6pt;
+      color: #334155;
+      line-height: 1.45;
+    }
+    .contact-block a {
+      color: #0369a1;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    h2 {
+      font-size: 10.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #0f172a;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 2px;
+      margin: 9px 0 6px;
+    }
+    p.summary {
+      color: #1e293b;
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 6px;
+      font-size: 8.9pt;
+    }
+    .skills-table td {
+      padding: 2.5px 4px;
+      vertical-align: top;
+    }
+    .skills-table td.cat {
+      width: 28%;
+      font-weight: 700;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+    .proj-item {
+      margin-bottom: 7px;
+    }
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      color: #0f172a;
+      font-size: 9.6pt;
+    }
+    .proj-header a {
+      color: #0369a1;
+      text-decoration: none;
+      font-size: 8.6pt;
+      font-weight: 600;
+    }
+    .proj-sub {
+      font-style: italic;
+      color: #475569;
+      font-size: 8.6pt;
+      margin-bottom: 2px;
+    }
+    ul {
+      padding-left: 15px;
+      margin-top: 2px;
+    }
+    li {
+      margin-bottom: 2px;
+      color: #1e293b;
+    }
+    code {
+      font-family: Consolas, 'Courier New', monospace;
+      font-size: 8.4pt;
+      background: #f1f5f9;
+      padding: 0 3px;
+      border-radius: 3px;
+      color: #0f172a;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar no-print">
+    <span>📄 <strong>English Printable CV (A4)</strong> — Press <code>Ctrl + P</code> &rarr; <strong>Save as PDF</strong></span>
+    <div class="bar-actions">
+      <a href="index.html" class="print-btn outline">&larr; Portfolio</a>
+      <a href="cv.html" class="print-btn outline">🇷🇺 RU Version</a>
+      <button class="print-btn" onclick="window.print()">🖨️ Save as PDF (Ctrl + P)</button>
+    </div>
+  </div>
+
+  <header>
+    <div>
+      <h1>ALEKSEI ZHARKOU</h1>
+      <div class="role-title">Security Engineer &bull; SOC Analyst (Blue Team / DFIR) &bull; DevSecOps &amp; Detection Engineering</div>
+    </div>
+    <div class="contact-block">
+      Minsk, Belarus (Remote / Hybrid / Relocation) &bull; +375 (29) 554-80-55<br />
+      Email: <a href="mailto:lyosha.zharkov.98@mail.ru">lyosha.zharkov.98@mail.ru</a> &bull; Telegram: <a href="https://t.me/Voobrazhenie_20">@Voobrazhenie_20</a><br />
+      Portfolio: <a href="https://voobrazhenie21-lab.github.io/">voobrazhenie21-lab.github.io</a> &bull; GitHub: <a href="https://github.com/Voobrazhenie21-lab">github.com/Voobrazhenie21-lab</a> &bull; <a href="https://www.linkedin.com/in/aleksei-zharkou/">LinkedIn</a>
+    </div>
+  </header>
+
+  <h2>Executive Summary</h2>
+  <p class="summary">
+    Hands-on <strong>Security Engineer &amp; Incident Responder (DFIR)</strong> specializing in building low-false-positive threat detection tools, Linux server &amp; Active Directory security, and multi-stage intrusion forensics. Creator of open-source detection engines (<strong>PipeShield</strong> and <strong>Log Sentinel v1.2</strong>) engineered with mathematical false-positive suppression (Shannon Entropy), multi-format log correlation, and native <strong>OASIS SARIF 2.1.0</strong> integration. Experienced in analyzing practical web and domain exploitation (obfuscated web shells, RCE, Pass-the-Hash, Kerberoasting), Linux daemon privilege isolation (<code>systemd</code>, <code>auditd</code>, container namespaces/cgroups), and directing <strong>AI coding agents</strong> to rapidly ship tested, production-ready security software.
+  </p>
+
+  <h2>Technical Stack &amp; Core Competencies</h2>
+  <table class="skills-table">
+    <tr>
+      <td class="cat">SIEM &amp; Detection Engineering:</td>
+      <td>Wazuh SIEM (4.3.9), TheHive IRP, ELK Stack (Winlogbeat), Low-False-Positive Rule Authoring (Regex + Shannon Entropy $H(X)$), MITRE ATT&amp;CK v15 Mapping, OASIS SARIF 2.1.0, Multi-Layer Signal Correlation.</td>
+    </tr>
+    <tr>
+      <td class="cat">DFIR &amp; Malware Analysis:</td>
+      <td>Obfuscated Web Shell Deobfuscation, CVE Exploit PoC Analysis (<code>CVE-2019-1458</code>, <code>CVE-2019-0623</code>), Crash Forensics (Windows WER, Defender 1116/5007, Recent LNK, <code>$Recycle.Bin</code>), VirusTotal TI.</td>
+    </tr>
+    <tr>
+      <td class="cat">Web, AD &amp; Offensive Security:</td>
+      <td>OWASP Top 10 (RCE, Command/SQL Injection, Unrestricted Upload, Path Traversal, SSRF, XSS), BloodHound CE, Impacket (<code>ntlmrelayx</code>), Rubeus (Kerberoasting), Mimikatz, Pass-the-Hash, Nmap, Hashcat.</td>
+    </tr>
+    <tr>
+      <td class="cat">Linux &amp; Network Security:</td>
+      <td>Ubuntu / RHEL / CentOS / Kali Linux, <code>systemd</code> Service Hardening, Linux Privileges (UID 0 vs <code>www-data</code>), <code>auditd</code>, File Integrity Monitoring (FIM <code>whodata</code>), CIS Docker Benchmarks, L2/L3 (STP, 802.1Q VLAN, 802.1X), Wireshark.</td>
+    </tr>
+    <tr>
+      <td class="cat">Development &amp; AI Workflow:</td>
+      <td>Python 3 (Standard Library, OOP, CLI), JavaScript / HTML / CSS, Bash, PowerShell, Automated Testing (<code>pytest</code>), GitHub Actions CI/CD, AI-Native Engineering (directing Antigravity IDE / Claude / Copilot agents with test verification).</td>
+    </tr>
+  </table>
+
+  <h2>Security Products, Detection Engines &amp; DFIR Research (Open-Source)</h2>
+
+  <div class="proj-item">
+    <div class="proj-header">
+      <span>1. PipeShield — Low-False-Positive SAST, Container &amp; CI/CD Security Scanner</span>
+      <span><a href="https://github.com/Voobrazhenie21-lab/pipeshield">github.com/Voobrazhenie21-lab/pipeshield</a> | <a href="https://voobrazhenie21-lab.github.io/pipeshield/">Live Demo</a></span>
+    </div>
+    <div class="proj-sub">End-to-End Product Ownership: Architecture, Detection Logic, False-Positive Reduction &amp; SARIF 2.1.0 Integration</div>
+    <ul>
+      <li><strong>False-Positive Suppression at Scale:</strong> Designed a hybrid detection engine combining provider regexes with mathematical <strong>Shannon Entropy calculation ($H(X) &gt; 3.8$ bits/char)</strong> to catch real cryptographic secrets while eliminating ~90% of false positives on benign strings, UUIDs, and long-tail code patterns.</li>
+      <li><strong>Linux Container &amp; Supply Chain Ruleset:</strong> Implemented automated checks for <strong>CIS Docker Benchmarks</strong> (preventing UID 0 root container execution, dangerous <code>ADD</code> directives, unpinned images) and GitHub Actions supply-chain injection risks.</li>
+      <li><strong>Production Quality:</strong> Built native <strong>OASIS SARIF 2.1.0</strong> export for GitHub Code Scanning and a standalone HTML dashboard, backed by <strong>27 automated Pytest unit tests</strong> across Python 3.10–3.13.</li>
+    </ul>
+  </div>
+
+  <div class="proj-item">
+    <div class="proj-header">
+      <span>2. Log Sentinel v1.2 — Multi-Layer Host &amp; Web Threat Detection CLI Engine</span>
+      <span><a href="https://github.com/Voobrazhenie21-lab/log-sentinel">github.com/Voobrazhenie21-lab/log-sentinel</a> | <a href="https://voobrazhenie21-lab.github.io/log-sentinel/">Live Dashboard</a></span>
+    </div>
+    <div class="proj-sub">Zero-Dependency Python Correlation Engine for Linux (auth.log / systemd), Web (Apache), and Windows Telemetry</div>
+    <ul>
+      <li>Engineered a zero-dependency log normalization and correlation engine with <strong>8 high-fidelity detection rules</strong> mapped to <strong>MITRE ATT&amp;CK</strong> and <strong>Wazuh SIEM</strong> rule equivalents.</li>
+      <li>Detects web-shell uploads and execution (<code>/uploads/*.php</code>), SSH brute-force followed by publickey persistence, service sabotage (<code>wazuh-agent</code> systemd stop / Rule 506), Kerberoasting (<code>0x17</code>), Pass-the-Hash (<code>Event ID 4624 NTLM</code>), and deleted exploit crashes (<code>WER 1001</code>).</li>
+    </ul>
+  </div>
+
+  <div class="proj-item">
+    <div class="proj-header">
+      <span>3. Enterprise DMZ Web Server &amp; Active Directory Breach Investigation (DFIR Case: acme.skb)</span>
+      <span><a href="https://github.com/Voobrazhenie21-lab/blue-team-incident-investigation">GitHub Repo</a> | <a href="https://voobrazhenie21-lab.github.io/blue-team-incident-investigation/">Live DFIR Report</a></span>
+    </div>
+    <div class="proj-sub">Linux Web Daemon Root Cause Analysis, Malware/CVE Forensics &amp; Wazuh SIEM Correlation</div>
+    <ul>
+      <li><strong>Linux Web Server Compromise &amp; Daemon RCA:</strong> Investigated initial intrusion on an Ubuntu 20.04 web server via an obfuscated PHP web shell (<code>backdoor.php</code>, MD5: <code>c97ba87745a4a9523e26c30a6529506a</code>). Determined why the web shell immediately achieved <code>UID 0 (root)</code> access to <code>/etc/shadow</code> and <code>/root/.ssh/authorized_keys</code>: Apache 2.4.57 had been compiled from source in <code>/usr/local/apache</code> with the <code>-DBIG_SECURITY_HOLE</code> flag and run as <code>root</code>.</li>
+      <li><strong>CVE Exploit PoC &amp; Crash Forensics:</strong> Traced reverse SSH tunneling (<code>sshd -R</code>) and proved execution of a deleted kernel LPE exploit (<code>CVE-2019-0623.exe</code>) via Windows Error Reporting (<code>WER AppCrash</code>) artifacts, alongside <code>cve-2019-1458.exe</code> and <code>mimikatz.exe</code> executed over a redirected RDP drive (<code>\\tsclient</code>).</li>
+      <li><strong>Multi-Host SIEM Engineering (21-Host Lab):</strong> Deployed Wazuh SIEM 4.3.9 agents, <code>auditd</code> rules, FIM (<code>whodata</code>), Fail2ban, and TheHive IRP across a 21-host segmented network in VK Cloud (<a href="https://github.com/Voobrazhenie21-lab/soc-practice-reports">soc-practice-reports</a>).</li>
+    </ul>
+  </div>
+
+  <div class="proj-item">
+    <div class="proj-header">
+      <span>4. Enterprise Penetration Testing &amp; Vulnerability Assessment Report (PTES / NIST)</span>
+      <span><a href="https://github.com/Voobrazhenie21-lab/enterprise-pentest-report">GitHub Repo</a> | <a href="https://voobrazhenie21-lab.github.io/enterprise-pentest-report/">Live Report</a></span>
+    </div>
+    <ul>
+      <li>Conducted practical exploitation across web and domain infrastructure (BloodHound CE ACL graph analysis, Kerberoasting, SMB NTLM Relay, Pass-the-Hash) with full PoCs, CVSS v3.1 scoring, and defense-in-depth hardening roadmaps.</li>
+    </ul>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h2>Professional Experience</h2>
+      <p style="font-weight:700; color:#0f172a;">Cybersecurity Practitioner &amp; Open-Source Developer</p>
+      <p style="font-size:8.5pt; color:#475569; margin-bottom:3px;">Independent Security Projects &amp; Labs | 2025 – Present</p>
+      <ul>
+        <li>Built and shipped open-source detection tools (<code>PipeShield</code>, <code>Log Sentinel v1.2</code>, <code>MyProfile v2.0</code> with SHA-256 FIM) using AI-assisted workflows and automated CI testing.</li>
+      </ul>
+      <p style="font-weight:700; color:#0f172a; margin-top:5px;">Clinical Psychologist &amp; University Lecturer</p>
+      <p style="font-size:8.5pt; color:#475569; margin-bottom:3px;">Minsk Regional Clinical Center / BarSU | 2021 – Present</p>
+      <ul>
+        <li>5 years of analytical diagnostic work, research publication, and high-pressure crisis decision-making; strong foundation in human-factor security (social engineering) and clear technical writing.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Education &amp; Training</h2>
+      <p style="font-weight:700; color:#0f172a;">Cybersecurity Specialist 2.0 (Professional Program)</p>
+      <p style="font-size:8.5pt; color:#475569; margin-bottom:3px;">Skillbox (2025 – 2026) &bull; <strong>100% Completed (Diploma Defended)</strong></p>
+      <ul>
+        <li>Linux System &amp; Network Administration, Web &amp; AD Penetration Testing, SIEM Monitoring &amp; Incident Response (Wazuh, TheHive), Python for Security, Final DFIR Diploma (<code>acme.skb</code>).</li>
+      </ul>
+      <p style="font-weight:700; color:#0f172a; margin-top:5px;">Baranavichy State University</p>
+      <ul>
+        <li><strong>Master’s Degree</strong> (2021) &amp; <strong>Bachelor’s Degree</strong> in Psychology (2020)</li>
+      </ul>
+      <p style="margin-top:4px; font-size:8.6pt;"><strong>Languages:</strong> Russian (Native), Belarusian (Native), English (B1/B2 — Technical Reading &amp; Written Communication).</p>
+    </div>
+  </div>
+
+</body>
+</html>

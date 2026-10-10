@@ -388,8 +388,8 @@
         <a href="#projects" class="hide-mobile" data-lang="en">Projects</a>
         <a href="#skills" class="hide-mobile" data-lang="ru">Стек и навыки</a>
         <a href="#skills" class="hide-mobile" data-lang="en">Tech Arsenal</a>
-        <a href="cv.html" target="_blank" data-lang="ru">📄 Резюме (PDF)</a>
-        <a href="cv.html" target="_blank" data-lang="en">📄 Printable CV</a>
+        <a href="cv.html" target="_blank" data-lang="ru">📄 Резюме (RU)</a>
+        <a href="cv-en.html" target="_blank" data-lang="en">📄 Printable CV (EN)</a>
         <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN / RU</button>
       </div>
     </div>
@@ -401,8 +401,8 @@
       <div>
         <div class="status-pill">
           <span class="pulse-dot"></span>
-          <span data-lang="ru">Открыт к предложениям: SOC Analyst (L1/L2) &bull; DFIR &bull; Junior Pentester</span>
-          <span data-lang="en">Open to Work: SOC Analyst (L1/L2) &bull; DFIR &bull; Junior Pentester</span>
+          <span data-lang="ru">Открыт к предложениям: SOC Analyst (L1/L2) &bull; DFIR &bull; Security Engineer</span>
+          <span data-lang="en">Open to Work: Security Engineer &bull; SOC Analyst (L1/L2) &bull; DFIR</span>
         </div>
 
         <h1 data-lang="ru">
@@ -422,10 +422,10 @@
         </p>
 
         <div class="cta-group">
-          <a href="cv.html" target="_blank" class="btn btn-primary">
-            <span data-lang="ru">📄 Открыть / Скачать CV (PDF)</span>
-            <span data-lang="en">📄 Open / Download CV (PDF)</span>
-          </a>
+          <a href="cv.html" target="_blank" class="btn btn-primary" data-lang="ru">📄 Открыть / Скачать CV (RU)</a>
+          <a href="cv-en.html" target="_blank" class="btn btn-primary" data-lang="en">📄 Open / Download CV (EN)</a>
+          <a href="cv-en.html" target="_blank" class="btn btn-outline" data-lang="ru">🇬🇧 English CV</a>
+          <a href="cv.html" target="_blank" class="btn btn-outline" data-lang="en">🇷🇺 Russian CV</a>
           <a href="https://t.me/Voobrazhenie_20" target="_blank" class="btn btn-outline">💬 Telegram (@Voobrazhenie_20)</a>
           <a href="https://www.linkedin.com/in/aleksei-zharkou/" target="_blank" class="btn btn-outline">🔗 LinkedIn</a>
           <a href="https://github.com/Voobrazhenie21-lab" target="_blank" class="btn btn-outline">🐙 GitHub</a>
@@ -735,6 +735,14 @@
     function toggleLang() {
       document.body.classList.toggle('en');
     }
+
+    (function initLang() {
+      const params = new URLSearchParams(window.location.search);
+      const navLang = (navigator.language || '').toLowerCase();
+      if (params.get('lang') === 'en' || (navLang && !navLang.startsWith('ru') && !navLang.startsWith('be'))) {
+        document.body.classList.add('en');
+      }
+    })();
 
     runCmd('whoami', document.querySelector('.cmd-pill'));
   </script>
