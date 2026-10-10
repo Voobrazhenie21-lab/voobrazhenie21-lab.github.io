@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Резюме — Алексей Жарков (Junior Penetration Tester / SOC / DevSecOps)</title>
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #0284c7;
+      --accent: #2563eb;
+      --text: #1e293b;
+      --muted: #475569;
+      --light-bg: #f8fafc;
+      --border: #e2e8f0;
+      --tag-bg: #e0f2fe;
+      --tag-text: #0369a1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: #f1f5f9;
+      line-height: 1.45;
+      font-size: 13px;
+      padding: 24px;
+    }
+
+    .print-bar {
+      max-width: 860px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .print-btn {
+      background: #0284c7;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+
+    .print-btn:hover {
+      background: #0369a1;
+    }
+
+    .cv-container {
+      max-width: 860px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px 48px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Header */
+    .header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .header-info h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .header-info h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+
+    .header-contacts {
+      text-align: right;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .header-contacts a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .header-contacts a:hover {
+      text-decoration: underline;
+    }
+
+    .status-badge {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-bottom: 4px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 4px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-text {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 12px;
+    }
+
+    .skill-card {
+      background: var(--light-bg);
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      border-radius: 6px;
+    }
+
+    .skill-card-title {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+
+    .skill-card-body {
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* Project Item */
+    .project-item {
+      margin-bottom: 14px;
+    }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    .project-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .project-links a {
+      font-size: 11.5px;
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .project-links a:hover {
+      text-decoration: underline;
+    }
+
+    .project-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .project-bullets {
+      list-style-type: square;
+      padding-left: 18px;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .project-bullets li {
+      margin-bottom: 3px;
+    }
+
+    /* Experience & Education */
+    .exp-item {
+      margin-bottom: 12px;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
+
+    .exp-sub {
+      font-size: 11.5px;
+      color: var(--secondary);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .exp-body {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .synergy-tag {
+      display: inline-block;
+      font-size: 11.5px;
+      color: #0369a1;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* Print settings */
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .print-bar {
+        display: none !important;
+      }
+      .cv-container {
+        box-shadow: none;
+        padding: 0;
+        max-width: 100%;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      a {
+        text-decoration: none !important;
+        color: var(--primary) !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-bar">
+    <div>
+      <strong>📄 Резюме готово к печати</strong> &bull; Рекомендуемый масштаб: 100%, поля: минимальные
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ Сохранить в PDF / Распечатать
+    </button>
+  </div>
+
+  <div class="cv-container">
+    
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-info">
+        <span class="status-badge">● Open to Work / Готов к офферам</span>
+        <h1>Алексей Жарков</h1>
+        <h2>Junior Penetration Tester &bull; SOC Analyst &bull; DevSecOps</h2>
+        <div style="font-size: 12px; color: var(--muted);">
+          Минск, Беларусь | Готов к релокации и командировкам | Удаленно, гибрид или офис
+        </div>
+      </div>
+      <div class="header-contacts">
+        <div><strong>Тел:</strong> +375 (29) 554-80-55</div>
+        <div><strong>Telegram:</strong> <a href="https://t.me/Voobrazhenie_20">@Voobrazhenie_20</a></div>
+        <div><strong>Email:</strong> <a href="mailto:lyosha.zharkov.98@mail.ru">lyosha.zharkov.98@mail.ru</a></div>
+        <div><strong>GitHub:</strong> <a href="https://github.com/Voobrazhenie21-lab">github.com/Voobrazhenie21-lab</a></div>
+        <div><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/aleksei-zharkou">linkedin.com/in/aleksei-zharkou</a></div>
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section class="section">
+      <div class="section-title">🎯 Профессиональный профиль</div>
+      <p class="summary-text">
+        Специалист по информационной безопасности с практическим опытом в <strong>тестировании на проникновение (Infrastructure & Active Directory Pentest)</strong>, <strong>мониторинге инцидентов (Wazuh SIEM / SOC)</strong> и разработке защитных инструментов на Python. Автор открытого DevSecOps-сканера <strong>PipeShield</strong> и production-grade отчёта по пентесту доменной инфраструктуры по стандартам <strong>PTES</strong> и <strong>NIST SP 800-115</strong>. Обладаю 5-летним опытом в психологии и преподавании, что формирует глубокое понимание векторов социальной инженерии, стрессоустойчивость при расследовании инцидентов и навык подготовки прозрачных отчетов для бизнеса.
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section">
+      <div class="section-title">🛠️ Навыки и технический стек</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-title">⚔️ Offensive Security & Active Directory</div>
+          <div class="skill-card-body">
+            Nmap (NSE), Hydra, Hashcat, John the Ripper, OWASP Top 10, CVSS v3.1.<br>
+            <strong>AD:</strong> BloodHound CE, SharpHound, Kerberoasting (Rubeus, GetUserSPNs), Pass-the-Hash/Ticket (Mimikatz), NTLM Relay, AS-REP Roasting, LAPS, gMSA, SMB Signing.
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">🛡️ Blue Team, SOC & SIEM</div>
+          <div class="skill-card-body">
+            <strong>Wazuh SIEM</strong>, TheHive (case management), Fail2ban, ELK/Winlogbeat.<br>
+            <strong>Анализ событий Windows:</strong> 4625, 4624, 4769 (RC4-HMAC 0x17), 4672.<br>
+            <strong>Linux Audit:</strong> auditd, FIM, auth.log, маппинг на <strong>MITRE ATT&CK</strong>.
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">⚙️ DevSecOps & Security Tooling</div>
+          <div class="skill-card-body">
+            <strong>Python:</strong> энтропия Шеннона ($H(X)$), AST-парсинг, RegEx, Pytest.<br>
+            <strong>CI/CD Security:</strong> аудит GitHub Actions (SHA pinning, permissions: write-all).<br>
+            <strong>Стандарты:</strong> OASIS SARIF 2.1.0, CIS Docker Benchmarks, HTML Reports.
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">🌐 Сети и системное администрирование</div>
+          <div class="skill-card-body">
+            TCP/IP, VLAN (802.1Q), NAT, DHCP, GRE, RIPv2, Cisco Packet Tracer, Wireshark.<br>
+            <strong>ОС:</strong> Kali Linux, Ubuntu (bash, iptables, SSH), Windows Server (AD DS, GPO, PowerShell), VirtualBox, WireGuard VPN.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section">
+      <div class="section-title">🚀 Ключевые проекты по кибербезопасности</div>
+
+      <!-- PipeShield -->
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-title">1. PipeShield — Modular DevSecOps CLI Security Scanner & CI/CD Hardening</span>
+          <span class="project-links">
+            <a href="https://github.com/Voobrazhenie21-lab/pipeshield" target="_blank">[GitHub]</a>
+            <a href="https://voobrazhenie21-lab.github.io/pipeshield/" target="_blank">[Live Demo]</a>
+          </span>
+        </div>
+        <ul class="project-bullets">
+          <li>Разработал модульный CLI-сканер безопасности для встраивания в CI/CD конвейеры GitHub Actions.</li>
+          <li>Создал гибридный движок поиска секретов: сигнатуры провайдеров (AWS, OpenAI, Slack) + расчёт <strong>энтропии Шеннона</strong> ($H(X) > 3.8$), снизивший ложные срабатывания (False Positives) на 90%.</li>
+          <li>Реализовал аудит Dockerfile по <strong>CIS Docker Benchmarks</strong> (non-root, pin SHA, запрет ADD) и аудит workflow GitHub Actions (unpinned actions, write-all permissions, context injection в `run:`).</li>
+          <li>Внедрил экспорт в международный стандарт <strong>OASIS SARIF 2.1.0</strong> (нативная поддержка GitHub Code Scanning Alerts), JSON и интерактивный HTML-дашборд.</li>
+          <li>100% покрытие unit-тестами (`pytest`, 27 тестов) с автоматической валидацией в матрице CI (Python 3.10–3.13).</li>
+        </ul>
+      </div>
+
+      <!-- Enterprise Pentest Report -->
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-title">2. Enterprise Penetration Testing & Threat Assessment Report</span>
+          <span class="project-links">
+            <a href="https://github.com/Voobrazhenie21-lab/enterprise-pentest-report" target="_blank">[GitHub]</a>
+            <a href="https://voobrazhenie21-lab.github.io/enterprise-pentest-report/" target="_blank">[Live Report]</a>
+          </span>
+        </div>
+        <ul class="project-bullets">
+          <li>Подготовил production-grade отчет по внутреннему аудиту безопасности корпоративной Active Directory инфраструктуры по методологиям <strong>PTES</strong> и <strong>NIST SP 800-115</strong>.</li>
+          <li>Смоделировал цепочку полной компрометации домена (Domain Admin) за < 4 часов: открытый SMB-шар с SSH-ключами (CVSS 9.8) &rarr; Kerberoasting учетных записей служб (RC4) &rarr; NTLM Relay &rarr; эксплуатация ACL (`GenericAll`) через BloodHound CE.</li>
+          <li>Сформировал верифицированные Proof-of-Concept, калькуляцию <strong>CVSS v3.1</strong>, маппинг на <strong>MITRE ATT&CK</strong> и пошаговый план устранения (Hardening Roadmap).</li>
+        </ul>
+      </div>
+
+      <!-- Blue Team DFIR & SOC Lab -->
+      <div class="project-item">
+        <div class="project-header">
+          <span class="project-title">3. Blue Team Incident Investigation (DFIR) & Корпоративный SOC-мониторинг (Wazuh SIEM)</span>
+          <span class="project-links">
+            <a href="https://github.com/Voobrazhenie21-lab/blue-team-incident-investigation" target="_blank">[GitHub]</a>
+            <a href="https://voobrazhenie21-lab.github.io/blue-team-incident-investigation/" target="_blank">[Live Report]</a>
+          </span>
+        </div>
+        <ul class="project-bullets">
+          <li>Расследовал многоэтапную компрометацию домена <code>acme.skb</code>: загрузка <code>backdoor.php</code> в Apache (<code>-DBIG_SECURITY_HOLE</code>), RDP-брутфорс через SSH-туннель (проброс <code>\\tsclient</code>), восстановление удалённого эксплойта <code>CVE-2019-0623</code> по отчётам <code>WER AppCrash</code>, детекты <code>Mimikatz</code> и <code>CVE-2019-1458</code>, отключение Defender (Event 5001/5007) и захват КД через Pass-the-Hash (Wazuh rule 92652).</li>
+          <li>Развернул распределенный стенд мониторинга на 21 хост: агенты Wazuh (FIM, auditd), Fail2ban и эскалация кейсов в TheHive.</li>
+          <li>Создал CLI-утилиту <strong>Log Sentinel</strong> на Python для триажа инцидентов: детекция SSH Brute Force, Password Spraying и Kerberoasting через фильтрацию событий Event ID 4769 (шифр 0x17 RC4).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section">
+      <div class="section-title">🏢 Опыт работы и междисциплинарный бэкграунд</div>
+      
+      <div class="exp-item">
+        <div class="exp-header">
+          <span>Минский областной клинический центр «Психиатрия-наркология» / Частная практика</span>
+          <span>2023 — настоящее время</span>
+        </div>
+        <div class="exp-sub">Психолог, специалист по социально-психологической реабилитации</div>
+        <div class="exp-body">
+          Диагностика, кризисное консультирование, работа в условиях повышенной эмоциональной нагрузки. Ведение строгой конфиденциальной отчетности и защита персональных данных.<br>
+          <span class="synergy-tag">💡 Связь с ИБ:</span> Экспертиза в человеческом факторе (Human Layer Security): противодействие фишингу и социальной инженерии, анализ инсайдерских угроз, хладнокровие при расследовании критических инцидентов.
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-header">
+          <span>Барановичский государственный университет</span>
+          <span>2021 — 2022</span>
+        </div>
+        <div class="exp-sub">Преподаватель кафедры</div>
+        <div class="exp-body">
+          Преподавание академических дисциплин, проведение практических семинаров, публикации в научных сборниках.<br>
+          <span class="synergy-tag">💡 Связь с ИБ:</span> Навыки проведения тренингов по кибергигиене (Security Awareness) для сотрудников, понятная защита технических отчетов перед нетехническим руководством (C-Level).
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <section class="section">
+      <div class="section-title">🎓 Образование и профессиональная подготовка</div>
+      <div style="font-size: 12px; line-height: 1.5;">
+        <div><strong>Skillbox — Профессиональная программа «Специалист по кибербезопасности 2.0»</strong> (2025–2026, полный курс завершён, дипломный проект защищён)</div>
+        <div style="color: var(--muted); margin-bottom: 6px;">Пентест инфраструктуры, безопасность Active Directory, мониторинг SOC и расследование инцидентов (Wazuh, TheHive, Sysmon), Linux/Windows администрирование, сети, Python.</div>
+        <div><strong>Барановичский государственный университет</strong> &bull; Магистратура (2021), Высшее образование (2020)</div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

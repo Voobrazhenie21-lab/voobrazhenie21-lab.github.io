@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Алексей Жарков | Cybersecurity Portfolio (SOC / DFIR / Pentest / DevSecOps)</title>
+  <meta name="description" content="Портфолио специалиста по кибербезопасности Алексея Жаркова: Blue Team DFIR (Wazuh SIEM), Active Directory Pentest, Log Sentinel и PipeShield." />
+  <style>
+    :root {
+      --bg: #070b14;
+      --bg-alt: #0d1322;
+      --card: #111827;
+      --card-hover: #162033;
+      --border: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --cyan: #38bdf8;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --amber: #f59e0b;
+      --purple: #a855f7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
+        radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.07) 0%, transparent 35%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    a { color: var(--cyan); text-decoration: none; transition: 0.2s; }
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 1.25rem; }
+
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(7, 11, 20, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 68px;
+    }
+    .brand {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Consolas', monospace;
+    }
+    .brand span { color: var(--emerald); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-size: 0.92rem;
+    }
+    .nav-links a { color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: #fff; }
+    .lang-btn {
+      background: var(--card);
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+    .lang-btn:hover { background: rgba(56, 189, 248, 0.15); }
+
+    /* Hero Section */
+    .hero {
+      padding: 4.2rem 0 3rem;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.2rem;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 2.5rem; }
+      .nav-links a.hide-mobile { display: none; }
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #6ee7b7;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 999px;
+      margin-bottom: 1.1rem;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--emerald);
+    }
+    h1 {
+      font-size: 2.65rem;
+      line-height: 1.18;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.85rem;
+    }
+    h1 .gradient {
+      background: linear-gradient(90deg, #38bdf8, #10b981);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1.65rem;
+    }
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.72rem 1.35rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #059669);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.22);
+    }
+    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .btn-outline {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* Interactive Terminal */
+    .terminal {
+      background: #050811;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      font-family: 'Consolas', 'Courier New', monospace;
+    }
+    .term-header {
+      background: #0f172a;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #1e293b;
+    }
+    .term-dots { display: flex; gap: 6px; }
+    .term-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot-r { background: #ef4444; }
+    .dot-y { background: #f59e0b; }
+    .dot-g { background: #10b981; }
+    .term-title { font-size: 0.78rem; color: var(--muted); }
+    .term-cmds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0.65rem 0.9rem;
+      background: rgba(15, 23, 42, 0.6);
+      border-bottom: 1px solid #1e293b;
+    }
+    .cmd-pill {
+      background: #1e293b;
+      color: var(--cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-family: inherit;
+      font-size: 0.75rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .cmd-pill:hover, .cmd-pill.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: #fff;
+    }
+    .term-body {
+      padding: 1.1rem;
+      font-size: 0.83rem;
+      min-height: 250px;
+      color: #d1d5db;
+      white-space: pre-wrap;
+    }
+    .prompt { color: var(--emerald); font-weight: 700; }
+    .cmd-echo { color: #fff; font-weight: 700; }
+    .hl-cyan { color: var(--cyan); }
+    .hl-crit { color: #f87171; font-weight: 700; }
+    .hl-ok { color: #34d399; }
+
+    /* Section Headers */
+    section { padding: 3.5rem 0; border-top: 1px solid rgba(30, 41, 59, 0.6); }
+    .sec-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .sec-sub { color: var(--muted); margin-bottom: 2rem; font-size: 0.98rem; }
+
+    /* Projects Grid (2x2) */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 1.35rem;
+    }
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.5);
+      background: var(--card-hover);
+    }
+    .proj-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.22rem 0.65rem;
+      border-radius: 5px;
+      letter-spacing: 0.04em;
+    }
+    .tag-blue { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
+    .tag-red { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
+    .tag-green { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .tag-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
+    .project-card h3 {
+      font-size: 1.28rem;
+      color: #fff;
+      margin-bottom: 0.55rem;
+    }
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 0.9rem;
+    }
+    .project-card ul {
+      padding-left: 1.15rem;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      margin-bottom: 1.25rem;
+    }
+    .project-card ul li { margin-bottom: 0.4rem; }
+    .project-card code {
+      font-family: Consolas, monospace;
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.07);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+    .proj-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .proj-btn {
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text);
+    }
+    .proj-btn.live {
+      background: rgba(56, 189, 248, 0.14);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: var(--cyan);
+    }
+    .proj-btn:hover { background: var(--cyan); color: #000; border-color: var(--cyan); }
+
+    /* Skills & Arsenal */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
+      gap: 1.15rem;
+    }
+    .skill-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.35rem;
+    }
+    .skill-box h4 {
+      color: #fff;
+      font-size: 1.02rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .pill {
+      font-size: 0.78rem;
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      color: #cbd5e1;
+      padding: 0.25rem 0.6rem;
+      border-radius: 5px;
+    }
+
+    /* Psychology & Human Factor Edge */
+    .edge-banner {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 1.85rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .edge-item h4 { color: var(--cyan); margin-bottom: 0.4rem; font-size: 1rem; }
+    .edge-item p { color: var(--muted); font-size: 0.88rem; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    [data-lang="en"] { display: none; }
+    body.en [data-lang="ru"] { display: none; }
+    body.en [data-lang="en"] { display: block; }
+    body.en span[data-lang="en"], body.en a[data-lang="en"] { display: inline-block; }
+    body.en span[data-lang="ru"], body.en a[data-lang="ru"] { display: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="container nav-inner">
+      <div class="brand">
+        <span>&gt;_</span> aleksei.zharkou<span>@sec-lab</span>
+      </div>
+      <div class="nav-links">
+        <a href="#projects" class="hide-mobile" data-lang="ru">Проекты</a>
+        <a href="#projects" class="hide-mobile" data-lang="en">Projects</a>
+        <a href="#skills" class="hide-mobile" data-lang="ru">Стек и навыки</a>
+        <a href="#skills" class="hide-mobile" data-lang="en">Tech Arsenal</a>
+        <a href="cv.html" target="_blank" data-lang="ru">📄 Резюме (PDF)</a>
+        <a href="cv.html" target="_blank" data-lang="en">📄 Printable CV</a>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN / RU</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- HERO -->
+    <div class="hero">
+      <div>
+        <div class="status-pill">
+          <span class="pulse-dot"></span>
+          <span data-lang="ru">Открыт к предложениям: SOC Analyst (L1/L2) &bull; DFIR &bull; Junior Pentester</span>
+          <span data-lang="en">Open to Work: SOC Analyst (L1/L2) &bull; DFIR &bull; Junior Pentester</span>
+        </div>
+
+        <h1 data-lang="ru">
+          Алексей Жарков<br />
+          <span class="gradient">Blue Team (SOC/DFIR), AD Pentest &amp; Python Security</span>
+        </h1>
+        <h1 data-lang="en">
+          Aleksei Zharkou<br />
+          <span class="gradient">Blue Team (SOC/DFIR), AD Pentest &amp; Python Security</span>
+        </h1>
+
+        <p class="hero-sub" data-lang="ru">
+          Дипломированный специалист по кибербезопасности («Специалист по кибербезопасности 2.0», Skillbox — 100%). Расследую многоэтапные инциденты в <b>Wazuh SIEM</b>, провожу аудит защищённости <b>Active Directory</b> и разрабатываю инструменты детекции угроз на <b>Python</b>.
+        </p>
+        <p class="hero-sub" data-lang="en">
+          Graduated Cybersecurity Specialist («Cybersecurity Specialist 2.0», Skillbox — 100%). Investigating multi-stage intrusions with <b>Wazuh SIEM</b>, auditing <b>Active Directory</b> domains, and building automated threat detection tools in <b>Python</b>.
+        </p>
+
+        <div class="cta-group">
+          <a href="cv.html" target="_blank" class="btn btn-primary">
+            <span data-lang="ru">📄 Открыть / Скачать CV (PDF)</span>
+            <span data-lang="en">📄 Open / Download CV (PDF)</span>
+          </a>
+          <a href="https://t.me/Voobrazhenie_20" target="_blank" class="btn btn-outline">💬 Telegram (@Voobrazhenie_20)</a>
+          <a href="https://www.linkedin.com/in/aleksei-zharkou/" target="_blank" class="btn btn-outline">🔗 LinkedIn</a>
+          <a href="https://github.com/Voobrazhenie21-lab" target="_blank" class="btn btn-outline">🐙 GitHub</a>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE TERMINAL -->
+      <div class="terminal">
+        <div class="term-header">
+          <div class="term-dots">
+            <span class="term-dot dot-r"></span>
+            <span class="term-dot dot-y"></span>
+            <span class="term-dot dot-g"></span>
+          </div>
+          <span class="term-title">soc-console — bash — 80x24</span>
+        </div>
+        <div class="term-cmds">
+          <button class="cmd-pill active" onclick="runCmd('whoami', this)">$ whoami</button>
+          <button class="cmd-pill" onclick="runCmd('acme', this)">$ dfir --case acme.skb</button>
+          <button class="cmd-pill" onclick="runCmd('stack', this)">$ cat /etc/skills</button>
+          <button class="cmd-pill" onclick="runCmd('contact', this)">$ ./contact.sh</button>
+        </div>
+        <div class="term-body" id="termOutput"></div>
+      </div>
+    </div>
+
+    <!-- FEATURED PROJECTS (2x2 GRID) -->
+    <section id="projects">
+      <h2 class="sec-title" data-lang="ru">🚀 Флагманские проекты и живые демонстрации</h2>
+      <h2 class="sec-title" data-lang="en">🚀 Featured Security Projects &amp; Live Demos</h2>
+      <p class="sec-sub" data-lang="ru">Каждый проект содержит открытый исходный код или полный технический отчёт, а также интерактивную веб-версию на GitHub Pages.</p>
+      <p class="sec-sub" data-lang="en">Every repository includes full technical documentation, source code, and an interactive web report hosted on GitHub Pages.</p>
+
+      <div class="projects-grid">
+        <!-- Project 1: Blue Team DFIR -->
+        <div class="project-card">
+          <div>
+            <div class="proj-top">
+              <span class="tag tag-blue">🛡️ Blue Team &bull; DFIR Diploma</span>
+              <span style="font-size:0.8rem; color:var(--muted);">Wazuh 4.3.9 &bull; 12 MITRE ATT&amp;CK Tactics</span>
+            </div>
+            <h3 data-lang="ru">Расследование компрометации домена Active Directory (<code>acme.skb</code>)</h3>
+            <h3 data-lang="en">Enterprise AD &amp; DMZ Compromise Investigation (<code>acme.skb</code>)</h3>
+            <p data-lang="ru">Полное криминалистическое расследование многоэтапного взлома веб-сервера в DMZ, рабочей станции Windows 10 и контроллера домена Windows Server 2019.</p>
+            <p data-lang="en">End-to-end forensic reconstruction of a multi-stage intrusion across a Linux DMZ web server, Windows 10 workstation, and Windows Server 2019 Domain Controller.</p>
+            <ul data-lang="ru">
+              <li>Вскрыта первопричина получения <code>root</code> через веб-шелл <code>backdoor.php</code>: сборка Apache 2.4.57 с флагом <code>-DBIG_SECURITY_HOLE</code>.</li>
+              <li>Доказан запуск удалённого злоумышленником ядерного эксплойта <code>CVE-2019-0623.exe</code> через отчёты падения <b>WER AppCrash</b>.</li>
+              <li>Деанонимизирована файловая система атакующего через проброшенный по RDP диск <code>\\tsclient\...\mimikatz.exe</code> (Event ID 1116).</li>
+              <li>Зафиксирован захват контроллера домена методом <b>Pass-the-Hash</b> (Wazuh Rule 92652) и эксфильтрация <code>TOP SECRET!.txt</code> (Recent LNK).</li>
+            </ul>
+            <ul data-lang="en">
+              <li>Uncovered root escalation cause via <code>backdoor.php</code>: custom Apache 2.4.57 compiled with <code>-DBIG_SECURITY_HOLE</code>.</li>
+              <li>Proved execution of deleted Win32k LPE exploit <code>CVE-2019-0623.exe</code> via <b>WER AppCrash</b> forensics.</li>
+              <li>Exposed attacker host directory structure via RDP drive redirection <code>\\tsclient\...\mimikatz.exe</code> (Defender Event 1116).</li>
+              <li>Correlated <b>Pass-the-Hash</b> DC takeover (Wazuh Rule 92652) and exfiltration of <code>TOP SECRET!.txt</code> via LNK artifacts.</li>
+            </ul>
+          </div>
+          <div class="proj-links">
+            <a href="https://voobrazhenie21-lab.github.io/blue-team-incident-investigation/" target="_blank" class="proj-btn live">🌐 Открыть живой отчёт / Live Report</a>
+            <a href="https://github.com/Voobrazhenie21-lab/blue-team-incident-investigation" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- Project 2: Log Sentinel -->
+        <div class="project-card">
+          <div>
+            <div class="proj-top">
+              <span class="tag tag-purple">🔍 SOC Automation &bull; Python CLI</span>
+              <span style="font-size:0.8rem; color:var(--muted);">Zero-Dependency &bull; Pytest CI</span>
+            </div>
+            <h3>Log Sentinel v1.2 — SOC L1/L2 Threat Detection Engine</h3>
+            <p data-lang="ru">Автономный CLI-движок нормализации и корреляции логов Linux (<code>auth.log</code>), веб-сервера (<code>Apache</code>) и событий Windows (JSON/CSV) с маппингом на MITRE ATT&amp;CK и правила Wazuh.</p>
+            <p data-lang="en">Zero-dependency Python CLI engine correlating Linux <code>auth.log</code>, Apache <code>access.log</code>, and Windows Event Logs (JSON/CSV) with MITRE ATT&amp;CK and Wazuh parity.</p>
+            <ul data-lang="ru">
+              <li><b>8 встроенных правил детекции:</b> веб-шеллы, брутфорс SSH/RDP, Password Spraying, Kerberoasting (<code>0x17</code>), Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
+              <li>Детекция отключения Windows Defender (<code>5001</code>), остановки агента Wazuh (<code>Rule 506</code>), крашей эксплойтов в <code>WER 1001</code> и шары <code>\\tsclient</code>.</li>
+              <li>Выгрузка отчётов в <b>JSON</b> (для TheHive/SOAR) и генерация интерактивного <b>Dark-Mode HTML дашборда</b>.</li>
+            </ul>
+            <ul data-lang="en">
+              <li><b>8 correlation rules:</b> Web Shell upload, SSH/RDP brute-force, Password Spraying, Kerberoasting (<code>0x17</code>), Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
+              <li>Detects Defender tampering (<code>5001</code>), Wazuh agent stop (<code>Rule 506</code>), <code>WER 1001</code> exploit crashes, and <code>\\tsclient</code> Mimikatz execution.</li>
+              <li>Exports SOAR-ready <b>JSON</b> and standalone interactive <b>Dark-Mode HTML Dashboards</b>.</li>
+            </ul>
+          </div>
+          <div class="proj-links">
+            <a href="https://voobrazhenie21-lab.github.io/log-sentinel/" target="_blank" class="proj-btn live">🌐 Открыть SOC-дашборд / Live Demo</a>
+            <a href="https://github.com/Voobrazhenie21-lab/log-sentinel" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- Project 3: Enterprise AD Pentest -->
+        <div class="project-card">
+          <div>
+            <div class="proj-top">
+              <span class="tag tag-red">⚔️ Red Team &bull; AD Pentest</span>
+              <span style="font-size:0.8rem; color:var(--muted);">PTES &bull; NIST SP 800-115 &bull; CVSS v3.1</span>
+            </div>
+            <h3 data-lang="ru">Отчёт по тестированию на проникновение Active Directory</h3>
+            <h3 data-lang="en">Enterprise Active Directory Penetration Testing Report</h3>
+            <p data-lang="ru">Полный аудит защищённости корпоративного домена по международным стандартам PTES и NIST с PoC-эксплуатацией и расчётом векторов CVSS v3.1.</p>
+            <p data-lang="en">Comprehensive internal penetration test report following PTES and NIST SP 800-115 standards with CVSS v3.1 scoring and remediation roadmap.</p>
+            <ul data-lang="ru">
+              <li>Анализ 104 объектов домена и скрытых путей эскалации привилегий в <b>BloodHound CE / SharpHound</b>.</li>
+              <li>Эксплуатация <b>Kerberoasting (RC4-HMAC)</b>, перехват и релей аутентификации <b>SMB NTLM Relay</b> (<code>ntlmrelayx</code>), <b>Pass-the-Hash / Ticket</b>.</li>
+              <li>Злоупотребление опасными правами <code>GenericAll</code> в ACL до полного захвата <code>Domain Admin</code> и план харденинга (SMB Signing, LAPS, gMSA).</li>
+            </ul>
+            <ul data-lang="en">
+              <li>Mapped 104 domain objects and privilege escalation paths using <b>BloodHound CE &amp; SharpHound</b>.</li>
+              <li>Executed <b>Kerberoasting (RC4-HMAC)</b>, <b>SMB NTLM Relay</b> (<code>ntlmrelayx</code>), and <b>Pass-the-Hash / Ticket</b>.</li>
+              <li>Abused <code>GenericAll</code> ACL misconfigurations to achieve <code>Domain Admin</code> and authored remediation roadmap (SMB Signing, LAPS, gMSA).</li>
+            </ul>
+          </div>
+          <div class="proj-links">
+            <a href="https://voobrazhenie21-lab.github.io/enterprise-pentest-report/" target="_blank" class="proj-btn live">🌐 Открыть живой отчёт / Live Report</a>
+            <a href="https://github.com/Voobrazhenie21-lab/enterprise-pentest-report" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
+          </div>
+        </div>
+
+        <!-- Project 4: PipeShield -->
+        <div class="project-card">
+          <div>
+            <div class="proj-top">
+              <span class="tag tag-green">⚙️ DevSecOps &bull; SAST Scanner</span>
+              <span style="font-size:0.8rem; color:var(--muted);">OASIS SARIF 2.1.0 &bull; 27 Pytest Tests</span>
+            </div>
+            <h3>PipeShield — Next-Gen CI/CD &amp; Container Security Scanner</h3>
+            <p data-lang="ru">Статический анализатор безопасности пайплайнов разработки, контейнеров Docker и исходного кода с поддержкой стандарта GitHub Code Scanning (SARIF).</p>
+            <p data-lang="en">Static security analyzer auditing source code secrets, Dockerfiles, and GitHub Actions workflows with native OASIS SARIF 2.1.0 export.</p>
+            <ul data-lang="ru">
+              <li>Детекция утечек секретов через комбинацию Regex и расчёта <b>информационной энтропии Шеннона ($H(X) &gt; 3.8$)</b> для отсечения ложных срабатываний.</li>
+              <li>Аудит <b>Dockerfile</b> по стандарту CIS Benchmarks (запрет <code>USER root</code>, контроль инструкции <code>ADD</code>, пиннинг базовых образов).</li>
+              <li>Защита цепочки поставок <b>GitHub Actions</b> (поиск unpinned actions, избыточных прав <code>write-all</code> и инъекций команд).</li>
+            </ul>
+            <ul data-lang="en">
+              <li>Hybrid secret detection combining Regex patterns with <b>Shannon Entropy calculation ($H(X) &gt; 3.8$)</b> to eliminate false positives.</li>
+              <li>CIS Docker Benchmark checks (non-root execution, <code>ADD</code> vs <code>COPY</code>, digest pinning).</li>
+              <li>CI/CD Supply Chain security for GitHub Actions (unpinned tags, <code>write-all</code> token permissions, script injection).</li>
+            </ul>
+          </div>
+          <div class="proj-links">
+            <a href="https://voobrazhenie21-lab.github.io/pipeshield/" target="_blank" class="proj-btn live">🌐 Открыть дашборд / Live Demo</a>
+            <a href="https://github.com/Voobrazhenie21-lab/pipeshield" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Repositories Bar -->
+      <div style="margin-top: 1.35rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.15rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <strong style="color:#fff;" data-lang="ru">📚 Полный архив из 9 лабораторных и дипломных работ (стенд 21 хост в VK Cloud) + Secure OOP Python:</strong>
+          <strong style="color:#fff;" data-lang="en">📚 Complete Archive of 9 Practical Labs &amp; Diploma (21-Host VK Cloud Lab) + Secure OOP Python:</strong>
+        </div>
+        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/Voobrazhenie21-lab/soc-practice-reports" target="_blank" class="proj-btn">🛡️ soc-practice-reports (9 работ)</a>
+          <a href="https://github.com/Voobrazhenie21-lab/code-python-project" target="_blank" class="proj-btn">🐍 MyProfile v2.0 (SHA-256 FIM &amp; PII Masking)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH ARSENAL -->
+    <section id="skills">
+      <h2 class="sec-title" data-lang="ru">🧰 Технический стек и компетенции</h2>
+      <h2 class="sec-title" data-lang="en">🧰 Technical Stack &amp; Security Arsenal</h2>
+      <p class="sec-sub" data-lang="ru">Комплексная подготовка на стыке защиты (Blue Team), анализа защищённости (Red Team) и сетевых технологий.</p>
+      <p class="sec-sub" data-lang="en">Cross-disciplinary capabilities spanning SOC incident response, offensive Active Directory testing, and network engineering.</p>
+
+      <div class="skills-grid">
+        <div class="skill-box">
+          <h4>👁️ Blue Team, SOC &amp; DFIR</h4>
+          <div class="pills">
+            <span class="pill">Wazuh SIEM 4.3.9</span>
+            <span class="pill">TheHive IRP</span>
+            <span class="pill">ELK / Winlogbeat</span>
+            <span class="pill">Fail2ban</span>
+            <span class="pill">Event ID 4624/4625/4769</span>
+            <span class="pill">Defender 1116/5001</span>
+            <span class="pill">WER AppCrash Forensics</span>
+            <span class="pill">LNK &amp; $Recycle.Bin</span>
+            <span class="pill">Linux auditd &amp; FIM</span>
+            <span class="pill">MITRE ATT&amp;CK v15</span>
+          </div>
+        </div>
+
+        <div class="skill-box">
+          <h4>🌐 Сети и протоколы (L2/L3)</h4>
+          <div class="pills">
+            <span class="pill">STP (802.1D / 802.1w)</span>
+            <span class="pill">IEEE 802.1Q VLAN</span>
+            <span class="pill">802.1X Port NAC</span>
+            <span class="pill">ARP / Gratuitous ARP</span>
+            <span class="pill">TCP/IP Handshake</span>
+            <span class="pill">DHCP (DORA) &amp; DNS</span>
+            <span class="pill">SSH / GRE Tunneling</span>
+            <span class="pill">WireGuard VPN</span>
+            <span class="pill">Wireshark &amp; iptables</span>
+          </div>
+        </div>
+
+        <div class="skill-box">
+          <h4>⚔️ Offensive &amp; Active Directory</h4>
+          <div class="pills">
+            <span class="pill">BloodHound CE</span>
+            <span class="pill">SharpHound</span>
+            <span class="pill">Mimikatz</span>
+            <span class="pill">Impacket (ntlmrelayx)</span>
+            <span class="pill">Rubeus (Kerberoasting)</span>
+            <span class="pill">Pass-the-Hash / Ticket</span>
+            <span class="pill">Nmap (NSE)</span>
+            <span class="pill">Hashcat &amp; John</span>
+            <span class="pill">OWASP Top 10</span>
+          </div>
+        </div>
+
+        <div class="skill-box">
+          <h4>🐍 DevSecOps &amp; Инженерия</h4>
+          <div class="pills">
+            <span class="pill">Python 3 (CLI / OOP)</span>
+            <span class="pill">Pytest &amp; GitHub Actions</span>
+            <span class="pill">OASIS SARIF 2.1.0</span>
+            <span class="pill">Shannon Entropy SAST</span>
+            <span class="pill">CIS Docker Benchmarks</span>
+            <span class="pill">PowerShell &amp; Bash</span>
+            <span class="pill">CVSS v3.1 &amp; RACI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Human Factor Edge -->
+      <div class="edge-banner" style="margin-top: 1.5rem;">
+        <div class="edge-item">
+          <h4 data-lang="ru">🧠 5 лет в клинической психологии</h4>
+          <h4 data-lang="en">🧠 5 Years in Clinical Psychology</h4>
+          <p data-lang="ru">Глубокое понимание человеческого фактора в ИБ: когнитивных уязвимостей при фишинге, претекстинге, социальной инженерии и психологии инсайдерских угроз.</p>
+          <p data-lang="en">In-depth understanding of cognitive vulnerabilities exploited in phishing, pretexting, social engineering, and insider threat scenarios.</p>
+        </div>
+        <div class="edge-item">
+          <h4 data-lang="ru">⚡ Стрессоустойчивость в SOC</h4>
+          <h4 data-lang="en">⚡ High-Stress Incident Composure</h4>
+          <p data-lang="ru">Опыт кризисной диагностики позволяет сохранять хладнокровие и действовать строго по плейбуку при разборе критических инцидентов и потоке алертов.</p>
+          <p data-lang="en">Clinical crisis intervention background ensures calm, methodical execution of incident response playbooks under alert pressure.</p>
+        </div>
+        <div class="edge-item">
+          <h4 data-lang="ru">📑 Академическая точность отчётов</h4>
+          <h4 data-lang="en">📑 Executive-Ready Documentation</h4>
+          <p data-lang="ru">Опыт преподавания в университете помогает оформлять безупречные паспорта инцидентов, RCA и переводить технические уязвимости на язык рисков бизнеса.</p>
+          <p data-lang="en">University lecturing experience translates into crystal-clear incident passports, Root Cause Analysis, and stakeholder communication.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p style="margin-bottom:0.5rem;">
+        <strong style="color:#fff;">Алексей Жарков (Aleksei Zharkou)</strong> &bull; Минск, Беларусь (Офис / Гибрид / Удалённо)
+      </p>
+      <p>
+        <a href="mailto:lyosha.zharkov.98@mail.ru">lyosha.zharkov.98@mail.ru</a> &bull;
+        <a href="https://t.me/Voobrazhenie_20" target="_blank">Telegram: @Voobrazhenie_20</a> &bull;
+        <a href="https://www.linkedin.com/in/aleksei-zharkou/" target="_blank">LinkedIn</a> &bull;
+        <a href="https://github.com/Voobrazhenie21-lab" target="_blank">GitHub</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const termData = {
+      whoami: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">whoami --verbose</span>
+<span class="hl-cyan">[+] Candidate:</span> Aleksei Zharkou (Minsk, Belarus)
+<span class="hl-cyan">[+] Target Roles:</span> Junior SOC Analyst (L1/L2) | DFIR | Junior Pentester
+<span class="hl-cyan">[+] Education:</span>
+    • Skillbox «Cybersecurity Specialist 2.0» (<span class="hl-ok">100% Completed, DFIR Diploma Defended</span>)
+    • Master's Degree &amp; Bachelor's in Psychology (Baranavichy State University)
+<span class="hl-cyan">[+] Portfolio Status:</span> 4 Live Interactive Demos + 6 Open-Source Repositories`,
+
+      acme: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">dfir --case acme.skb --summary</span>
+<span class="hl-crit">[!] INCIDENT VERDICT:</span> Full AD Domain Compromise &amp; Data Exfiltration Proven
+<span class="hl-cyan">[1] Initial Access:</span> DVWA Unrestricted Upload -> backdoor.php (MD5: c97ba877...)
+<span class="hl-cyan">[2] Root Cause (RCA):</span> Apache 2.4.57 compiled with <span class="hl-crit">-DBIG_SECURITY_HOLE</span> running as root
+<span class="hl-cyan">[3] Pivoting &amp; Brute:</span> sshd -R tunnel -> Brute-RDP.py (28x EventID 4625, Wazuh Rule 60204)
+<span class="hl-cyan">[4] Host Forensics:</span>
+    • Deleted exploit <span class="hl-crit">CVE-2019-0623.exe</span> proven via WER AppCrash archive
+    • Attacker path exposed via RDP share: <span class="hl-ok">\\\\tsclient\\_home_kali_...\\mimikatz.exe</span>
+<span class="hl-cyan">[5] Domain Takeover:</span> Pass-the-Hash to dc01 (Wazuh Rule 92652) -> Exfil of TOP SECRET!.txt`,
+
+      stack: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">cat /etc/security_arsenal.conf</span>
+<span class="hl-cyan">[SIEM &amp; DFIR]</span>    Wazuh 4.3.9, TheHive, ELK/Winlogbeat, Fail2ban, EventLogs, WER/LNK
+<span class="hl-cyan">[NETWORK L2/L3]</span>  STP (802.1D/w), 802.1Q VLAN, 802.1X, ARP, DHCP DORA, TCP/IP, Wireshark
+<span class="hl-cyan">[OFFENSIVE AD]</span>   BloodHound CE, SharpHound, Mimikatz, Impacket, Rubeus, Nmap, Hashcat
+<span class="hl-cyan">[DEVSECOPS]</span>      Python 3, Pytest CI, OASIS SARIF 2.1.0, Shannon Entropy, CIS Docker`,
+
+      contact: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">./contact.sh</span>
+<span class="hl-ok">[+] Ready for technical interviews &amp; SOC L1/L2 case triage!</span>
+    • Phone    : +375 (29) 554-80-55
+    • Telegram : https://t.me/Voobrazhenie_20 (@Voobrazhenie_20)
+    • Email    : lyosha.zharkov.98@mail.ru
+    • LinkedIn : linkedin.com/in/aleksei-zharkou`
+    };
+
+    function runCmd(key, btn) {
+      document.querySelectorAll('.cmd-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      document.getElementById('termOutput').innerHTML = termData[key];
+    }
+
+    function toggleLang() {
+      document.body.classList.toggle('en');
+    }
+
+    runCmd('whoami', document.querySelector('.cmd-pill'));
+  </script>
+</body>
+</html>
