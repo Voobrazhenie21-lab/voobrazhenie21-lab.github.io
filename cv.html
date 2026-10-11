@@ -379,11 +379,11 @@
           </span>
         </div>
         <ul class="project-bullets">
-          <li>Разработал модульный CLI-сканер безопасности для встраивания в CI/CD конвейеры GitHub Actions.</li>
+          <li>Разработал модульный CLI-сканер безопасности (v1.1) для встраивания в CI/CD конвейеры и аудита веб-приложений.</li>
           <li>Создал гибридный движок поиска секретов: сигнатуры провайдеров (AWS, OpenAI, Slack) + расчёт <strong>энтропии Шеннона</strong> ($H(X) > 3.8$), снизивший ложные срабатывания (False Positives) на 90%.</li>
-          <li>Реализовал аудит Dockerfile по <strong>CIS Docker Benchmarks</strong> (non-root, pin SHA, запрет ADD) и аудит workflow GitHub Actions (unpinned actions, write-all permissions, context injection в `run:`).</li>
-          <li>Внедрил экспорт в международный стандарт <strong>OASIS SARIF 2.1.0</strong> (нативная поддержка GitHub Code Scanning Alerts), JSON и интерактивный HTML-дашборд.</li>
-          <li>100% покрытие unit-тестами (`pytest`, 27 тестов) с автоматической валидацией в матрице CI (Python 3.10–3.13).</li>
+          <li>Реализовал модуль <strong><code>JsReconAnalyzer</code></strong> для анализа <code>.js/.ts</code> бандлов: поиск скрытых админских/отладочных API-эндпоинтов (<code>/api/v1/admin</code>), опасных DOM XSS синков (<code>innerHTML</code>/<code>eval</code>), утечек внутренних IP за WAF и забытых <code>.map</code> SourceMaps.</li>
+          <li>Реализовал аудит Dockerfile по <strong>CIS Docker Benchmarks</strong> (non-root, pin SHA, запрет ADD) и аудит workflow GitHub Actions, с экспортом в <strong>OASIS SARIF 2.1.0</strong> и интерактивный HTML-дашборд.</li>
+          <li>100% покрытие unit-тестами (`pytest`, <strong>33 теста</strong>) с автоматической валидацией в матрице CI (Python 3.10–3.13).</li>
         </ul>
       </div>
 

@@ -228,14 +228,14 @@
 
   <div class="proj-item">
     <div class="proj-header">
-      <span>1. PipeShield — Low-False-Positive SAST, Container &amp; CI/CD Security Scanner</span>
+      <span>1. PipeShield v1.1 — Low-False-Positive SAST, Container, CI/CD &amp; JS Bundle Recon Scanner</span>
       <span><a href="https://github.com/Voobrazhenie21-lab/pipeshield">github.com/Voobrazhenie21-lab/pipeshield</a> | <a href="https://voobrazhenie21-lab.github.io/pipeshield/">Live Demo</a></span>
     </div>
-    <div class="proj-sub">End-to-End Product Ownership: Architecture, Detection Logic, False-Positive Reduction &amp; SARIF 2.1.0 Integration</div>
+    <div class="proj-sub">End-to-End Product Ownership: Architecture, Detection Logic, False-Positive Reduction, JS Recon &amp; SARIF 2.1.0 Integration</div>
     <ul>
       <li><strong>False-Positive Suppression at Scale:</strong> Designed a hybrid detection engine combining provider regexes with mathematical <strong>Shannon Entropy calculation ($H(X) &gt; 3.8$ bits/char)</strong> to catch real cryptographic secrets while eliminating ~90% of false positives on benign strings, UUIDs, and long-tail code patterns.</li>
-      <li><strong>Linux Container &amp; Supply Chain Ruleset:</strong> Implemented automated checks for <strong>CIS Docker Benchmarks</strong> (preventing UID 0 root container execution, dangerous <code>ADD</code> directives, unpinned images) and GitHub Actions supply-chain injection risks.</li>
-      <li><strong>Production Quality:</strong> Built native <strong>OASIS SARIF 2.1.0</strong> export for GitHub Code Scanning and a standalone HTML dashboard, backed by <strong>27 automated Pytest unit tests</strong> across Python 3.10–3.13.</li>
+      <li><strong>JS/TS Bundle Recon &amp; Client-Side Security (<code>JsReconAnalyzer</code>):</strong> Implemented rules (<code>PS-JS-001..005</code>) detecting hidden admin/debug API routes (<code>/api/v1/admin</code>, <code>/internal/debug</code>), dangerous DOM XSS sinks (<code>innerHTML</code>/<code>eval</code>), leaked RFC1918 origin IPs behind WAF, and exposed production <code>.map</code> SourceMaps.</li>
+      <li><strong>Container, Supply Chain &amp; CI Quality:</strong> Enforces <strong>CIS Docker Benchmarks</strong> and GitHub Actions security, exporting to <strong>OASIS SARIF 2.1.0</strong> and an interactive HTML dashboard, backed by <strong>33 automated Pytest unit tests</strong> across Python 3.10–3.13.</li>
     </ul>
   </div>
 
