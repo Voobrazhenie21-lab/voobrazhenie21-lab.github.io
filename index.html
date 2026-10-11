@@ -496,19 +496,19 @@
           <div>
             <div class="proj-top">
               <span class="tag tag-purple">🔍 SOC Automation &bull; Python CLI</span>
-              <span style="font-size:0.8rem; color:var(--muted);">Zero-Dependency &bull; Pytest CI</span>
+              <span style="font-size:0.8rem; color:var(--muted);">v1.3.0 &bull; 10 Rules &bull; Pytest CI</span>
             </div>
-            <h3>Log Sentinel v1.2 — SOC L1/L2 Threat Detection Engine</h3>
-            <p data-lang="ru">Автономный CLI-движок нормализации и корреляции логов Linux (<code>auth.log</code>), веб-сервера (<code>Apache</code>) и событий Windows (JSON/CSV) с маппингом на MITRE ATT&amp;CK и правила Wazuh.</p>
-            <p data-lang="en">Zero-dependency Python CLI engine correlating Linux <code>auth.log</code>, Apache <code>access.log</code>, and Windows Event Logs (JSON/CSV) with MITRE ATT&amp;CK and Wazuh parity.</p>
+            <h3>Log Sentinel v1.3 — SOC L1/L2 Threat Detection Engine</h3>
+            <p data-lang="ru">Автономный CLI-движок нормализации и корреляции логов Linux (<code>auth.log</code>), веб-сервера (<code>Apache</code>) и событий Windows/Sysmon (JSON/CSV) с маппингом на MITRE ATT&amp;CK и правила Wazuh.</p>
+            <p data-lang="en">Zero-dependency Python CLI engine correlating Linux <code>auth.log</code>, Apache <code>access.log</code>, and Windows/Sysmon Event Logs (JSON/CSV) with MITRE ATT&amp;CK and Wazuh parity.</p>
             <ul data-lang="ru">
-              <li><b>8 встроенных правил детекции:</b> веб-шеллы, брутфорс SSH/RDP, Password Spraying, Kerberoasting (<code>0x17</code>), Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
-              <li>Детекция отключения Windows Defender (<code>5001</code>), остановки агента Wazuh (<code>Rule 506</code>), крашей эксплойтов в <code>WER 1001</code> и шары <code>\\tsclient</code>.</li>
+              <li><b>10 встроенных правил детекции:</b> веб-шеллы, брутфорс SSH/RDP, Kerberoasting (<code>0x17</code>), <b>AS-REP Roasting (<code>4768 PreAuthType=0</code>)</b>, Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
+              <li>Детекция дампа памяти <b><code>lsass.exe</code> в Sysmon (<code>Event ID 10</code>, <code>0x1010</code>)</b>, отключения Defender (<code>5001</code>), остановки Wazuh (<code>Rule 506</code>), крашей эксплойтов в <code>WER 1001</code> и шары <code>\\tsclient</code>.</li>
               <li>Выгрузка отчётов в <b>JSON</b> (для TheHive/SOAR) и генерация интерактивного <b>Dark-Mode HTML дашборда</b>.</li>
             </ul>
             <ul data-lang="en">
-              <li><b>8 correlation rules:</b> Web Shell upload, SSH/RDP brute-force, Password Spraying, Kerberoasting (<code>0x17</code>), Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
-              <li>Detects Defender tampering (<code>5001</code>), Wazuh agent stop (<code>Rule 506</code>), <code>WER 1001</code> exploit crashes, and <code>\\tsclient</code> Mimikatz execution.</li>
+              <li><b>10 correlation rules:</b> Web Shell upload, SSH/RDP brute-force, Kerberoasting (<code>0x17</code>), <b>AS-REP Roasting (<code>4768 PreAuthType=0</code>)</b>, Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
+              <li>Detects <b>Sysmon <code>Event ID 10</code> LSASS memory dumping (<code>0x1010</code>)</b>, Defender tampering (<code>5001</code>), Wazuh agent stop (<code>Rule 506</code>), <code>WER 1001</code> exploit crashes, and <code>\\tsclient</code> Mimikatz.</li>
               <li>Exports SOAR-ready <b>JSON</b> and standalone interactive <b>Dark-Mode HTML Dashboards</b>.</li>
             </ul>
           </div>
