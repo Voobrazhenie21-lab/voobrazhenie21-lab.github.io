@@ -445,6 +445,7 @@
         <div class="term-cmds">
           <button class="cmd-pill active" onclick="runCmd('whoami', this)">$ whoami</button>
           <button class="cmd-pill" onclick="runCmd('acme', this)">$ dfir --case acme.skb</button>
+          <button class="cmd-pill" onclick="runCmd('jsrecon', this)">$ pipeshield --js-recon</button>
           <button class="cmd-pill" onclick="runCmd('stack', this)">$ cat /etc/skills</button>
           <button class="cmd-pill" onclick="runCmd('contact', this)">$ ./contact.sh</button>
         </div>
@@ -549,21 +550,21 @@
         <div class="project-card">
           <div>
             <div class="proj-top">
-              <span class="tag tag-green">⚙️ DevSecOps &bull; SAST Scanner</span>
-              <span style="font-size:0.8rem; color:var(--muted);">OASIS SARIF 2.1.0 &bull; 27 Pytest Tests</span>
+              <span class="tag tag-green">⚙️ DevSecOps &amp; JS Recon &bull; SAST</span>
+              <span style="font-size:0.8rem; color:var(--muted);">v1.1.0 &bull; SARIF 2.1.0 &bull; 33 Pytest Tests</span>
             </div>
-            <h3>PipeShield — Next-Gen CI/CD &amp; Container Security Scanner</h3>
-            <p data-lang="ru">Статический анализатор безопасности пайплайнов разработки, контейнеров Docker и исходного кода с поддержкой стандарта GitHub Code Scanning (SARIF).</p>
-            <p data-lang="en">Static security analyzer auditing source code secrets, Dockerfiles, and GitHub Actions workflows with native OASIS SARIF 2.1.0 export.</p>
+            <h3>PipeShield v1.1 — SAST, Container, CI/CD &amp; JS Bundle Scanner</h3>
+            <p data-lang="ru">Статический анализатор безопасности исходного кода, <code>.js/.ts</code> бандлов, контейнеров Docker и пайплайнов GitHub Actions с экспортом в SARIF 2.1.0.</p>
+            <p data-lang="en">Static security analyzer auditing source code secrets, JS/TS frontend bundles, Dockerfiles, and GitHub Actions workflows with native OASIS SARIF 2.1.0 export.</p>
             <ul data-lang="ru">
-              <li>Детекция утечек секретов через комбинацию Regex и расчёта <b>информационной энтропии Шеннона ($H(X) &gt; 3.8$)</b> для отсечения ложных срабатываний.</li>
-              <li>Аудит <b>Dockerfile</b> по стандарту CIS Benchmarks (запрет <code>USER root</code>, контроль инструкции <code>ADD</code>, пиннинг базовых образов).</li>
-              <li>Защита цепочки поставок <b>GitHub Actions</b> (поиск unpinned actions, избыточных прав <code>write-all</code> и инъекций команд).</li>
+              <li>Детекция утечек секретов через комбинацию Regex и <b>энтропии Шеннона ($H(X) &gt; 3.8$)</b> для отсечения ~90% ложных срабатываний.</li>
+              <li><b>Модуль <code>JsReconAnalyzer</code> (v1.1):</b> поиск скрытых админских эндпоинтов (<code>/api/v1/admin</code>), DOM XSS синков (<code>innerHTML</code>/<code>eval</code>), утечек внутренних IP за WAF и <code>.map</code> SourceMaps.</li>
+              <li>Аудит <b>Dockerfile</b> (CIS Benchmarks) и <b>GitHub Actions</b> (unpinned actions, <code>write-all</code>), покрыт <b>33 автотестами Pytest</b>.</li>
             </ul>
             <ul data-lang="en">
-              <li>Hybrid secret detection combining Regex patterns with <b>Shannon Entropy calculation ($H(X) &gt; 3.8$)</b> to eliminate false positives.</li>
-              <li>CIS Docker Benchmark checks (non-root execution, <code>ADD</code> vs <code>COPY</code>, digest pinning).</li>
-              <li>CI/CD Supply Chain security for GitHub Actions (unpinned tags, <code>write-all</code> token permissions, script injection).</li>
+              <li>Hybrid secret detection combining Regex patterns with <b>Shannon Entropy calculation ($H(X) &gt; 3.8$)</b> to eliminate ~90% of false positives.</li>
+              <li><b>New <code>JsReconAnalyzer</code> (v1.1):</b> extracts hidden admin/debug API routes, DOM XSS sinks (<code>innerHTML</code>/<code>eval</code>), leaked RFC1918 origin IPs behind WAF, and exposed <code>.map</code> SourceMaps.</li>
+              <li>CIS Docker Benchmark &amp; CI/CD Supply Chain rules, verified by <b>33 automated Pytest unit tests</b>.</li>
             </ul>
           </div>
           <div class="proj-links">
@@ -584,6 +585,23 @@
           <a href="https://github.com/Voobrazhenie21-lab/code-python-project" target="_blank" class="proj-btn">🐍 MyProfile v2.0 (SHA-256 FIM &amp; PII Masking)</a>
         </div>
       </div>
+    </section>
+
+    <!-- INTERACTIVE PURPLE TEAM KILL-CHAIN MATRIX -->
+    <section id="purple-matrix">
+      <h2 class="sec-title" data-lang="ru">⚔️🛡️ Интерактивная матрица Purple Team: Атака vs Защита</h2>
+      <h2 class="sec-title" data-lang="en">⚔️🛡️ Interactive Purple Team Matrix: Attack vs. Defense</h2>
+      <p class="sec-sub" data-lang="ru">Нажмите на любой этап цепочки атаки, чтобы увидеть, как я провожу аудит уязвимости (Red Team) и как детектирую/блокирую её в SIEM и коде (Blue Team &amp; DevSecOps).</p>
+      <p class="sec-sub" data-lang="en">Select any stage of the intrusion kill-chain to inspect how I audit the vector (Red Team) vs. how I engineer its detection &amp; prevention (Blue Team &amp; DevSecOps).</p>
+
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1.25rem;">
+        <button class="cmd-pill active" onclick="showKillChain('stage1', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">1. 🕸️ Web &amp; JS Bundle Recon</button>
+        <button class="cmd-pill" onclick="showKillChain('stage2', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">2. 🐚 Web Shell &amp; Linux Root</button>
+        <button class="cmd-pill" onclick="showKillChain('stage3', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">3. 💥 Win32k LPE &amp; Crash Forensics</button>
+        <button class="cmd-pill" onclick="showKillChain('stage4', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">4. 🔑 AD Pass-the-Hash &amp; Exfil</button>
+      </div>
+
+      <div id="kcContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(380px, 1fr)); gap:1.25rem;"></div>
     </section>
 
     <!-- TECH ARSENAL -->
@@ -712,11 +730,19 @@
     • Attacker path exposed via RDP share: <span class="hl-ok">\\\\tsclient\\_home_kali_...\\mimikatz.exe</span>
 <span class="hl-cyan">[5] Domain Takeover:</span> Pass-the-Hash to dc01 (Wazuh Rule 92652) -> Exfil of TOP SECRET!.txt`,
 
+      jsrecon: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">pipeshield scan frontend_bundle.js --fail-on high</span>
+<span class="hl-cyan">[+] PipeShield v1.1.0 (JsReconAnalyzer + Shannon Entropy SAST)</span>
+<span class="hl-crit">[HIGH] PS-JS-001 (CWE-200):</span> Hidden Admin Endpoint -> <span class="hl-ok">'/api/v1/admin/users/export'</span>
+<span class="hl-crit">[HIGH] PS-JS-004 (CWE-200):</span> Leaked Internal IP behind WAF -> <span class="hl-ok">'http://10.0.20.51:8080/status'</span>
+<span class="hl-crit">[HIGH] PS-JS-002 (CWE-79) :</span> Unsafe DOM XSS Sink -> <span class="hl-ok">document.getElementById('banner').innerHTML = ...</span>
+<span class="hl-cyan">[MED]  PS-JS-003 (CWE-540):</span> Production SourceMap Exposed -> <span class="hl-ok">//# sourceMappingURL=bundle.js.map</span>
+<span class="hl-ok">[✓] Pytest Suite: 33/33 passed | Exported OASIS SARIF v2.1.0</span>`,
+
       stack: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">cat /etc/security_arsenal.conf</span>
 <span class="hl-cyan">[SIEM &amp; DFIR]</span>    Wazuh 4.3.9, TheHive, ELK/Winlogbeat, Fail2ban, EventLogs, WER/LNK
 <span class="hl-cyan">[NETWORK L2/L3]</span>  STP (802.1D/w), 802.1Q VLAN, 802.1X, ARP, DHCP DORA, TCP/IP, Wireshark
 <span class="hl-cyan">[OFFENSIVE AD]</span>   BloodHound CE, SharpHound, Mimikatz, Impacket, Rubeus, Nmap, Hashcat
-<span class="hl-cyan">[DEVSECOPS]</span>      Python 3, Pytest CI, OASIS SARIF 2.1.0, Shannon Entropy, CIS Docker`,
+<span class="hl-cyan">[DEVSECOPS]</span>      Python 3, Pytest CI (33 tests), SARIF 2.1.0, Shannon Entropy, JS Recon`,
 
       contact: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">./contact.sh</span>
 <span class="hl-ok">[+] Ready for technical interviews &amp; SOC L1/L2 case triage!</span>
@@ -726,8 +752,143 @@
     • LinkedIn : linkedin.com/in/aleksei-zharkou`
     };
 
+    const killChainData = {
+      stage1: {
+        redTitle: "🔴 Red Team / Pentest: Разведка .js бандлов и периметра (50% успеха)",
+        redTitleEn: "🔴 Red Team / Pentest: Client-Side .js Bundle & Perimeter Recon",
+        redItems: [
+          "Извлечение скрытых маршрутов (<code>/api/v1/admin</code>, <code>/internal/debug</code>, <code>/graphql</code>, <code>/server-status</code>) и забытых <code>.js.map</code> SourceMaps из клиентских бандлов.",
+          "Поиск захардкоженных токенов и реальных внутренних IP-адресов (<code>10.x.x.x</code>) для обхода CDN/WAF.",
+          "Анализ параметров без фильтрации WAF: раскрутка HTML Injection до <b>DOM XSS</b> (<code>.innerHTML</code> / <code>eval</code>), проверка <b>IDOR</b> и безопасный PoC для <b>SQLi</b> без деструктивного дампа БД."
+        ],
+        redItemsEn: [
+          "Extracting hidden API routes (<code>/api/v1/admin</code>, <code>/internal/debug</code>, <code>/graphql</code>, <code>/server-status</code>) and exposed <code>.js.map</code> SourceMaps from frontend bundles.",
+          "Hunting hardcoded tokens and internal RFC1918 origin IPs (<code>10.x.x.x</code>) to bypass CDN/WAF.",
+          "Testing unfiltered parameters: escalating HTML Injection to <b>DOM XSS</b> (<code>.innerHTML</code>), auditing <b>IDOR</b> / Business Logic flaws, and proving <b>SQLi</b> safely without destructive dumps."
+        ],
+        blueTitle: "🔵 Blue Team & DevSecOps: Детекция в PipeShield v1.1 и WAF/SIEM",
+        blueTitleEn: "🔵 Blue Team & DevSecOps: PipeShield v1.1 SAST & WAF/SIEM Defense",
+        blueItems: [
+          "Автоматический перехват в CI/CD через мой анализатор <b>PipeShield v1.1 (<code>JsReconAnalyzer</code>)</b>: правила <code>PS-JS-001..005</code> + энтропия Шеннона ($H(X) &gt; 3.8$) блокируют утечку секретов, внутренних IP и <code>.map</code> файлов до деплоя.",
+          "Замена опасных синков <code>innerHTML</code> на <code>textContent</code> / DOMPurify и строгий серверный контроль доступа (RBAC) против IDOR.",
+          "Мониторинг сканирования директорий и 403/404 аномалий в <b>Wazuh SIEM</b> + автоматическая блокировка IP через <b>Fail2ban</b>."
+        ],
+        blueItemsEn: [
+          "Pre-commit & CI/CD blocking via <b>PipeShield v1.1 (<code>JsReconAnalyzer</code>)</b>: rules <code>PS-JS-001..005</code> + Shannon Entropy ($H(X) &gt; 3.8$) catch leaked secrets, internal IPs, and <code>.map</code> files before production.",
+          "Replacing unsafe <code>innerHTML</code> sinks with <code>textContent</code> / DOMPurify and enforcing server-side object-level authorization against IDOR.",
+          "Correlating web recon spikes (403/404/500) in <b>Wazuh SIEM</b> with automated active-response blocking via <b>Fail2ban</b>."
+        ]
+      },
+      stage2: {
+        redTitle: "🔴 Red Team: Загрузка веб-шелла и получение UID 0 (root) на Linux",
+        redTitleEn: "🔴 Red Team: Web Shell Upload & Instant Linux UID 0 (root)",
+        redItems: [
+          "Обход фильтра загрузки файлов и заливка обфусцированного PHP веб-шелла <code>backdoor.php</code> (<code>MD5: c97ba87745a4a9523e26c30a6529506a</code>).",
+          "Из-за опасной сборки Apache 2.4.57 с флагом <code>-DBIG_SECURITY_HOLE</code> и <code>User root</code> веб-шелл сразу получает права <b>UID 0 (root)</b>.",
+          "Чтение <code>/etc/shadow</code>, инъекция SSH-ключа в <code>/root/.ssh/authorized_keys</code> и проброс обратного туннеля <code>sshd -R</code> во внутреннюю сеть."
+        ],
+        redItemsEn: [
+          "Bypassing file upload validation to deploy an obfuscated PHP web shell <code>backdoor.php</code> (<code>MD5: c97ba87745a4a9523e26c30a6529506a</code>).",
+          "Because Apache 2.4.57 was compiled with <code>-DBIG_SECURITY_HOLE</code> and run as <code>User root</code>, the web shell immediately executes with <b>UID 0 (root)</b>.",
+          "Dumping <code>/etc/shadow</code>, injecting an SSH key into <code>/root/.ssh/authorized_keys</code>, and establishing an <code>sshd -R</code> reverse pivot tunnel."
+        ],
+        blueTitle: "🔵 Blue Team & DFIR: Криминалистика Linux и правила Wazuh / Log Sentinel",
+        blueTitleEn: "🔵 Blue Team & DFIR: Linux Daemon RCA, FIM & Log Sentinel Rules",
+        blueItems: [
+          "Детекция обращения к <code>/uploads/*.php</code> в <b>Log Sentinel (<code>LS-RULE-001</code>)</b> и <b>Wazuh Rule 31106</b> + контроль целостности <code>/root/.ssh/authorized_keys</code> через <b>Wazuh FIM (<code>whodata</code>)</b>.",
+          "Алерт на остановку службы мониторинга <code>wazuh-agent</code> (<b>Wazuh Rule 506</b> / <code>LS-RULE-008</code>) и корреляция брутфорса с последующим входом по SSH-ключу (<code>LS-RULE-002</code>).",
+          "<b>Hardening:</b> пересборка Apache без <code>-DBIG_SECURITY_HOLE</code>, запуск строго от <code>www-data</code>, запрет исполнения скриптов (<code>php_admin_flag engine off</code>) в <code>/uploads/</code>."
+        ],
+        blueItemsEn: [
+          "Detecting <code>/uploads/*.php</code> execution via <b>Log Sentinel (<code>LS-RULE-001</code>)</b> and <b>Wazuh Rule 31106</b> + monitoring <code>/root/.ssh/authorized_keys</code> with <b>Wazuh FIM (<code>whodata</code>)</b>.",
+          "Alerting on <code>wazuh-agent</code> service stop (<b>Wazuh Rule 506</b> / <code>LS-RULE-008</code>) and correlating brute-force followed by SSH publickey login (<code>LS-RULE-002</code>).",
+          "<b>Hardening:</b> recompiling Apache without <code>-DBIG_SECURITY_HOLE</code>, enforcing <code>User www-data</code>, and disabling script execution in <code>/uploads/</code>."
+        ]
+      },
+      stage3: {
+        redTitle: "🔴 Red Team: Win32k LPE эксплойты и зачистка следов на Windows 10",
+        redTitleEn: "🔴 Red Team: Win32k Kernel LPE Exploits & Anti-Forensics on Windows",
+        redItems: [
+          "Брутфорс RDP через SSH-туннель с помощью <code>Brute-RDP.py</code> до подбора пароля учётной записи <code>petrov</code>.",
+          "Отключение Real-Time защиты Windows Defender через групповые политики и реестр.",
+          "Запуск ядерных эксплойтов повышения привилегий <code>CVE-2019-0623.exe</code> (и последующее удаление файла с диска) и <code>cve-2019-1458.exe</code> для получения <code>NT AUTHORITY\\SYSTEM</code>."
+        ],
+        redItemsEn: [
+          "Pivoting RDP brute-force via <code>Brute-RDP.py</code> over the SSH tunnel to compromise domain user <code>petrov</code>.",
+          "Disabling Windows Defender real-time protection via Group Policy and registry tampering.",
+          "Executing Win32k kernel LPE exploits <code>CVE-2019-0623.exe</code> (subsequently deleted from disk to hide tracks) and <code>cve-2019-1458.exe</code> to gain <code>NT AUTHORITY\\SYSTEM</code>."
+        ],
+        blueTitle: "🔵 Blue Team & DFIR: Доказательство удалённого эксплойта через WER AppCrash",
+        blueTitleEn: "🔵 Blue Team & DFIR: Proving Deleted Exploit Execution via WER Forensics",
+        blueItems: [
+          "Детекция 28 неудачных входов RDP (<code>Event ID 4625</code>, <b>Wazuh Rule 60204</b>) и отключения защиты Defender (<code>Event ID 5001 / 5007</code>, <code>LS-RULE-006</code>).",
+          "<b>Форензика удалённого файла:</b> доказательство запуска стертого эксплойта <code>CVE-2019-0623.exe</code> через архив краш-репортов <b>Windows Error Reporting (<code>WER AppCrash</code>, Event ID 1001)</b> в <code>C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\</code>.",
+          "Деанонимизация хоста атакующего по пути проброшенного RDP-диска: <code>\\\\tsclient\\_home_kali_Desktop_Share\\mimikatz.exe</code> (<code>Event ID 1116</code>)."
+        ],
+        blueItemsEn: [
+          "Detecting 28 failed RDP logons (<code>Event ID 4625</code>, <b>Wazuh Rule 60204</b>) and Defender tampering (<code>Event ID 5001 / 5007</code>, <code>LS-RULE-006</code>).",
+          "<b>Deleted Binary Forensics:</b> proving execution of deleted <code>CVE-2019-0623.exe</code> via <b>Windows Error Reporting (<code>WER AppCrash</code>, Event ID 1001)</b> archives.",
+          "Unmasking attacker host paths via redirected RDP drive telemetry: <code>\\\\tsclient\\_home_kali_Desktop_Share\\mimikatz.exe</code> (<code>Event ID 1116</code>)."
+        ]
+      },
+      stage4: {
+        redTitle: "🔴 Red Team: Дамп LSASS (Mimikatz), Pass-the-Hash на DC01 и эксфильтрация",
+        redTitleEn: "🔴 Red Team: LSASS Dump (Mimikatz), Pass-the-Hash to DC01 & Exfiltration",
+        redItems: [
+          "Извлечение NTLM-хэша доменного администратора <code>a.admin</code> из памяти процесса <code>lsass.exe</code> с помощью <code>mimikatz.exe</code>.",
+          "Горизонтальное перемещение (Lateral Movement) на контроллер домена <code>dc01</code> методом <b>Pass-the-Hash</b> без знания открытого пароля.",
+          "Поиск и эксфильтрация секретного документа <code>C:\\Users\\a.admin\\Desktop\\Secret\\TOP SECRET!.txt</code>."
+        ],
+        redItemsEn: [
+          "Dumping Domain Admin (<code>a.admin</code>) NTLM credentials from <code>lsass.exe</code> memory using <code>mimikatz.exe</code>.",
+          "Performing <b>Pass-the-Hash</b> lateral movement to Domain Controller <code>dc01</code> without cracking the plaintext password.",
+          "Locating and exfiltrating classified file <code>C:\\Users\\a.admin\\Desktop\\Secret\\TOP SECRET!.txt</code>."
+        ],
+        blueTitle: "🔵 Blue Team & DFIR: Детекция Pass-the-Hash (4624 NTLM) и LNK-артефакты",
+        blueTitleEn: "🔵 Blue Team & DFIR: Pass-the-Hash Correlation (4624 NTLM) & LNK Forensics",
+        blueItems: [
+          "Безошибочная детекция <b>Pass-the-Hash</b> в <b>Wazuh Rule 92652</b> и <b>Log Sentinel (<code>LS-RULE-005</code>)</b>: событие <code>Event ID 4624</code> с <code>Logon Type 3</code> (или <code>10</code> при RestrictedAdmin) и пакетом аутентификации <code>NTLM (NtLmSsp)</code> вместо <code>Kerberos</code>.",
+          "Подтверждение факта утечки данных через криминалистику ярлыков <code>Recent\\TOP SECRET!.lnk</code> на <code>dc01</code> и анализ корзины <code>$Recycle.Bin\\$I2F9B20.txt</code> на <code>ws01</code>.",
+          "<b>Remediation:</b> включение <b>RunAsPPL (LSASS Protected Process Light)</b>, <b>Credential Guard</b>, запрет проброса дисков RDP (<code>fDisableCdm = 1</code>), группа <b>Protected Users</b>."
+        ],
+        blueItemsEn: [
+          "High-fidelity <b>Pass-the-Hash</b> detection via <b>Wazuh Rule 92652</b> and <b>Log Sentinel (<code>LS-RULE-005</code>)</b>: <code>Event ID 4624</code> with <code>Logon Type 3/10</code> and <code>LogonProcessName = NtLmSsp (NTLM)</code> instead of Kerberos.",
+          "Confirming data exfiltration via Windows shell link artifacts (<code>Recent\\TOP SECRET!.lnk</code> on <code>dc01</code>) and <code>$Recycle.Bin\\$I*</code> metadata.",
+          "<b>Remediation:</b> enabling <b>LSASS RunAsPPL</b>, <b>Credential Guard</b>, disabling RDP drive redirection (<code>fDisableCdm = 1</code>), and enforcing <b>Protected Users</b>."
+        ]
+      }
+    };
+
+    function showKillChain(stageKey, btn) {
+      if (btn) {
+        btn.parentElement.querySelectorAll('.cmd-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+      const d = killChainData[stageKey];
+      const kc = document.getElementById('kcContainer');
+      if (!kc || !d) return;
+      kc.innerHTML = `
+        <div class="project-card" style="border-color: rgba(248, 113, 113, 0.35);">
+          <div>
+            <h3 style="color:#f87171; margin-bottom:0.75rem;" data-lang="ru">${d.redTitle}</h3>
+            <h3 style="color:#f87171; margin-bottom:0.75rem;" data-lang="en">${d.redTitleEn}</h3>
+            <ul data-lang="ru">${d.redItems.map(i => `<li>${i}</li>`).join('')}</ul>
+            <ul data-lang="en">${d.redItemsEn.map(i => `<li>${i}</li>`).join('')}</ul>
+          </div>
+        </div>
+        <div class="project-card" style="border-color: rgba(56, 189, 248, 0.4);">
+          <div>
+            <h3 style="color:#38bdf8; margin-bottom:0.75rem;" data-lang="ru">${d.blueTitle}</h3>
+            <h3 style="color:#38bdf8; margin-bottom:0.75rem;" data-lang="en">${d.blueTitleEn}</h3>
+            <ul data-lang="ru">${d.blueItems.map(i => `<li>${i}</li>`).join('')}</ul>
+            <ul data-lang="en">${d.blueItemsEn.map(i => `<li>${i}</li>`).join('')}</ul>
+          </div>
+        </div>
+      `;
+    }
+
     function runCmd(key, btn) {
-      document.querySelectorAll('.cmd-pill').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.terminal .cmd-pill').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
       document.getElementById('termOutput').innerHTML = termData[key];
     }
@@ -744,7 +905,8 @@
       }
     })();
 
-    runCmd('whoami', document.querySelector('.cmd-pill'));
+    runCmd('whoami', document.querySelector('.terminal .cmd-pill'));
+    showKillChain('stage1', document.querySelector('#purple-matrix .cmd-pill'));
   </script>
 </body>
 </html>
