@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Betera SOC L1/L2 — Шпаргалка на 5 минут перед входом</title>
+  <style>
+    :root {
+      --bg: #090d16;
+      --card: #111827;
+      --border: #1f2937;
+      --accent: #38bdf8;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --red: #ef4444;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 12px 10px 40px;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+    .header {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid var(--accent);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .header h1 { font-size: 17px; color: #fff; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .header p { font-size: 12px; color: var(--accent); font-weight: 500; }
+    .nav-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+      scrollbar-width: none;
+    }
+    .nav-pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 12px;
+    }
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 6px;
+    }
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-left: auto;
+    }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: var(--accent); }
+    .badge-green { background: rgba(16, 185, 129, 0.15); color: var(--green); }
+    .badge-yellow { background: rgba(245, 158, 11, 0.15); color: var(--yellow); }
+    .badge-red { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+    
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+    .item-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 6px;
+      padding: 7px 9px;
+      font-size: 12.5px;
+    }
+    .item-box strong { color: #fff; font-size: 12.5px; }
+    .item-box .val { color: var(--accent); font-weight: 700; font-family: monospace; }
+    
+    .bullet-list { list-style: none; }
+    .bullet-list li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 6px;
+      font-size: 12.5px;
+      color: #e2e8f0;
+    }
+    .bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .bullet-list li strong { color: #fff; }
+    .hl-green { color: var(--green); font-weight: 700; }
+    .hl-yellow { color: var(--yellow); font-weight: 700; }
+    .hl-red { color: var(--red); font-weight: 700; }
+    .hl-accent { color: var(--accent); font-weight: 700; }
+    code {
+      background: rgba(255,255,255,0.08);
+      color: #38bdf8;
+      font-family: Consolas, monospace;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 11.5px;
+    }
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>🎯 Betera SOC — 5-Мин Шпаргалка</h1>
+    <p>Алексей Жарков &bull; БЦ «Футурис» &bull; Всё самое важное на 1 экране</p>
+  </div>
+
+  <div class="nav-bar">
+    <a href="#ports" class="nav-pill">🔢 Порты &amp; IP</a>
+    <a href="#szi" class="nav-pill">🛡️ NGFW, IDS, DLP</a>
+    <a href="#osi" class="nav-pill">🏢 Модель OSI</a>
+    <a href="#dhcp" class="nav-pill">🌐 Сети (DORA, ARP)</a>
+    <a href="#winlin" class="nav-pill">💻 Windows / Linux</a>
+    <a href="#ir" class="nav-pill">🚨 Инцидент (5 шагов)</a>
+    <a href="#law" class="nav-pill">⚖️ Законы РБ</a>
+  </div>
+
+  <!-- 1. ТОП ПОРТЫ И СЕРЫЕ IP -->
+  <div class="section-card" id="ports">
+    <div class="sec-head">
+      <span>🔢 1. Топ-Порты и 3 Серых Диапазона</span>
+      <span class="badge badge-green">База</span>
+    </div>
+    <div class="grid-2">
+      <div class="item-box"><strong>SSH</strong>: <span class="val">22</span> (TCP)</div>
+      <div class="item-box"><strong>DNS</strong>: <span class="val">53</span> (UDP/TCP)</div>
+      <div class="item-box"><strong>DHCP</strong>: <span class="val">67/68</span> (UDP)</div>
+      <div class="item-box"><strong>Kerberos</strong>: <span class="val">88</span> (TCP/UDP)</div>
+      <div class="item-box"><strong>SMB</strong>: <span class="val">445</span> (PtH, L4)</div>
+      <div class="item-box"><strong>Syslog</strong>: <span class="val">514</span> (SIEM)</div>
+      <div class="item-box"><strong>RDP</strong>: <span class="val">3389</span> (TCP)</div>
+      <div class="item-box"><strong>HTTPS</strong>: <span class="val">443</span> (TLS)</div>
+    </div>
+    <div class="item-box" style="margin-top:4px;">
+      <strong>3 Серых диапазона (RFC 1918):</strong><br />
+      • <code>10.0.0.0/8</code> (10.0.0.0 – 10.255.255.255)<br />
+      • <code>172.16.0.0/12</code> (172.16.0.0 – 172.31.255.255)<br />
+      • <code>192.168.0.0/16</code> (192.168.0.0 – 192.168.255.255)
+    </div>
+  </div>
+
+  <!-- 2. СЗИ И SIEM -->
+  <div class="section-card" id="szi">
+    <div class="sec-head">
+      <span>🛡️ 2. СЗИ: NGFW, IDS vs IPS, DLP, SIEM</span>
+      <span class="badge badge-blue">СЗИ</span>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>NGFW vs Обычный:</strong> Обычный = L3/L4 (только IP и порты). <strong>NGFW = L7</strong> с технологией <span class="hl-accent">DPI (глубокий анализ пакетов)</span>: видит реальное приложение (SSH внутри 443), привязка к Active Directory (<span class="hl-accent">User-ID</span>), встроенный IPS и SSL-расшифровка.</li>
+      <li><strong>IDS vs IPS:</strong> 
+        <br />• <strong>IDS (Камера)</strong>: пассивно на зеркале (<span class="hl-yellow">SPAN-порт</span>), видит копию, шлёт алерт в SIEM (не блокирует).
+        <br />• <strong>IPS (Шлагбаум)</strong>: активно в разрыв (<span class="hl-green">In-line</span>), трафик идёт сквозь него, сам сбрасывает (<span class="hl-red">Drop</span>) атаку.
+      </li>
+      <li><strong>DLP (Утечки изнутри наружу):</strong> Контроль 4 каналов: <em>почта, мессенджеры/Telegram, USB-флешки, принтеры</em>. Анализ по словарям/регуляркам (паспорта, карты), цифровым отпечаткам и OCR. При сработке: <em>блокируем $\rightarrow$ собираем улики в тишине $\rightarrow$ эскалируем СБ/руководству (не звонить сразу юзеру!)</em>.</li>
+      <li><strong>Источники в SIEM:</strong> Серверы = <span class="hl-accent">Агент</span> (Wazuh). Сетевые железки = безагентно по <span class="hl-accent">Syslog (порт 514)</span>.</li>
+      <li><strong>Сработка в 03:00 ночи (False Positive):</strong> Это наш плановый скрипт бэкапа или сканер уязвимостей $\rightarrow$ чиним пароль или добавляем IP в <span class="hl-green">Whitelist (исключения)</span> правила.</li>
+    </ul>
+  </div>
+
+  <!-- 3. МОДЕЛЬ OSI -->
+  <div class="section-card" id="osi">
+    <div class="sec-head">
+      <span>🏢 3. Модель OSI (Мнемоника) &amp; VLAN</span>
+      <span class="badge badge-yellow">L1–L7</span>
+    </div>
+    <div class="item-box" style="margin-bottom:6px; font-size:11.5px;">
+      Мнемоника (сверху вниз 7 $\rightarrow$ 1):<br />
+      <strong>«Алексей Пошёл Сегодня Тренировать Сетевые Компьютерные Фундаменты»</strong>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>7. Прикладной (Application):</strong> HTTP, DNS, DHCP, SSH, SMB + тут фильтрует NGFW.</li>
+      <li><strong>6. Представления (Presentation):</strong> TLS/SSL, UTF-8, JSON (шифрование и кодировка).</li>
+      <li><strong>5. Сеансовый (Session):</strong> RPC, NetBIOS (управление сеансом).</li>
+      <li><strong>4. Транспортный (Transport):</strong> TCP, UDP + <span class="hl-accent">номера портов</span>.</li>
+      <li><strong>3. Сетевой (Network):</strong> IP-адреса, пакеты + <span class="hl-accent">Роутер (Маршрутизатор)</span>, ICMP (ping).</li>
+      <li><strong>2. Канальный (Data Link):</strong> MAC-адреса, кадры + <span class="hl-accent">Свитч (Коммутатор)</span>, ARP, STP.</li>
+      <li><strong>1. Физический (Physical):</strong> Кабели, радиоволны, биты (0 и 1).</li>
+      <li>🔥 <strong>Ethernet, Wi-Fi, Bluetooth:</strong> живут на <span class="hl-green">1-м и 2-м уровнях</span> (1 = кабель/радио, 2 = MAC и кадры).</li>
+      <li>🔥 <strong>VLAN (802.1Q):</strong> живёт <span class="hl-yellow">СТРОГО на 2-м уровне</span> (свитч делит подсети, тег 4 байта).</li>
+    </ul>
+  </div>
+
+  <!-- 4. СЕТЕВЫЕ ПРОТОКОЛЫ -->
+  <div class="section-card" id="dhcp">
+    <div class="sec-head">
+      <span>🌐 4. Сетевые сервисы (DORA, ARP, TCP)</span>
+      <span class="badge badge-blue">L2/L4</span>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>TCP 3-Way Handshake:</strong> <span class="hl-accent">SYN</span> $\rightarrow$ <span class="hl-accent">SYN-ACK</span> $\rightarrow$ <span class="hl-accent">ACK</span>.
+        <br />• <em>SYN Flood DoS:</em> шлют миллионы SYN, не шлют ACK $\rightarrow$ переполнение памяти. Защита: <span class="hl-green">SYN Cookies</span>.
+      </li>
+      <li><strong>DHCP (DORA, UDP 67/68):</strong>
+        <br />• <code>Discover</code> (клиент ищет) $\rightarrow$ <code>Offer</code> (сервер предлагает) $\rightarrow$ <code>Request</code> (клиент берет) $\rightarrow$ <code>Ack</code> (сервер закрепил).
+        <br />• <em>Rogue DHCP:</em> фальшивый сервер раздает хакера как шлюз (MitM). Защита: <span class="hl-green">DHCP Snooping</span>.
+      </li>
+      <li><strong>ARP (IP $\rightarrow$ MAC):</strong> Нет аутентификации $\rightarrow$ <em>ARP Spoofing (MitM)</em>. Защита: <span class="hl-green">DAI (Dynamic ARP Inspection) + DHCP Snooping</span>.</li>
+      <li><strong>DNS (порт 53):</strong> Имя $\rightarrow$ IP. Записи: A, AAAA, CNAME, MX, TXT (SPF/DKIM/DMARC). Атаки: <em>AXFR (дамп зоны)</em>, <em>DNS Tunneling (C2)</em>.</li>
+      <li><strong>NAT:</strong> Перевод серых IP в белые. PAT — через порты для всей сети.</li>
+    </ul>
+  </div>
+
+  <!-- 5. WINDOWS / LINUX -->
+  <div class="section-card" id="winlin">
+    <div class="sec-head">
+      <span>💻 5. Журналы Windows &amp; Linux</span>
+      <span class="badge badge-yellow">Event IDs</span>
+    </div>
+    <ul class="bullet-list">
+      <li><code>Event ID 4625</code> $\rightarrow$ Неудачный вход (ошибка пароля / брутфорс).</li>
+      <li><code>Event ID 4624</code> $\rightarrow$ Успешный вход:
+        <br />• <span class="hl-accent">LogonType 3</span> = вход по сети / SMB (<span class="hl-yellow">Pass-the-Hash</span>).
+        <br />• <span class="hl-accent">LogonType 10</span> = вход по <span class="hl-green">RDP</span> (удаленный стол).
+      </li>
+      <li><code>Event ID 4769</code> $\rightarrow$ Запрос билета TGS: шифр <span class="hl-yellow">0x17 RC4</span> = <strong>Kerberoasting</strong>.</li>
+      <li><code>Event ID 4768</code> $\rightarrow$ Запрос TGT: <code>PreAuthType=0</code> = <strong>AS-REP Roasting</strong>.</li>
+      <li><code>Defender 5001</code> $\rightarrow$ Отключение защиты в реальном времени!</li>
+      <li><code>Sysmon Event ID 10</code> $\rightarrow$ Доступ к памяти <span class="hl-red">lsass.exe</span> (дамп паролей Mimikatz, маска <code>0x1010</code>).</li>
+      <li><strong>Linux:</strong> входы SSH $\rightarrow$ <code>/var/log/auth.log</code>; хэши паролей $\rightarrow$ <code>/etc/shadow</code> (только root).</li>
+    </ul>
+  </div>
+
+  <!-- 6. РАССЛЕДОВАНИЕ И КОМПЕНСИРУЮЩИЕ МЕРЫ -->
+  <div class="section-card" id="ir">
+    <div class="sec-head">
+      <span>🚨 6. Алгоритм расследования инцидента (5 шагов)</span>
+      <span class="badge badge-red">SOC</span>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>1. Триаж:</strong> проверка логов (True vs False Positive).</li>
+      <li><strong>2. Обогащение:</strong> проверка хэша и внешнего IP на <span class="hl-accent">VirusTotal</span>, смежные логи.</li>
+      <li><strong>3. Изоляция (Containment):</strong> <span class="hl-red">отключить хост от сети</span>, заблокировать юзера в AD и IP на NGFW.</li>
+      <li><strong>4. Ликвидация:</strong> удалить вирус, сбросить пароль, накатить патчи.</li>
+      <li><strong>5. Компенсирующие меры:</strong> если уязвимый сервер нельзя сразу обновить:
+        <br />• <em>Виртуальный патчинг на IPS / WAF</em> (резать атаку на подлёте).
+        <br />• <em>Сетевая изоляция (VLAN / ACL / VPN + MFA)</em> (доступ только доверенным админам).
+        <br />• <em>Усиленный мониторинг в SIEM</em> (правила FIM и высокий приоритет).
+      </li>
+    </ul>
+  </div>
+
+  <!-- 7. ЗАКОНЫ РБ И СКАНЕРЫ -->
+  <div class="section-card" id="law">
+    <div class="sec-head">
+      <span>⚖️ 7. Законы РБ &amp; Сканеры уязвимостей</span>
+      <span class="badge badge-green">Плюс</span>
+    </div>
+    <ul class="bullet-list">
+      <li><strong>Закон РБ № 99-З «О защите персональных данных»:</strong> Регулятор — <span class="hl-accent">НЦЗПД</span>. При утечке данных уведомить НЦЗПД в течение <span class="hl-green">3 рабочих дней</span>!</li>
+      <li><strong>Указ Президента РБ № 40 «О кибербезопасности»:</strong> Создание и работа центров кибербезопасности (SOC) во взаимодействии с ОАЦ.</li>
+      <li><strong>Сканеры (Nessus / OpenVAS):</strong>
+        <br />• <em>Снаружи (без учётки)</em>: только открытые порты и баннеры версий (много False Positives).
+        <br />• <em>Изнутри (с учёткой SSH/WMI)</em>: заходит в ОС, проверяет реальные патчи и реестр (<span class="hl-green">в разы точнее!</span>).
+      </li>
+    </ul>
+  </div>
+
+  <!-- 8. ТВОИ ВОПРОСЫ ТИМЛИДУ -->
+  <div class="section-card">
+    <div class="sec-head">
+      <span>❓ 8. Твои 3 вопроса тимлиду в конце</span>
+      <span class="badge badge-blue">Финал</span>
+    </div>
+    <ul class="bullet-list">
+      <li><em>«Какое решение у вас используется как основная SIEM и тикетница (TheHive / коммерческая)?»</em></li>
+      <li><em>«Как на смене делится время между оперативным разбором алертов и инженерными задачами по правилам корреляции?»</em></li>
+      <li><em>«Как устроен онбординг новичка в первый месяц (плейбуки, наставничество)?»</em></li>
+    </ul>
+  </div>
+
+  <div class="footer-note">
+    Алексей Жарков &bull; У тебя всё получится, иди уверенно! 🤝🔥
+  </div>
+
+</body>
+</html>
