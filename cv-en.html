@@ -203,18 +203,18 @@
 
   <h2>Executive Summary</h2>
   <p class="summary">
-    Hands-on <strong>Security Engineer &amp; Incident Responder (DFIR)</strong> specializing in building low-false-positive threat detection tools, Linux server &amp; Active Directory security, and multi-stage intrusion forensics. Creator of open-source detection engines (<strong>PipeShield v1.1</strong> and <strong>Log Sentinel v1.3</strong>) engineered with mathematical false-positive suppression (Shannon Entropy), multi-format log correlation, and native <strong>OASIS SARIF 2.1.0</strong> integration. Experienced in analyzing practical web and domain exploitation (obfuscated web shells, RCE, Pass-the-Hash, Kerberoasting), Linux daemon privilege isolation (<code>systemd</code>, <code>auditd</code>, container namespaces/cgroups), and directing <strong>AI coding agents</strong> to rapidly ship tested, production-ready security software.
+    Hands-on <strong>Security Engineer &amp; Incident Responder (DFIR)</strong> specializing in building low-false-positive threat detection tools, Linux server &amp; Active Directory security, and multi-stage intrusion forensics. Creator of open-source detection engines (<strong>ThreatPulse v1.0</strong>, <strong>PipeShield v1.1</strong>, and <strong>Log Sentinel v1.3</strong>) engineered with mathematical false-positive suppression (Shannon Entropy), multi-format log correlation, Threat Intelligence enrichment, and native <strong>OASIS SARIF 2.1.0</strong> / <strong>Wazuh CDB</strong> integration. Experienced in analyzing practical web and domain exploitation (obfuscated web shells, RCE, Pass-the-Hash, Kerberoasting), Linux daemon privilege isolation (<code>systemd</code>, <code>auditd</code>, container namespaces/cgroups), and directing <strong>AI coding agents</strong> to rapidly ship tested, production-ready security software.
   </p>
 
   <h2>Technical Stack &amp; Core Competencies</h2>
   <table class="skills-table">
     <tr>
       <td class="cat">SIEM &amp; Detection Engineering:</td>
-      <td>Wazuh SIEM (4.3.9), TheHive IRP, ELK Stack (Winlogbeat), Low-False-Positive Rule Authoring (Regex + Shannon Entropy $H(X)$), MITRE ATT&amp;CK v15 Mapping, OASIS SARIF 2.1.0, Multi-Layer Signal Correlation.</td>
+      <td>Wazuh SIEM (4.3.9), TheHive IRP, ELK Stack (Winlogbeat), Low-False-Positive Rule Authoring (Regex + Shannon Entropy $H(X)$), MITRE ATT&amp;CK v15 Mapping, OASIS SARIF 2.1.0, Wazuh CDB Lists, Multi-Layer Signal Correlation.</td>
     </tr>
     <tr>
-      <td class="cat">DFIR &amp; Malware Analysis:</td>
-      <td>Obfuscated Web Shell Deobfuscation, CVE Exploit PoC Analysis (<code>CVE-2019-1458</code>, <code>CVE-2019-0623</code>), Crash Forensics (Windows WER, Defender 1116/5007, Recent LNK, <code>$Recycle.Bin</code>), VirusTotal TI.</td>
+      <td class="cat">DFIR &amp; Threat Intelligence:</td>
+      <td>ThreatPulse TI Enrichment CLI, AbuseIPDB API, Tor Exit Node Detection, Obfuscated Web Shell Analysis, CVE Exploit PoCs (<code>CVE-2019-1458</code>, <code>CVE-2019-0623</code>), Windows WER AppCrash, Defender 1116/5001.</td>
     </tr>
     <tr>
       <td class="cat">Web, AD &amp; Offensive Security:</td>
@@ -234,7 +234,20 @@
 
   <div class="proj-item">
     <div class="proj-header">
-      <span>1. PipeShield v1.1 — Low-False-Positive SAST, Container, CI/CD &amp; JS Bundle Recon Scanner</span>
+      <span>1. ThreatPulse v1.0 — Fast Threat Intelligence &amp; SOC IOC Enrichment CLI (Wazuh CDB Ready)</span>
+      <span><a href="https://github.com/Voobrazhenie21-lab/threat-pulse">github.com/Voobrazhenie21-lab/threat-pulse</a> | <a href="https://voobrazhenie21-lab.github.io/">Live Demo</a></span>
+    </div>
+    <div class="proj-sub">Zero-Dependency Python Threat Intelligence Engine for Automated L1/L2 Alert Triage &amp; SIEM Feed Generation</div>
+    <ul>
+      <li><strong>Automated Multi-Type IOC Triage:</strong> Detects and normalizes IPv4, IPv6, Domains, URLs, and Hashes (MD5, SHA1, SHA256) with automated safe defanging / refanging.</li>
+      <li><strong>Offline Heuristic Filtering:</strong> Instantly eliminates internal <strong>RFC 1918 private IPs</strong> (`10/8`, `172.16/12`, `192.168/16`), Loopback, and Bogon ranges; identifies DGA botnets via Shannon Entropy ($H(X) &gt; 3.6$); recognizes Tor Exit Nodes and benign research scanners (Shodan, Censys, Shadowserver).</li>
+      <li><strong>Wazuh SIEM CDB Exporter:</strong> Automatically exports evaluated threats into Wazuh CDB list syntax (<code>/var/ossec/etc/lists/threat_pulse.cdb</code>) for real-time SIEM rule lookups, backed by <strong>18 Pytest unit tests</strong> and persistent SQLite caching.</li>
+    </ul>
+  </div>
+
+  <div class="proj-item">
+    <div class="proj-header">
+      <span>2. PipeShield v1.1 — Low-False-Positive SAST, Container, CI/CD &amp; JS Bundle Recon Scanner</span>
       <span><a href="https://github.com/Voobrazhenie21-lab/pipeshield">github.com/Voobrazhenie21-lab/pipeshield</a> | <a href="https://voobrazhenie21-lab.github.io/pipeshield/">Live Demo</a></span>
     </div>
     <div class="proj-sub">End-to-End Product Ownership: Architecture, Detection Logic, False-Positive Reduction, JS Recon &amp; SARIF 2.1.0 Integration</div>
