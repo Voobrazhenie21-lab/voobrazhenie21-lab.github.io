@@ -459,6 +459,7 @@
         <div class="term-cmds">
           <button class="cmd-pill active" onclick="runCmd('whoami', this)">$ whoami</button>
           <button class="cmd-pill" onclick="runCmd('acme', this)">$ dfir --case acme.skb</button>
+          <button class="cmd-pill" onclick="runCmd('threatpulse', this)">$ threat-pulse 185.220.101.5</button>
           <button class="cmd-pill" onclick="runCmd('jsrecon', this)">$ pipeshield --js-recon</button>
           <button class="cmd-pill" onclick="runCmd('stack', this)">$ cat /etc/skills</button>
           <button class="cmd-pill" onclick="runCmd('contact', this)">$ ./contact.sh</button>
@@ -595,6 +596,7 @@
           <strong style="color:#fff;" data-lang="en">📚 Complete Archive of 9 Practical Labs &amp; Diploma (21-Host VK Cloud Lab) + Secure OOP Python:</strong>
         </div>
         <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <a href="https://github.com/Voobrazhenie21-lab/threat-pulse" target="_blank" class="proj-btn" style="border-color:var(--cyan); color:#fff;">⚡ ThreatPulse v1.0 (TI &amp; Wazuh CDB)</a>
           <a href="https://github.com/Voobrazhenie21-lab/soc-practice-reports" target="_blank" class="proj-btn">🛡️ soc-practice-reports (9 работ)</a>
           <a href="https://github.com/Voobrazhenie21-lab/code-python-project" target="_blank" class="proj-btn">🐍 MyProfile v2.0 (SHA-256 FIM &amp; PII Masking)</a>
         </div>
@@ -743,6 +745,21 @@
     • Deleted exploit <span class="hl-crit">CVE-2019-0623.exe</span> proven via WER AppCrash archive
     • Attacker path exposed via RDP share: <span class="hl-ok">\\\\tsclient\\_home_kali_...\\mimikatz.exe</span>
 <span class="hl-cyan">[5] Domain Takeover:</span> Pass-the-Hash to dc01 (Wazuh Rule 92652) -> Exfil of TOP SECRET!.txt`,
+
+      threatpulse: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">threat-pulse 185.220.101.5 --format card</span>
+<span class="hl-cyan">[+] ThreatPulse v1.0.0 (Fast SOC TI &amp; IOC Triage)</span>
+<span class="hl-cyan">┌────────────────────────────────────────────────────────────────────────┐</span>
+<span class="hl-cyan">│</span> <b>ThreatPulse IOC Report</b>  [IPV4]
+<span class="hl-cyan">├────────────────────────────────────────────────────────────────────────┤</span>
+<span class="hl-cyan">│</span> <b>Indicator:</b>    185[.]220[.]101[.]5 <span class="hl-cyan">(raw: 185.220.101.5)</span>
+<span class="hl-cyan">│</span> <b>Risk Level:</b>   <span class="hl-crit">HIGH (85/100)</span>
+<span class="hl-cyan">│</span> <b>Verdict:</b>      High Risk Indicator: Tor Exit Node
+<span class="hl-cyan">│</span> <b>Tags:</b>         <span class="hl-ok">#Tor-Exit-Node #Anonymizer</span>
+<span class="hl-cyan">│</span> <b>MITRE ATT&amp;CK:</b> • <span class="hl-crit">T1090.003: Multi-hop Proxy: Tor</span>
+<span class="hl-cyan">│</span> <b>Details:</b>      • Reverse DNS: berlin01.tor-exit.artikel10.org
+<span class="hl-cyan">│</span> <b>SOC Action:</b>   <span class="hl-ok">Block at perimeter firewall; export to /var/ossec/etc/lists/</span>
+<span class="hl-cyan">└────────────────────────────────────────────────────────────────────────┘</span>
+<span class="hl-ok">[✓] Formats: ANSI Card | Batch Table | JSON | Markdown | Wazuh CDB List</span>`,
 
       jsrecon: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">pipeshield scan frontend_bundle.js --fail-on high</span>
 <span class="hl-cyan">[+] PipeShield v1.1.0 (JsReconAnalyzer + Shannon Entropy SAST)</span>
