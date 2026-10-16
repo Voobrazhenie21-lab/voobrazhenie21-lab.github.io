@@ -19,6 +19,10 @@
   <meta name="twitter:title" content="Aleksei Zharkou | Cybersecurity Portfolio" />
   <meta name="twitter:description" content="SOC L1/L2, Blue Team DFIR, Active Directory Pentest, Log Sentinel v1.3, PipeShield v1.1." />
   <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/161405607?v=4" />
+
+  <!-- Three.js for 3D Cyber Threat Globe -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <style>
     :root {
       --bg: #070b14;
@@ -383,6 +387,34 @@
       color: var(--muted);
       font-size: 0.88rem;
     }
+    /* 3D Cyber Threat Radar */
+    .radar-container {
+      display: grid;
+      grid-template-columns: 1.22fr 0.78fr;
+      gap: 1.4rem;
+      align-items: stretch;
+    }
+    @media (max-width: 960px) {
+      .radar-container { grid-template-columns: 1fr !important; }
+      #globeCanvasWrapper { height: 420px !important; }
+    }
+    .threat-stream-item {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .threat-stream-item:hover, .threat-stream-item.active {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.4);
+      transform: translateX(4px);
+    }
+
     [data-lang="en"] { display: none; }
     body.en [data-lang="ru"] { display: none; }
     body.en [data-lang="en"] { display: block; }
@@ -398,6 +430,8 @@
         <span>&gt;_</span> aleksei.zharkou<span>@sec-lab</span>
       </div>
       <div class="nav-links">
+        <a href="#threat-radar" class="hide-mobile" data-lang="ru">🌐 3D Радар</a>
+        <a href="#threat-radar" class="hide-mobile" data-lang="en">🌐 3D Radar</a>
         <a href="#projects" class="hide-mobile" data-lang="ru">Проекты</a>
         <a href="#projects" class="hide-mobile" data-lang="en">Projects</a>
         <a href="#skills" class="hide-mobile" data-lang="ru">Стек и навыки</a>
@@ -601,6 +635,104 @@
           <a href="https://github.com/Voobrazhenie21-lab/threat-pulse" target="_blank" class="proj-btn">🐙 ThreatPulse Repo</a>
           <a href="https://github.com/Voobrazhenie21-lab/soc-practice-reports" target="_blank" class="proj-btn">🛡️ soc-practice-reports (9 работ)</a>
           <a href="https://github.com/Voobrazhenie21-lab/code-python-project" target="_blank" class="proj-btn">🐍 MyProfile v2.0 (FIM &amp; PII)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3D CYBER THREAT RADAR (POWERED BY THREATPULSE) -->
+    <section id="threat-radar" style="margin-top: 4.5rem; margin-bottom: 4.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom: 1.5rem;">
+        <div>
+          <div class="status-pill" style="margin-bottom: 0.6rem;">
+            <span class="pulse-dot" style="background:#10b981;"></span>
+            <span data-lang="ru">Глобальная телеметрия: ThreatPulse TI Engine + Wazuh SIEM</span>
+            <span data-lang="en">Global Telemetry: ThreatPulse TI Engine + Wazuh SIEM</span>
+          </div>
+          <h2 class="sec-title" style="margin-bottom: 0.25rem;" data-lang="ru">🌐 3D-радар киберугроз в реальном времени</h2>
+          <h2 class="sec-title" style="margin-bottom: 0.25rem;" data-lang="en">🌐 Real-Time 3D Cyber Threat Radar</h2>
+          <p class="sec-sub" style="margin-bottom: 0;" data-lang="ru">Интерактивный 3D-глобус перехваченных атак. Визуализация сетевой телеметрии, Tor-узлов, DGA-ботнетов и вредоносных маяков, выявленных эвристиками ThreatPulse.</p>
+          <p class="sec-sub" style="margin-bottom: 0;" data-lang="en">Interactive 3D threat globe. Live telemetry of Tor relays, DGA botnets, and malware beacons intercepted by ThreatPulse heuristics in real-time.</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+          <button class="cmd-pill active" id="btnFocusMinsk" onclick="focusNode('minsk')">🎯 Focus Minsk SOC</button>
+          <button class="cmd-pill" id="btnToggleRotate" onclick="toggleRotation()">⏸️ Pause</button>
+          <button class="cmd-pill" onclick="resetGlobeView()">🔄 Reset View</button>
+        </div>
+      </div>
+
+      <!-- Radar Layout Grid -->
+      <div class="radar-container">
+        
+        <!-- 3D Viewport Box -->
+        <div id="globeCanvasWrapper" style="position: relative; height: 530px; background: radial-gradient(circle at 50% 50%, #0d172e 0%, #060913 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 0 35px rgba(14, 165, 233, 0.1);">
+          <div id="globe3d" style="width: 100%; height: 100%; cursor: grab;"></div>
+          
+          <!-- Top HUD Overlay -->
+          <div style="position: absolute; top: 14px; left: 16px; pointer-events: none; font-family: monospace; font-size: 0.76rem; color: #38bdf8; background: rgba(7, 11, 20, 0.75); padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.2); backdrop-filter: blur(6px);">
+            <span style="color:#10b981;">●</span> RADAR: <strong style="color:#fff;">60 FPS ACTIVE</strong> | SOC HUB: <strong style="color:#38bdf8;">MINSK, BY</strong>
+          </div>
+
+          <!-- Bottom Left HUD Overlay -->
+          <div style="position: absolute; bottom: 14px; left: 16px; pointer-events: none; font-family: monospace; font-size: 0.74rem; color: var(--muted); background: rgba(7, 11, 20, 0.75); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(6px);">
+            🖱️ Вращение: ЛКМ / Touch &bull; Зум: Колесико
+          </div>
+        </div>
+
+        <!-- Telemetry & ThreatPulse Inspector Card -->
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          
+          <!-- Live Threat Stream Feed -->
+          <div class="project-card" style="padding: 1.25rem; flex: 1; border-color: rgba(56, 189, 248, 0.25);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
+              <strong style="color:#fff; font-size:0.88rem; display:flex; align-items:center; gap:0.4rem;">
+                <span class="pulse-dot" style="background:#ef4444; width:7px; height:7px;"></span>
+                LIVE THREAT STREAM (INTERCEPTED IOCs)
+              </strong>
+              <span style="font-family:monospace; font-size:0.75rem; color:var(--cyan);">8 NODES</span>
+            </div>
+
+            <div id="threatStreamList" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 180px; overflow-y: auto; font-family: monospace; font-size: 0.76rem; padding-right: 4px;">
+              <!-- Dynamic stream items -->
+            </div>
+          </div>
+
+          <!-- Active ThreatPulse Inspector Card -->
+          <div class="project-card" style="padding: 1.25rem; border-color: rgba(248, 113, 113, 0.35); background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(24, 15, 28, 0.85));">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.6rem;">
+              <span class="tag" id="inspectorVerdict" style="background:rgba(239, 68, 68, 0.2); color:#f87171; border: 1px solid rgba(239,68,68,0.4);">
+                CRITICAL THREAT
+              </span>
+              <span style="font-family:monospace; font-size:0.76rem; color:#94a3b8;" id="inspectorTime">LIVE NOW</span>
+            </div>
+
+            <div style="margin-bottom: 0.75rem;">
+              <div style="font-size:0.75rem; color:var(--muted); margin-bottom:0.15rem;">INTERCEPTED INDICATOR (IOC):</div>
+              <strong style="font-family:monospace; font-size:1.02rem; color:#fff;" id="inspectorIoc">185.220.101.5</strong>
+              <div style="font-size:0.76rem; color:#38bdf8; margin-top:0.2rem;" id="inspectorRoute">Frankfurt [Tor Relay] ➔ Minsk SOC [Honeypot #3]</div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem; margin-bottom:0.75rem; font-family:monospace; font-size:0.75rem;">
+              <div style="background:rgba(0,0,0,0.35); padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+                <div style="color:#64748b; font-size:0.7rem;">SHANNON ENTROPY</div>
+                <div style="color:#38bdf8; font-weight:700;" id="inspectorEntropy">H(X) = 4.18 [DGA ALERT]</div>
+              </div>
+              <div style="background:rgba(0,0,0,0.35); padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
+                <div style="color:#64748b; font-size:0.7rem;">THREAT SCORE</div>
+                <div style="color:#f87171; font-weight:700;" id="inspectorScore">92 / 100 [BLOCKED]</div>
+              </div>
+            </div>
+
+            <div style="background: #070b14; border: 1px solid #1e293b; border-radius: 6px; padding: 0.55rem 0.75rem; font-family: monospace; font-size: 0.72rem; margin-bottom: 0.75rem;">
+              <div style="color:#64748b; font-size:0.68rem; margin-bottom:0.15rem;">WAZUH CDB RULE GENERATED (/var/ossec/etc/lists/):</div>
+              <code style="color:#10b981;" id="inspectorWazuh">185.220.101.5:threat_tor:high_risk:block</code>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+              <code style="font-size:0.72rem; color:#cbd5e1; background:rgba(0,0,0,0.45); padding:4px 8px; border-radius:4px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="inspectorCliCmd">pip install threatpulse-cli</code>
+              <a href="https://pypi.org/project/threatpulse-cli/" target="_blank" class="proj-btn" style="padding:0.35rem 0.7rem; font-size:0.74rem; border-color:var(--cyan); color:var(--cyan); white-space:nowrap;">PyPI Package ↗</a>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -940,6 +1072,401 @@
 
     runCmd('whoami', document.querySelector('.terminal .cmd-pill'));
     showKillChain('stage1', document.querySelector('#purple-matrix .cmd-pill'));
+
+    /* ========================================================
+       3D CYBER THREAT RADAR GLOBE (POWERED BY THREATPULSE)
+       ======================================================== */
+    (function initThreatGlobe() {
+      const container = document.getElementById('globe3d');
+      if (!container || typeof THREE === 'undefined') return;
+
+      let width = container.clientWidth || 600;
+      let height = container.clientHeight || 530;
+
+      // 1. Scene, Camera & WebGL Renderer
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1500);
+      camera.position.z = 285;
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const globeGroup = new THREE.Group();
+      scene.add(globeGroup);
+
+      const GLOBE_RADIUS = 100;
+
+      // 2. Dark Core Planet Sphere
+      const coreGeo = new THREE.SphereGeometry(GLOBE_RADIUS - 0.4, 36, 36);
+      const coreMat = new THREE.MeshBasicMaterial({ color: 0x050b18, transparent: true, opacity: 0.96 });
+      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+      globeGroup.add(coreMesh);
+
+      // 3. Latitude & Longitude Coordinate Wireframe Rings
+      const gridMat = new THREE.LineBasicMaterial({ color: 0x0e3a6a, transparent: true, opacity: 0.22 });
+      for (let lat = -60; lat <= 60; lat += 30) {
+        const r = GLOBE_RADIUS * Math.cos(lat * Math.PI / 180);
+        const y = GLOBE_RADIUS * Math.sin(lat * Math.PI / 180);
+        const ringGeo = new THREE.BufferGeometry();
+        const pts = [];
+        for (let a = 0; a <= 360; a += 10) {
+          const rad = a * Math.PI / 180;
+          pts.push(new THREE.Vector3(r * Math.cos(rad), y, r * Math.sin(rad)));
+        }
+        ringGeo.setFromPoints(pts);
+        globeGroup.add(new THREE.Line(ringGeo, gridMat));
+      }
+      for (let lon = 0; lon < 360; lon += 45) {
+        const rad = lon * Math.PI / 180;
+        const pts = [];
+        for (let lat = -90; lat <= 90; lat += 5) {
+          const phi = lat * Math.PI / 180;
+          pts.push(new THREE.Vector3(
+            GLOBE_RADIUS * Math.cos(phi) * Math.sin(rad),
+            GLOBE_RADIUS * Math.sin(phi),
+            GLOBE_RADIUS * Math.cos(phi) * Math.cos(rad)
+          ));
+        }
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
+        globeGroup.add(new THREE.Line(lineGeo, gridMat));
+      }
+
+      // 4. Atmospheric Outer Glow
+      const atmosGeo = new THREE.SphereGeometry(GLOBE_RADIUS * 1.07, 32, 32);
+      const atmosMat = new THREE.MeshBasicMaterial({
+        color: 0x0284c7,
+        transparent: true,
+        opacity: 0.08,
+        side: THREE.BackSide
+      });
+      globeGroup.add(new THREE.Mesh(atmosGeo, atmosMat));
+
+      // 5. Starfield Dust Background
+      const starGeo = new THREE.BufferGeometry();
+      const starCoords = [];
+      for (let i = 0; i < 280; i++) {
+        starCoords.push(
+          (Math.random() - 0.5) * 850,
+          (Math.random() - 0.5) * 850,
+          -150 + Math.random() * -450
+        );
+      }
+      starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starCoords, 3));
+      const starMat = new THREE.PointsMaterial({ color: 0x38bdf8, size: 1.4, transparent: true, opacity: 0.45 });
+      scene.add(new THREE.Points(starGeo, starMat));
+
+      // 6. Geographic Projection & Continental Particle Matrix
+      function isLand(lat, lon) {
+        if (lat > 35 && lat < 71 && lon > -10 && lon < 42) return true; // Europe
+        if (lat > 10 && lat < 72 && lon >= 42 && lon < 145) return true; // Asia
+        if (lat > 14 && lat < 72 && lon > -168 && lon < -52) return true; // N. America
+        if (lat > -56 && lat <= 12 && lon > -82 && lon < -34) return true; // S. America
+        if (lat > -35 && lat < 37 && lon > -18 && lon < 52) return true; // Africa
+        if (lat > -44 && lat < -10 && lon > 112 && lon < 155) return true; // Australia
+        if (lat > 30 && lat < 46 && lon > 129 && lon < 146) return true; // Japan
+        if (lat > 50 && lat < 60 && lon > -11 && lon < 2) return true; // UK
+        return false;
+      }
+
+      function latLonToVec3(lat, lon, radius = GLOBE_RADIUS) {
+        const phi = (90 - lat) * (Math.PI / 180);
+        const theta = (lon + 180) * (Math.PI / 180);
+        return new THREE.Vector3(
+          -(radius * Math.sin(phi) * Math.cos(theta)),
+          radius * Math.cos(phi),
+          radius * Math.sin(phi) * Math.sin(theta)
+        );
+      }
+
+      const dotCoords = [];
+      const dotColors = [];
+      for (let lat = -70; lat <= 70; lat += 2.8) {
+        for (let lon = -180; lon <= 180; lon += 2.8) {
+          if (isLand(lat, lon)) {
+            const jLat = lat + (Math.random() - 0.5) * 0.7;
+            const jLon = lon + (Math.random() - 0.5) * 0.7;
+            const v = latLonToVec3(jLat, jLon, GLOBE_RADIUS + 0.5);
+            dotCoords.push(v.x, v.y, v.z);
+            if (Math.random() > 0.35) {
+              dotColors.push(0.22, 0.74, 0.97); // #38bdf8 cyan
+            } else {
+              dotColors.push(0.06, 0.72, 0.51); // #10b981 emerald
+            }
+          }
+        }
+      }
+      const dotGeo = new THREE.BufferGeometry();
+      dotGeo.setAttribute('position', new THREE.Float32BufferAttribute(dotCoords, 3));
+      dotGeo.setAttribute('color', new THREE.Float32BufferAttribute(dotColors, 3));
+      const dotMat = new THREE.PointsMaterial({ size: 1.8, vertexColors: true, transparent: true, opacity: 0.88 });
+      globeGroup.add(new THREE.Points(dotGeo, dotMat));
+
+      // 7. Global Nodes & Telemetry Infrastructure
+      const NODES = {
+        minsk: { id: 'minsk', name: 'Minsk [SOC Hub]', country: 'Belarus', lat: 53.90, lon: 27.56, role: 'defender', color: 0x10b981, ip: '10.244.0.12 (Internal Lab)', desc: 'Primary Defender SOC SIEM & ThreatPulse Engine' },
+        frankfurt: { id: 'frankfurt', name: 'Frankfurt [Tor Relay]', country: 'Germany', lat: 50.11, lon: 8.68, role: 'attacker', color: 0xef4444, ip: '185.220.101.5', desc: 'Known Malicious Tor Exit Node probing DMZ port 443' },
+        tokyo: { id: 'tokyo', name: 'Tokyo [DGA C2 Beacon]', country: 'Japan', lat: 35.67, lon: 139.65, role: 'attacker', color: 0xf59e0b, ip: 'xkjqpw987dfghk123498.top', desc: 'Algorithmic Domain Generation (DGA) entropy H=4.18' },
+        sanfrancisco: { id: 'sanfrancisco', name: 'San Francisco [Cloud Edge]', country: 'USA', lat: 37.77, lon: -122.41, role: 'cloud', color: 0x38bdf8, ip: '104.21.48.91 (Cloudflare)', desc: 'Reverse Proxy & Public CDN Gateway' },
+        saopaulo: { id: 'saopaulo', name: 'São Paulo [Ransomware C2]', country: 'Brazil', lat: -23.55, lon: -46.63, role: 'attacker', color: 0xef4444, ip: '177.136.250.88', desc: 'WannaCry Kill-switch Callback Beacon Attempt' },
+        singapore: { id: 'singapore', name: 'Singapore [Web Shell Host]', country: 'Singapore', lat: 1.35, lon: 103.81, role: 'attacker', color: 0xf43f5e, ip: '103.253.144.10', desc: 'Obfuscated PHP Web Shell staging IP' },
+        london: { id: 'london', name: 'London [SIEM Collector]', country: 'UK', lat: 51.50, lon: -0.12, role: 'defender', color: 0x10b981, ip: '51.15.42.180 (Wazuh Forwarder)', desc: 'Regional Centralized Syslog & Auditd Aggregator' },
+        sydney: { id: 'sydney', name: 'Sydney [Target DB]', country: 'Australia', lat: -33.86, lon: 151.20, role: 'relay', color: 0x38bdf8, ip: '139.130.4.5', desc: 'Exfiltration telemetry canary honeytoken' }
+      };
+
+      const nodePillars = [];
+      Object.values(NODES).forEach(node => {
+        const pos = latLonToVec3(node.lat, node.lon, GLOBE_RADIUS + 0.8);
+        
+        // Node marker dot
+        const sGeo = new THREE.SphereGeometry(1.6, 12, 12);
+        const sMat = new THREE.MeshBasicMaterial({ color: node.color });
+        const mesh = new THREE.Mesh(sGeo, sMat);
+        mesh.position.copy(pos);
+        mesh.userData = node;
+        globeGroup.add(mesh);
+
+        // Vertical glowing telemetry pillar
+        const normal = pos.clone().normalize();
+        const beamLen = node.role === 'defender' ? 14 : 9;
+        const beamGeo = new THREE.CylinderGeometry(0.3, 0.6, beamLen, 6);
+        beamGeo.translate(0, beamLen / 2, 0);
+        const beamMat = new THREE.MeshBasicMaterial({ color: node.color, transparent: true, opacity: 0.75 });
+        const beam = new THREE.Mesh(beamGeo, beamMat);
+        beam.position.copy(pos);
+        beam.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normal);
+        globeGroup.add(beam);
+        nodePillars.push(beam);
+      });
+
+      // 8. Attack Arcs (Quadratic Bézier Curves)
+      const ATTACK_ARCS = [
+        { from: 'frankfurt', to: 'minsk', color: 0xef4444, speed: 0.007, ioc: '185.220.101.5', type: 'Tor Exit Node Scan', entropy: '1.24 (Clean IP)', score: '92/100', wazuh: '185.220.101.5:threat_tor:high_risk:block', cat: 'CRITICAL THREAT' },
+        { from: 'tokyo', to: 'minsk', color: 0xf59e0b, speed: 0.005, ioc: 'xkjqpw987dfghk123498.top', type: 'DGA Domain Beacon', entropy: '4.18 (DGA ALERT)', score: '88/100', wazuh: 'xkjqpw987dfghk123498.top:threat_dga:entropy_4.18:block', cat: 'HIGH RISK' },
+        { from: 'saopaulo', to: 'london', color: 0xef4444, speed: 0.004, ioc: '177.136.250.88', type: 'Ransomware C2 Beacon', entropy: '0.98 (IP)', score: '96/100', wazuh: '177.136.250.88:threat_ransomware_c2:critical', cat: 'CRITICAL THREAT' },
+        { from: 'singapore', to: 'minsk', color: 0xf43f5e, speed: 0.006, ioc: '103.253.144.10', type: 'Web Shell Brute-Force', entropy: '1.15 (IP)', score: '82/100', wazuh: '103.253.144.10:threat_webshell_bruteforce:block', cat: 'HIGH RISK' },
+        { from: 'sanfrancisco', to: 'tokyo', color: 0x38bdf8, speed: 0.004, ioc: '104.21.48.91', type: 'Cloudflare Edge Proxy', entropy: '1.02 (Bogon Sanitized)', score: '15/100', wazuh: '104.21.48.91:proxy_edge:whitelisted', cat: 'BENIGN / PROXY' },
+        { from: 'minsk', to: 'sydney', color: 0x10b981, speed: 0.005, ioc: '10.244.0.12', type: 'ThreatPulse Honeytoken Sync', entropy: '0.85 (RFC 1918)', score: '0/100', wazuh: '10.244.0.0/16:private_bogon:allow', cat: 'DEFENDER SYNC' }
+      ];
+
+      const arcObjects = [];
+      ATTACK_ARCS.forEach(arcDef => {
+        const srcNode = NODES[arcDef.from];
+        const dstNode = NODES[arcDef.to];
+        const p1 = latLonToVec3(srcNode.lat, srcNode.lon, GLOBE_RADIUS);
+        const p2 = latLonToVec3(dstNode.lat, dstNode.lon, GLOBE_RADIUS);
+        const dist = p1.distanceTo(p2);
+        
+        // Midpoint lifted radially above surface
+        const mid = p1.clone().add(p2).multiplyScalar(0.5);
+        const altitude = GLOBE_RADIUS + dist * 0.38;
+        mid.normalize().multiplyScalar(altitude);
+
+        const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+        const points = curve.getPoints(45);
+        const curveGeo = new THREE.BufferGeometry().setFromPoints(points);
+        const curveMat = new THREE.LineBasicMaterial({ color: arcDef.color, transparent: true, opacity: 0.55 });
+        const arcLine = new THREE.Line(curveGeo, curveMat);
+        globeGroup.add(arcLine);
+
+        // Moving glowing projectile particle
+        const partGeo = new THREE.SphereGeometry(1.4, 8, 8);
+        const partMat = new THREE.MeshBasicMaterial({ color: arcDef.color });
+        const projectile = new THREE.Mesh(partGeo, partMat);
+        globeGroup.add(projectile);
+
+        arcObjects.push({
+          def: arcDef,
+          curve: curve,
+          projectile: projectile,
+          progress: Math.random(),
+          speed: arcDef.speed
+        });
+      });
+
+      // 9. Interactive Drag to Rotate (Mouse + Touch)
+      let isDragging = false;
+      let prevMouseX = 0;
+      let prevMouseY = 0;
+      let targetRotationX = 0.35;
+      let targetRotationY = -0.55;
+      let autoRotate = true;
+
+      container.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        prevMouseX = e.clientX;
+        prevMouseY = e.clientY;
+        container.style.cursor = 'grabbing';
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - prevMouseX;
+        const deltaY = e.clientY - prevMouseY;
+        prevMouseX = e.clientX;
+        prevMouseY = e.clientY;
+
+        targetRotationY += deltaX * 0.005;
+        targetRotationX += deltaY * 0.005;
+        targetRotationX = Math.max(-1.2, Math.min(1.2, targetRotationX));
+      });
+
+      window.addEventListener('pointerup', () => {
+        isDragging = false;
+        container.style.cursor = 'grab';
+      });
+
+      // Controlled wheel zoom without locking document scroll outside
+      container.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        camera.position.z += e.deltaY * 0.15;
+        camera.position.z = Math.max(180, Math.min(380, camera.position.z));
+      }, { passive: false });
+
+      // 10. Global Controls API
+      window.focusNode = function(nodeId) {
+        const node = NODES[nodeId];
+        if (!node) return;
+        targetRotationY = -(node.lon + 180) * (Math.PI / 180) - Math.PI / 2;
+        targetRotationX = (node.lat) * (Math.PI / 180) * 0.6;
+        autoRotate = false;
+        updateInspector(ATTACK_ARCS[0]);
+      };
+
+      window.toggleRotation = function() {
+        autoRotate = !autoRotate;
+        const btn = document.getElementById('btnToggleRotate');
+        if (btn) btn.textContent = autoRotate ? '⏸️ Pause' : '▶️ Play';
+      };
+
+      window.resetGlobeView = function() {
+        targetRotationX = 0.35;
+        targetRotationY = -0.55;
+        camera.position.z = 285;
+        autoRotate = true;
+        const btn = document.getElementById('btnToggleRotate');
+        if (btn) btn.textContent = '⏸️ Pause';
+      };
+
+      // 11. Inspector Card Update Function
+      function updateInspector(arcDef) {
+        if (!arcDef) return;
+        const iocEl = document.getElementById('inspectorIoc');
+        const routeEl = document.getElementById('inspectorRoute');
+        const entropyEl = document.getElementById('inspectorEntropy');
+        const scoreEl = document.getElementById('inspectorScore');
+        const wazuhEl = document.getElementById('inspectorWazuh');
+        const verdictEl = document.getElementById('inspectorVerdict');
+        const cliEl = document.getElementById('inspectorCliCmd');
+        const timeEl = document.getElementById('inspectorTime');
+
+        if (iocEl) iocEl.textContent = arcDef.ioc;
+        if (routeEl) {
+          const src = NODES[arcDef.from].name;
+          const dst = NODES[arcDef.to].name;
+          routeEl.textContent = `${src} ➔ ${dst}`;
+        }
+        if (entropyEl) entropyEl.textContent = `H(X) = ${arcDef.entropy}`;
+        if (scoreEl) scoreEl.textContent = arcDef.score;
+        if (wazuhEl) wazuhEl.textContent = arcDef.wazuh;
+        if (verdictEl) {
+          verdictEl.textContent = arcDef.cat;
+          if (arcDef.cat.includes('CRITICAL')) {
+            verdictEl.style.background = 'rgba(239, 68, 68, 0.2)';
+            verdictEl.style.color = '#f87171';
+            verdictEl.style.borderColor = 'rgba(239,68,68,0.4)';
+          } else if (arcDef.cat.includes('HIGH')) {
+            verdictEl.style.background = 'rgba(245, 158, 11, 0.2)';
+            verdictEl.style.color = '#fbbf24';
+            verdictEl.style.borderColor = 'rgba(245, 158, 11, 0.4)';
+          } else {
+            verdictEl.style.background = 'rgba(16, 185, 129, 0.2)';
+            verdictEl.style.color = '#34d399';
+            verdictEl.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+          }
+        }
+        if (cliEl) cliEl.textContent = `threat-pulse ${arcDef.ioc} --format wazuh-cdb`;
+        if (timeEl) timeEl.textContent = new Date().toLocaleTimeString();
+      }
+
+      // 12. Populate Live Stream List
+      const streamContainer = document.getElementById('threatStreamList');
+      function addStreamItem(arcDef) {
+        if (!streamContainer) return;
+        const item = document.createElement('div');
+        item.className = 'threat-stream-item';
+        const isCrit = arcDef.cat.includes('CRITICAL');
+        const color = isCrit ? '#f87171' : (arcDef.cat.includes('HIGH') ? '#fbbf24' : '#38bdf8');
+        item.innerHTML = `
+          <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%;">
+            <span style="color:${color}; font-weight:700;">[${arcDef.type}]</span>
+            <span style="color:#fff; margin-left:4px;">${arcDef.ioc}</span>
+          </div>
+          <span style="color:#64748b; font-size:0.72rem;">${new Date().toLocaleTimeString()}</span>
+        `;
+        item.onclick = () => updateInspector(arcDef);
+        streamContainer.insertBefore(item, streamContainer.firstChild);
+        while (streamContainer.children.length > 5) {
+          streamContainer.removeChild(streamContainer.lastChild);
+        }
+      }
+
+      // Seed initial items
+      ATTACK_ARCS.forEach(addStreamItem);
+      updateInspector(ATTACK_ARCS[0]);
+
+      // Periodic simulated live alert
+      let arcCycleIdx = 0;
+      setInterval(() => {
+        arcCycleIdx = (arcCycleIdx + 1) % ATTACK_ARCS.length;
+        const arc = ATTACK_ARCS[arcCycleIdx];
+        addStreamItem(arc);
+        if (arcObjects[arcCycleIdx]) {
+          arcObjects[arcCycleIdx].progress = 0;
+        }
+      }, 4200);
+
+      // 13. 60 FPS Render Loop
+      function animate() {
+        requestAnimationFrame(animate);
+
+        if (autoRotate && !isDragging) {
+          targetRotationY += 0.0018;
+        }
+        globeGroup.rotation.y += (targetRotationY - globeGroup.rotation.y) * 0.08;
+        globeGroup.rotation.x += (targetRotationX - globeGroup.rotation.x) * 0.08;
+
+        // Animate ballistic projectiles along arcs
+        arcObjects.forEach(obj => {
+          obj.progress += obj.speed;
+          if (obj.progress > 1) obj.progress = 0;
+          const pt = obj.curve.getPoint(obj.progress);
+          obj.projectile.position.copy(pt);
+        });
+
+        // Gentle pulse on node pillars
+        const time = Date.now() * 0.003;
+        nodePillars.forEach((p, idx) => {
+          const s = 1 + Math.sin(time + idx) * 0.25;
+          p.scale.set(1, s, 1);
+        });
+
+        renderer.render(scene, camera);
+      }
+
+      // 14. Responsive Resize
+      window.addEventListener('resize', () => {
+        if (!container) return;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+
+      animate();
+    })();
   </script>
 </body>
 </html>
