@@ -103,6 +103,10 @@ const EN = {
   p1_li1: 'multi-IOC triage: IPv4/IPv6, domains, URLs, MD5/SHA1/SHA256 hashes, defang/refang;',
   p1_li2: 'offline heuristics: RFC 1918 / bogon filter, DGA botnets via Shannon entropy H(X)&gt;3.6, Tor exit nodes;',
   p1_li3: '0–100 threat scoring, MITRE ATT&amp;CK mapping, AbuseIPDB, Wazuh CDB export + SQLite cache.',
+  ph_tag: 'Multi-Vector Low-Interaction Honeypot &amp; SOC Telemetry Engine',
+  ph_li1: 'HTTP + SSH traps: emulates vulnerable services (/.env, /wp-login, SSO) & isolated virtual Bash shell;',
+  ph_li2: '0–100 threat scoring, Shannon entropy calculation, ThreatPulse enrichment & MITRE ATT&CK mapping;',
+  ph_li3: 'standalone stdlib asyncio web dashboard, dynamic Wazuh CDB / Suricata rules & Telegram alerts.',
   p2_tag: 'DevSecOps SAST / CI-CD / JS Bundle Recon scanner',
   p2_li1: 'hybrid secret detection: provider regexes + Shannon entropy H(X)&gt;3.8 → −90% false positives;',
   p2_li2: 'JsReconAnalyzer: hidden /admin API routes, DOM-XSS sinks (innerHTML/eval), RFC1918 leaks behind WAF, .map SourceMaps;',
@@ -793,10 +797,13 @@ const Terminal = (() => {
       projects: [
         L('01 ThreatPulse   — TI & IOC enrichment CLI (PyPI: threatpulse-cli) · 18 tests', 'term-ok'),
         L('   → pip install threatpulse-cli | pypi.org/project/threatpulse-cli/'),
-        L('02 PipeShield    — DevSecOps SAST scanner (−90% FP) · 33 tests'),
-        L('03 Log Sentinel  — log correlation engine · 10 rules'),
-        L('04 DFIR acme.skb — full breach investigation · 21 hosts'),
-        L('05 AD Pentest    — PTES report · Domain Admin < 4h'),
+        L('02 HoneyNet      — Multi-Vector Honeypot (HTTP/SSH) & SOC Dashboard · 21 tests', 'term-ok'),
+        L('   → github.com/Voobrazhenie21-lab/honeynet'),
+        L('03 PipeShield    — DevSecOps SAST scanner (−90% FP) · 33 tests'),
+        L('04 Log Sentinel  — log correlation engine · 10 rules'),
+        L('05 DFIR acme.skb — full breach investigation · 21 hosts'),
+        L('06 AD Pentest    — PTES report · Domain Admin < 4h'),
+        L('07 MyProfile     — Python Security OOP engine · FIM SHA-256'),
         L('→ github.com/Voobrazhenie21-lab', 'term-cyan')
       ],
       radar: [
@@ -869,10 +876,13 @@ const Terminal = (() => {
       projects: [
         L('01 ThreatPulse   — TI & IOC enrichment CLI (PyPI: threatpulse-cli) · 18 tests', 'term-ok'),
         L('   → pip install threatpulse-cli | pypi.org/project/threatpulse-cli/'),
-        L('02 PipeShield    — DevSecOps SAST scanner (−90% FP) · 33 tests'),
-        L('03 Log Sentinel  — log correlation engine · 10 rules'),
-        L('04 DFIR acme.skb — full breach investigation · 21 hosts'),
-        L('05 AD Pentest    — PTES report · Domain Admin < 4h'),
+        L('02 HoneyNet      — Multi-Vector Honeypot (HTTP/SSH) & SOC Dashboard · 21 tests', 'term-ok'),
+        L('   → github.com/Voobrazhenie21-lab/honeynet'),
+        L('03 PipeShield    — DevSecOps SAST scanner (−90% FP) · 33 tests'),
+        L('04 Log Sentinel  — log correlation engine · 10 rules'),
+        L('05 DFIR acme.skb — full breach investigation · 21 hosts'),
+        L('06 AD Pentest    — PTES report · Domain Admin < 4h'),
+        L('07 MyProfile     — Python Security OOP engine · FIM SHA-256'),
         L('→ github.com/Voobrazhenie21-lab', 'term-cyan')
       ],
       radar: [
