@@ -1,735 +1,488 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Алексей Жарков | Cybersecurity Portfolio (SOC / DFIR / Pentest / DevSecOps)</title>
-  <meta name="description" content="Портфолио специалиста по кибербезопасности Алексея Жаркова: Blue Team DFIR (Wazuh SIEM), Active Directory Pentest, Log Sentinel и PipeShield." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Алексей Жарков — Security Engineer / SOC / DFIR</title>
+  <meta name="description" content="Алексей Жарков — специалист по информационной безопасности: SOC &amp; DFIR, пентест Active Directory, DevSecOps. Автор open-source движков детектирования ThreatPulse, PipeShield, Log Sentinel.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2304070a'/%3E%3Ctext x='50' y='70' font-size='54' text-anchor='middle' fill='%2300ff9c' font-family='monospace'%3E%26gt;_%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;0,800;1,400&amp;display=swap" rel="stylesheet">
   
-  <!-- Open Graph / Facebook / LinkedIn / Telegram -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://voobrazhenie21-lab.github.io/" />
-  <meta property="og:title" content="Алексей Жарков | Cybersecurity Portfolio (SOC / DFIR / Pentest / DevSecOps)" />
-  <meta property="og:description" content="Интерактивное портфолио специалиста по кибербезопасности: Blue Team DFIR (Wazuh SIEM 4.3.9), Active Directory Pentest (PTES / NIST), Log Sentinel v1.3 и PipeShield v1.1." />
-  <meta property="og:image" content="https://avatars.githubusercontent.com/u/161405607?v=4" />
-
-  <!-- Twitter / X -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:url" content="https://voobrazhenie21-lab.github.io/" />
-  <meta name="twitter:title" content="Aleksei Zharkou | Cybersecurity Portfolio" />
-  <meta name="twitter:description" content="SOC L1/L2, Blue Team DFIR, Active Directory Pentest, Log Sentinel v1.3, PipeShield v1.1." />
-  <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/161405607?v=4" />
-
-  <!-- Three.js for 3D Cyber Threat Globe -->
+  <!-- Three.js for 3D Cyber Threat Radar Globe -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <style>
-    :root {
-      --bg: #070b14;
-      --bg-alt: #0d1322;
-      --card: #111827;
-      --card-hover: #162033;
-      --border: #1e293b;
-      --text: #f1f5f9;
-      --muted: #94a3b8;
-      --cyan: #38bdf8;
-      --emerald: #10b981;
-      --red: #ef4444;
-      --amber: #f59e0b;
-      --purple: #a855f7;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.08) 0%, transparent 35%),
-        radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.07) 0%, transparent 35%);
-      color: var(--text);
-      line-height: 1.65;
-    }
-    a { color: var(--cyan); text-decoration: none; transition: 0.2s; }
-    .container { max-width: 1160px; margin: 0 auto; padding: 0 1.25rem; }
-
-    /* Navbar */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(12px);
-      background: rgba(7, 11, 20, 0.85);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 68px;
-    }
-    .brand {
-      font-weight: 800;
-      font-size: 1.15rem;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'Consolas', monospace;
-    }
-    .brand span { color: var(--emerald); }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.4rem;
-      font-size: 0.92rem;
-    }
-    .nav-links a { color: var(--muted); font-weight: 500; }
-    .nav-links a:hover { color: #fff; }
-    .lang-btn {
-      background: var(--card);
-      color: var(--cyan);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      padding: 0.35rem 0.75rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 0.8rem;
-    }
-    .lang-btn:hover { background: rgba(56, 189, 248, 0.15); }
-
-    /* Hero Section */
-    .hero {
-      padding: 4.2rem 0 3rem;
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 2.2rem;
-      align-items: center;
-    }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding-top: 2.5rem; }
-      .nav-links a.hide-mobile { display: none; }
-    }
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.35);
-      color: #6ee7b7;
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.35rem 0.85rem;
-      border-radius: 999px;
-      margin-bottom: 1.1rem;
-    }
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--emerald);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--emerald);
-    }
-    h1 {
-      font-size: 2.65rem;
-      line-height: 1.18;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.85rem;
-    }
-    h1 .gradient {
-      background: linear-gradient(90deg, #38bdf8, #10b981);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-sub {
-      color: var(--muted);
-      font-size: 1.05rem;
-      margin-bottom: 1.65rem;
-    }
-    .cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.85rem;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.72rem 1.35rem;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.92rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, #0284c7, #059669);
-      color: #fff;
-      border: none;
-      box-shadow: 0 4px 16px rgba(56, 189, 248, 0.22);
-    }
-    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.1); }
-    .btn-outline {
-      background: var(--card);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
-
-    /* Interactive Terminal */
-    .terminal {
-      background: #050811;
-      border: 1px solid #1e293b;
-      border-radius: 12px;
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
-      overflow: hidden;
-      font-family: 'Consolas', 'Courier New', monospace;
-    }
-    .term-header {
-      background: #0f172a;
-      padding: 0.65rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid #1e293b;
-    }
-    .term-dots { display: flex; gap: 6px; }
-    .term-dot { width: 11px; height: 11px; border-radius: 50%; }
-    .dot-r { background: #ef4444; }
-    .dot-y { background: #f59e0b; }
-    .dot-g { background: #10b981; }
-    .term-title { font-size: 0.78rem; color: var(--muted); }
-    .term-cmds {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      padding: 0.65rem 0.9rem;
-      background: rgba(15, 23, 42, 0.6);
-      border-bottom: 1px solid #1e293b;
-    }
-    .cmd-pill {
-      background: #1e293b;
-      color: var(--cyan);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      font-family: inherit;
-      font-size: 0.75rem;
-      padding: 0.22rem 0.6rem;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .cmd-pill:hover, .cmd-pill.active {
-      background: rgba(56, 189, 248, 0.2);
-      color: #fff;
-    }
-    .term-body {
-      padding: 1.1rem;
-      font-size: 0.83rem;
-      min-height: 250px;
-      color: #d1d5db;
-      white-space: pre-wrap;
-    }
-    .prompt { color: var(--emerald); font-weight: 700; }
-    .cmd-echo { color: #fff; font-weight: 700; }
-    .hl-cyan { color: var(--cyan); }
-    .hl-crit { color: #f87171; font-weight: 700; }
-    .hl-ok { color: #34d399; }
-
-    /* Section Headers */
-    section { padding: 3.5rem 0; border-top: 1px solid rgba(30, 41, 59, 0.6); }
-    .sec-title {
-      font-size: 1.85rem;
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 0.4rem;
-    }
-    .sec-sub { color: var(--muted); margin-bottom: 2rem; font-size: 0.98rem; }
-
-    /* Projects Grid (2x2) */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
-      gap: 1.35rem;
-    }
-    @media (max-width: 600px) {
-      .projects-grid { grid-template-columns: 1fr; }
-    }
-    .project-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.6rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .project-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(56, 189, 248, 0.5);
-      background: var(--card-hover);
-    }
-    .proj-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      padding: 0.22rem 0.65rem;
-      border-radius: 5px;
-      letter-spacing: 0.04em;
-    }
-    .tag-blue { background: rgba(56, 189, 248, 0.15); color: #7dd3fc; border: 1px solid rgba(56, 189, 248, 0.35); }
-    .tag-red { background: rgba(239, 68, 68, 0.15); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); }
-    .tag-green { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.35); }
-    .tag-purple { background: rgba(168, 85, 247, 0.15); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.35); }
-    .project-card h3 {
-      font-size: 1.28rem;
-      color: #fff;
-      margin-bottom: 0.55rem;
-    }
-    .project-card p {
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-bottom: 0.9rem;
-    }
-    .project-card ul {
-      padding-left: 1.15rem;
-      color: #cbd5e1;
-      font-size: 0.88rem;
-      margin-bottom: 1.25rem;
-    }
-    .project-card ul li { margin-bottom: 0.4rem; }
-    .project-card code {
-      font-family: Consolas, monospace;
-      color: #f8fafc;
-      background: rgba(255, 255, 255, 0.07);
-      padding: 0.1rem 0.35rem;
-      border-radius: 4px;
-      font-size: 0.82rem;
-    }
-    .proj-links {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-top: auto;
-      padding-top: 0.9rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .proj-btn {
-      font-size: 0.84rem;
-      font-weight: 600;
-      padding: 0.45rem 0.9rem;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text);
-    }
-    .proj-btn.live {
-      background: rgba(56, 189, 248, 0.14);
-      border-color: rgba(56, 189, 248, 0.45);
-      color: var(--cyan);
-    }
-    .proj-btn:hover { background: var(--cyan); color: #000; border-color: var(--cyan); }
-
-    /* Skills & Arsenal */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(255px, 1fr));
-      gap: 1.15rem;
-    }
-    .skill-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.35rem;
-    }
-    .skill-box h4 {
-      color: #fff;
-      font-size: 1.02rem;
-      margin-bottom: 0.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-    }
-    .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .pill {
-      font-size: 0.78rem;
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      color: #cbd5e1;
-      padding: 0.25rem 0.6rem;
-      border-radius: 5px;
-    }
-
-    /* Psychology & Human Factor Edge */
-    .edge-banner {
-      background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(15, 23, 42, 0.95));
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 12px;
-      padding: 1.85rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-    .edge-item h4 { color: var(--cyan); margin-bottom: 0.4rem; font-size: 1rem; }
-    .edge-item p { color: var(--muted); font-size: 0.88rem; }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2.5rem 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-    /* 3D Cyber Threat Radar */
-    .radar-container {
-      display: grid;
-      grid-template-columns: 1.22fr 0.78fr;
-      gap: 1.4rem;
-      align-items: stretch;
-    }
-    @media (max-width: 960px) {
-      .radar-container { grid-template-columns: 1fr !important; }
-      #globeCanvasWrapper { height: 420px !important; }
-    }
-    .threat-stream-item {
-      background: rgba(15, 23, 42, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 6px;
-      padding: 6px 10px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .threat-stream-item:hover, .threat-stream-item.active {
-      background: rgba(56, 189, 248, 0.12);
-      border-color: rgba(56, 189, 248, 0.4);
-      transform: translateX(4px);
-    }
-
-    [data-lang="en"] { display: none; }
-    body.en [data-lang="ru"] { display: none; }
-    body.en [data-lang="en"] { display: block; }
-    body.en span[data-lang="en"], body.en a[data-lang="en"] { display: inline-block; }
-    body.en span[data-lang="ru"], body.en a[data-lang="ru"] { display: none; }
-  </style>
+  
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <nav>
-    <div class="container nav-inner">
-      <div class="brand">
-        <span>&gt;_</span> aleksei.zharkou<span>@sec-lab</span>
+  <!-- ===== PRELOADER: boot sequence ===== -->
+  <div id="preloader" aria-hidden="true">
+    <div class="boot-lines" id="boot-lines"></div>
+    <button class="boot-skip" id="boot-skip" type="button">[ skip ]</button>
+  </div>
+
+  <!-- ===== BACKGROUND LAYERS ===== -->
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="topbar">
+    <a class="logo" href="#home" data-tab-link="home" title="home">
+      <span class="logo-user">zharkov@sec</span><span class="logo-path">:~$</span><span class="logo-caret">▮</span>
+    </a>
+
+    <nav class="tabs" role="tablist" aria-label="sections">
+      <button class="tab-btn active" role="tab" aria-selected="true" data-tab="home">
+        <span class="tb">[</span><span data-i18n="nav_home">обо-мне</span><span class="tb">]</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="skills">
+        <span class="tb">[</span><span data-i18n="nav_skills">навыки</span><span class="tb">]</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="projects">
+        <span class="tb">[</span><span data-i18n="nav_projects">проекты</span><span class="tb">]</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="radar">
+        <span class="tb">[</span><span data-i18n="nav_radar">3d-радар</span><span class="tb">]</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="experience">
+        <span class="tb">[</span><span data-i18n="nav_exp">опыт</span><span class="tb">]</span>
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" data-tab="contact">
+        <span class="tb">[</span><span data-i18n="nav_contact">контакты</span><span class="tb">]</span>
+      </button>
+    </nav>
+
+    <div class="topbar-right">
+      <div class="topbar-cvs">
+        <a class="cv-link" href="cv.html" target="_blank" title="Резюме на русском">[ резюме RU ]</a>
+        <a class="cv-link" href="cv-en.html" target="_blank" title="Curriculum Vitae in English">[ CV EN ]</a>
       </div>
-      <div class="nav-links">
-        <a href="#threat-radar" class="hide-mobile" data-lang="ru">🌐 3D Радар</a>
-        <a href="#threat-radar" class="hide-mobile" data-lang="en">🌐 3D Radar</a>
-        <a href="#projects" class="hide-mobile" data-lang="ru">Проекты</a>
-        <a href="#projects" class="hide-mobile" data-lang="en">Projects</a>
-        <a href="#skills" class="hide-mobile" data-lang="ru">Стек и навыки</a>
-        <a href="#skills" class="hide-mobile" data-lang="en">Tech Arsenal</a>
-        <a href="cv.html" target="_blank" data-lang="ru">📄 Резюме (RU)</a>
-        <a href="cv-en.html" target="_blank" data-lang="en">📄 Printable CV (EN)</a>
-        <button class="lang-btn" onclick="toggleLang()" id="langBtn">EN / RU</button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container">
-    <!-- HERO -->
-    <div class="hero">
-      <div>
-        <div class="status-pill">
-          <span class="pulse-dot"></span>
-          <span data-lang="ru">Открыт к предложениям: SOC Analyst (L1/L2) &bull; DFIR &bull; Security Engineer</span>
-          <span data-lang="en">Open to Work: Security Engineer &bull; SOC Analyst (L1/L2) &bull; DFIR</span>
-        </div>
-
-        <h1 data-lang="ru">
-          Алексей Жарков<br />
-          <span class="gradient">Blue Team (SOC/DFIR), AD Pentest &amp; Python Security</span>
-        </h1>
-        <h1 data-lang="en">
-          Aleksei Zharkou<br />
-          <span class="gradient">Blue Team (SOC/DFIR), AD Pentest &amp; Python Security</span>
-        </h1>
-
-        <p class="hero-sub" data-lang="ru">
-          Дипломированный специалист по кибербезопасности («Специалист по кибербезопасности 2.0», Skillbox — 100%). Расследую многоэтапные инциденты в <b>Wazuh SIEM</b>, провожу аудит защищённости <b>Active Directory</b> и разрабатываю инструменты детекции угроз на <b>Python</b>.
-        </p>
-        <p class="hero-sub" data-lang="en">
-          Graduated Cybersecurity Specialist («Cybersecurity Specialist 2.0», Skillbox — 100%). Investigating multi-stage intrusions with <b>Wazuh SIEM</b>, auditing <b>Active Directory</b> domains, and building automated threat detection tools in <b>Python</b>.
-        </p>
-
-        <div class="cta-group">
-          <a href="cv.html" target="_blank" class="btn btn-primary" data-lang="ru">📄 Открыть / Скачать CV (RU)</a>
-          <a href="cv-en.html" target="_blank" class="btn btn-primary" data-lang="en">📄 Open / Download CV (EN)</a>
-          <a href="cv-en.html" target="_blank" class="btn btn-outline" data-lang="ru">🇬🇧 English CV</a>
-          <a href="cv.html" target="_blank" class="btn btn-outline" data-lang="en">🇷🇺 Russian CV</a>
-          <a href="https://t.me/Voobrazhenie_20" target="_blank" class="btn btn-outline">💬 Telegram (@Voobrazhenie_20)</a>
-          <a href="https://www.linkedin.com/in/aleksei-zharkou/" target="_blank" class="btn btn-outline">🔗 LinkedIn</a>
-          <a href="https://github.com/Voobrazhenie21-lab" target="_blank" class="btn btn-outline">🐙 GitHub</a>
-        </div>
-      </div>
-
-      <!-- INTERACTIVE TERMINAL -->
-      <div class="terminal">
-        <div class="term-header">
-          <div class="term-dots">
-            <span class="term-dot dot-r"></span>
-            <span class="term-dot dot-y"></span>
-            <span class="term-dot dot-g"></span>
-          </div>
-          <span class="term-title">soc-console — bash — 80x24</span>
-        </div>
-        <div class="term-cmds">
-          <button class="cmd-pill active" onclick="runCmd('whoami', this)">$ whoami</button>
-          <button class="cmd-pill" onclick="runCmd('acme', this)">$ dfir --case acme.skb</button>
-          <button class="cmd-pill" onclick="runCmd('threatpulse', this)">$ threat-pulse 185.220.101.5</button>
-          <button class="cmd-pill" onclick="runCmd('jsrecon', this)">$ pipeshield --js-recon</button>
-          <button class="cmd-pill" onclick="runCmd('stack', this)">$ cat /etc/skills</button>
-          <button class="cmd-pill" onclick="runCmd('contact', this)">$ ./contact.sh</button>
-        </div>
-        <div class="term-body" id="termOutput"></div>
+      <span class="status-pill" title="status">
+        <span class="status-dot"></span><span data-i18n="status_open">open to work</span>
+      </span>
+      <div class="lang-switch" role="group" aria-label="language">
+        <button class="lang-btn active" data-lang="ru">RU</button><span class="lang-sep">/</span><button class="lang-btn" data-lang="en">EN</button>
       </div>
     </div>
+  </header>
 
-    <!-- FEATURED PROJECTS (2x2 GRID) -->
-    <section id="projects">
-      <h2 class="sec-title" data-lang="ru">🚀 Флагманские проекты и живые демонстрации</h2>
-      <h2 class="sec-title" data-lang="en">🚀 Featured Security Projects &amp; Live Demos</h2>
-      <p class="sec-sub" data-lang="ru">Каждый проект содержит открытый исходный код или полный технический отчёт, а также интерактивную веб-версию на GitHub Pages.</p>
-      <p class="sec-sub" data-lang="en">Every repository includes full technical documentation, source code, and an interactive web report hosted on GitHub Pages.</p>
+  <main id="main">
 
-      <div class="projects-grid">
-        <!-- Project 1: Blue Team DFIR -->
-        <div class="project-card">
-          <div>
-            <div class="proj-top">
-              <span class="tag tag-blue">🛡️ Blue Team &bull; DFIR Diploma</span>
-              <span style="font-size:0.8rem; color:var(--muted);">Wazuh 4.3.9 &bull; 12 MITRE ATT&amp;CK Tactics</span>
-            </div>
-            <h3 data-lang="ru">Расследование компрометации домена Active Directory (<code>acme.skb</code>)</h3>
-            <h3 data-lang="en">Enterprise AD &amp; DMZ Compromise Investigation (<code>acme.skb</code>)</h3>
-            <p data-lang="ru">Полное криминалистическое расследование многоэтапного взлома веб-сервера в DMZ, рабочей станции Windows 10 и контроллера домена Windows Server 2019.</p>
-            <p data-lang="en">End-to-end forensic reconstruction of a multi-stage intrusion across a Linux DMZ web server, Windows 10 workstation, and Windows Server 2019 Domain Controller.</p>
-            <ul data-lang="ru">
-              <li>Вскрыта первопричина получения <code>root</code> через веб-шелл <code>backdoor.php</code>: сборка Apache 2.4.57 с флагом <code>-DBIG_SECURITY_HOLE</code>.</li>
-              <li>Доказан запуск удалённого злоумышленником ядерного эксплойта <code>CVE-2019-0623.exe</code> через отчёты падения <b>WER AppCrash</b>.</li>
-              <li>Деанонимизирована файловая система атакующего через проброшенный по RDP диск <code>\\tsclient\...\mimikatz.exe</code> (Event ID 1116).</li>
-              <li>Зафиксирован захват контроллера домена методом <b>Pass-the-Hash</b> (Wazuh Rule 92652) и эксфильтрация <code>TOP SECRET!.txt</code> (Recent LNK).</li>
-            </ul>
-            <ul data-lang="en">
-              <li>Uncovered root escalation cause via <code>backdoor.php</code>: custom Apache 2.4.57 compiled with <code>-DBIG_SECURITY_HOLE</code>.</li>
-              <li>Proved execution of deleted Win32k LPE exploit <code>CVE-2019-0623.exe</code> via <b>WER AppCrash</b> forensics.</li>
-              <li>Exposed attacker host directory structure via RDP drive redirection <code>\\tsclient\...\mimikatz.exe</code> (Defender Event 1116).</li>
-              <li>Correlated <b>Pass-the-Hash</b> DC takeover (Wazuh Rule 92652) and exfiltration of <code>TOP SECRET!.txt</code> via LNK artifacts.</li>
-            </ul>
-          </div>
-          <div class="proj-links">
-            <a href="https://voobrazhenie21-lab.github.io/blue-team-incident-investigation/" target="_blank" class="proj-btn live">🌐 Открыть живой отчёт / Live Report</a>
-            <a href="https://github.com/Voobrazhenie21-lab/blue-team-incident-investigation" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
-          </div>
+    <!-- ================= TAB: HOME ================= -->
+    <section class="panel active" id="panel-home" data-panel="home">
+      <div class="hero">
+        <p class="hero-kicker reveal"><span class="kicker-slash">//</span> <span data-i18n="hero_kicker">root@zharkov: личный хаб информационной безопасности</span></p>
+        <h1 class="glitch" data-text="АЛЕКСЕЙ ЖАРКОВ" data-i18n="hero_name">АЛЕКСЕЙ ЖАРКОВ</h1>
+        <div class="typed-line reveal">
+          <span class="prompt-sign">&gt;</span>&nbsp;<span id="typed"></span><span class="caret"></span>
         </div>
-
-        <!-- Project 2: Log Sentinel -->
-        <div class="project-card">
-          <div>
-            <div class="proj-top">
-              <span class="tag tag-purple">🔍 SOC Automation &bull; Python CLI</span>
-              <span style="font-size:0.8rem; color:var(--muted);">v1.3.0 &bull; 10 Rules &bull; Pytest CI</span>
-            </div>
-            <h3>Log Sentinel v1.3 — SOC L1/L2 Threat Detection Engine</h3>
-            <p data-lang="ru">Автономный CLI-движок нормализации и корреляции логов Linux (<code>auth.log</code>), веб-сервера (<code>Apache</code>) и событий Windows/Sysmon (JSON/CSV) с маппингом на MITRE ATT&amp;CK и правила Wazuh.</p>
-            <p data-lang="en">Zero-dependency Python CLI engine correlating Linux <code>auth.log</code>, Apache <code>access.log</code>, and Windows/Sysmon Event Logs (JSON/CSV) with MITRE ATT&amp;CK and Wazuh parity.</p>
-            <ul data-lang="ru">
-              <li><b>10 встроенных правил детекции:</b> веб-шеллы, брутфорс SSH/RDP, Kerberoasting (<code>0x17</code>), <b>AS-REP Roasting (<code>4768 PreAuthType=0</code>)</b>, Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
-              <li>Детекция дампа памяти <b><code>lsass.exe</code> в Sysmon (<code>Event ID 10</code>, <code>0x1010</code>)</b>, отключения Defender (<code>5001</code>), остановки Wazuh (<code>Rule 506</code>), крашей эксплойтов в <code>WER 1001</code> и шары <code>\\tsclient</code>.</li>
-              <li>Выгрузка отчётов в <b>JSON</b> (для TheHive/SOAR) и генерация интерактивного <b>Dark-Mode HTML дашборда</b>.</li>
-            </ul>
-            <ul data-lang="en">
-              <li><b>10 correlation rules:</b> Web Shell upload, SSH/RDP brute-force, Kerberoasting (<code>0x17</code>), <b>AS-REP Roasting (<code>4768 PreAuthType=0</code>)</b>, Pass-the-Hash (<code>4624 Type 3 NtLmSsp</code>).</li>
-              <li>Detects <b>Sysmon <code>Event ID 10</code> LSASS memory dumping (<code>0x1010</code>)</b>, Defender tampering (<code>5001</code>), Wazuh agent stop (<code>Rule 506</code>), <code>WER 1001</code> exploit crashes, and <code>\\tsclient</code> Mimikatz.</li>
-              <li>Exports SOAR-ready <b>JSON</b> and standalone interactive <b>Dark-Mode HTML Dashboards</b>.</li>
-            </ul>
-          </div>
-          <div class="proj-links">
-            <a href="https://voobrazhenie21-lab.github.io/log-sentinel/" target="_blank" class="proj-btn live">🌐 Открыть SOC-дашборд / Live Demo</a>
-            <a href="https://github.com/Voobrazhenie21-lab/log-sentinel" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
-          </div>
-        </div>
-
-        <!-- Project 3: Enterprise AD Pentest -->
-        <div class="project-card">
-          <div>
-            <div class="proj-top">
-              <span class="tag tag-red">⚔️ Red Team &bull; AD Pentest</span>
-              <span style="font-size:0.8rem; color:var(--muted);">PTES &bull; NIST SP 800-115 &bull; CVSS v3.1</span>
-            </div>
-            <h3 data-lang="ru">Отчёт по тестированию на проникновение Active Directory</h3>
-            <h3 data-lang="en">Enterprise Active Directory Penetration Testing Report</h3>
-            <p data-lang="ru">Полный аудит защищённости корпоративного домена по международным стандартам PTES и NIST с PoC-эксплуатацией и расчётом векторов CVSS v3.1.</p>
-            <p data-lang="en">Comprehensive internal penetration test report following PTES and NIST SP 800-115 standards with CVSS v3.1 scoring and remediation roadmap.</p>
-            <ul data-lang="ru">
-              <li>Анализ 104 объектов домена и скрытых путей эскалации привилегий в <b>BloodHound CE / SharpHound</b>.</li>
-              <li>Эксплуатация <b>Kerberoasting (RC4-HMAC)</b>, перехват и релей аутентификации <b>SMB NTLM Relay</b> (<code>ntlmrelayx</code>), <b>Pass-the-Hash / Ticket</b>.</li>
-              <li>Злоупотребление опасными правами <code>GenericAll</code> в ACL до полного захвата <code>Domain Admin</code> и план харденинга (SMB Signing, LAPS, gMSA).</li>
-            </ul>
-            <ul data-lang="en">
-              <li>Mapped 104 domain objects and privilege escalation paths using <b>BloodHound CE &amp; SharpHound</b>.</li>
-              <li>Executed <b>Kerberoasting (RC4-HMAC)</b>, <b>SMB NTLM Relay</b> (<code>ntlmrelayx</code>), and <b>Pass-the-Hash / Ticket</b>.</li>
-              <li>Abused <code>GenericAll</code> ACL misconfigurations to achieve <code>Domain Admin</code> and authored remediation roadmap (SMB Signing, LAPS, gMSA).</li>
-            </ul>
-          </div>
-          <div class="proj-links">
-            <a href="https://voobrazhenie21-lab.github.io/enterprise-pentest-report/" target="_blank" class="proj-btn live">🌐 Открыть живой отчёт / Live Report</a>
-            <a href="https://github.com/Voobrazhenie21-lab/enterprise-pentest-report" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
-          </div>
-        </div>
-
-        <!-- Project 4: PipeShield -->
-        <div class="project-card">
-          <div>
-            <div class="proj-top">
-              <span class="tag tag-green">⚙️ DevSecOps &amp; JS Recon &bull; SAST</span>
-              <span style="font-size:0.8rem; color:var(--muted);">v1.1.0 &bull; SARIF 2.1.0 &bull; 33 Pytest Tests</span>
-            </div>
-            <h3>PipeShield v1.1 — SAST, Container, CI/CD &amp; JS Bundle Scanner</h3>
-            <p data-lang="ru">Статический анализатор безопасности исходного кода, <code>.js/.ts</code> бандлов, контейнеров Docker и пайплайнов GitHub Actions с экспортом в SARIF 2.1.0.</p>
-            <p data-lang="en">Static security analyzer auditing source code secrets, JS/TS frontend bundles, Dockerfiles, and GitHub Actions workflows with native OASIS SARIF 2.1.0 export.</p>
-            <ul data-lang="ru">
-              <li>Детекция утечек секретов через комбинацию Regex и <b>энтропии Шеннона ($H(X) &gt; 3.8$)</b> для отсечения ~90% ложных срабатываний.</li>
-              <li><b>Модуль <code>JsReconAnalyzer</code> (v1.1):</b> поиск скрытых админских эндпоинтов (<code>/api/v1/admin</code>), DOM XSS синков (<code>innerHTML</code>/<code>eval</code>), утечек внутренних IP за WAF и <code>.map</code> SourceMaps.</li>
-              <li>Аудит <b>Dockerfile</b> (CIS Benchmarks) и <b>GitHub Actions</b> (unpinned actions, <code>write-all</code>), покрыт <b>33 автотестами Pytest</b>.</li>
-            </ul>
-            <ul data-lang="en">
-              <li>Hybrid secret detection combining Regex patterns with <b>Shannon Entropy calculation ($H(X) &gt; 3.8$)</b> to eliminate ~90% of false positives.</li>
-              <li><b>New <code>JsReconAnalyzer</code> (v1.1):</b> extracts hidden admin/debug API routes, DOM XSS sinks (<code>innerHTML</code>/<code>eval</code>), leaked RFC1918 origin IPs behind WAF, and exposed <code>.map</code> SourceMaps.</li>
-              <li>CIS Docker Benchmark &amp; CI/CD Supply Chain rules, verified by <b>33 automated Pytest unit tests</b>.</li>
-            </ul>
-          </div>
-          <div class="proj-links">
-            <a href="https://voobrazhenie21-lab.github.io/pipeshield/" target="_blank" class="proj-btn live">🌐 Открыть дашборд / Live Demo</a>
-            <a href="https://github.com/Voobrazhenie21-lab/pipeshield" target="_blank" class="proj-btn">🐙 GitHub Repo</a>
-          </div>
+        <p class="hero-sub reveal" data-i18n="hero_sub">
+          Строю детекты с минимумом ложных срабатываний, расследую многоэтапные инциденты
+          и автоматизирую безопасность кодом. Blue Team / DFIR · Pentest · DevSecOps.
+        </p>
+        <div class="hero-cta reveal">
+          <a class="btn btn-primary" href="#projects" data-tab-link="projects"><span class="btn-sign">./</span><span data-i18n="hero_cta1">проекты</span></a>
+          <a class="btn btn-ghost" href="#radar" data-tab-link="radar"><span class="btn-sign">🌐</span><span data-i18n="hero_cta_radar">3d-радар</span></a>
+          <a class="btn btn-ghost" href="cv.html" target="_blank"><span class="btn-sign">&gt;</span><span data-i18n="hero_cv">резюме RU</span></a>
+          <a class="btn btn-ghost" href="#contact" data-tab-link="contact"><span class="btn-sign">&gt;</span><span data-i18n="hero_cta2">связаться</span></a>
         </div>
       </div>
 
-      <!-- Additional Repositories Bar -->
-      <div style="margin-top: 1.35rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.15rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-        <div>
-          <strong style="color:#fff;" data-lang="ru">📚 Полный архив из 9 лабораторных и дипломных работ (стенд 21 хост в VK Cloud) + Secure OOP Python:</strong>
-          <strong style="color:#fff;" data-lang="en">📚 Complete Archive of 9 Practical Labs &amp; Diploma (21-Host VK Cloud Lab) + Secure OOP Python:</strong>
+      <div class="stats-row reveal">
+        <div class="stat">
+          <span class="stat-num" data-count="6" data-suffix="+">0</span>
+          <span class="stat-label" data-i18n="stat1">open-source проектов в ИБ</span>
         </div>
-        <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
-          <a href="https://voobrazhenie21-lab.github.io/threat-pulse/" target="_blank" class="proj-btn live">⚡ ThreatPulse Live Demo</a>
-          <a href="https://pypi.org/project/threatpulse-cli/" target="_blank" class="proj-btn">📦 PyPI Package</a>
-          <a href="https://github.com/Voobrazhenie21-lab/threat-pulse" target="_blank" class="proj-btn">🐙 ThreatPulse Repo</a>
-          <a href="https://github.com/Voobrazhenie21-lab/soc-practice-reports" target="_blank" class="proj-btn">🛡️ soc-practice-reports (9 работ)</a>
-          <a href="https://github.com/Voobrazhenie21-lab/code-python-project" target="_blank" class="proj-btn">🐍 MyProfile v2.0 (FIM &amp; PII)</a>
+        <div class="stat">
+          <span class="stat-num" data-count="51">0</span>
+          <span class="stat-label" data-i18n="stat2">автотеста pytest в CI</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="21">0</span>
+          <span class="stat-label" data-i18n="stat3">хостов в SOC-лаборатории</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="90" data-prefix="−" data-suffix="%">0</span>
+          <span class="stat-label" data-i18n="stat4">ложных срабатываний (PipeShield)</span>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-text reveal">
+          <h2 class="section-title"><span class="st-sign">$</span> <span data-i18n="about_title">cat about.txt</span></h2>
+          <p data-i18n="about_p1">
+            Практикующий специалист по информационной безопасности: расследование инцидентов (DFIR),
+            мониторинг SOC на Wazuh SIEM, пентест инфраструктуры и Active Directory, DevSecOps-инструменты на Python.
+            Автор открытых движков детектирования ThreatPulse, PipeShield и Log Sentinel —
+            с математическим подавлением false positives (энтропия Шеннона), мультикорреляцией логов,
+            обогащением Threat Intelligence и нативной интеграцией OASIS SARIF 2.1.0 / Wazuh CDB.
+          </p>
+          <p data-i18n="about_p2">
+            5 лет клинической психологии и преподавания — это глубокое понимание человеческого фактора
+            (социальная инженерия, фишинг, инсайдеры), хладнокровие при критических инцидентах
+            и умение объяснять технические отчёты нетехническому руководству.
+          </p>
+          <ul class="check-list">
+            <li data-i18n="about_li1">детекты с низким уровнем ложных срабатываний: энтропия Шеннона, мультисигнальная корреляция;</li>
+            <li data-i18n="about_li2">расследования «от веб-шелла до Domain Admin» с полной цепочкой доказательств;</li>
+            <li data-i18n="about_li3">AI-native разработка: дирижирую агентами Claude / Copilot с обязательной проверкой тестами.</li>
+          </ul>
+        </div>
+
+        <aside class="idcard reveal">
+          <div class="idcard-head">
+            <span class="w-dot r"></span><span class="w-dot y"></span><span class="w-dot g"></span>
+            <span class="idcard-title">id_card.json</span>
+          </div>
+          <div class="idcard-body">
+            <div class="avatar" aria-hidden="true">
+              <span class="avatar-txt">AZ</span>
+              <span class="avatar-scan"></span>
+            </div>
+            <div class="idcard-name" data-i18n="id_name">Алексей Жарков</div>
+            <div class="idcard-role" data-i18n="id_role">Security Engineer · SOC · DFIR · Pentest</div>
+            <dl class="idcard-fields">
+              <div><dt data-i18n="id_base">база</dt><dd data-i18n="id_base_v">Минск, BY · remote / relocation</dd></div>
+              <div><dt data-i18n="id_focus">фокус</dt><dd data-i18n="id_focus_v">Blue Team · AD Pentest · DevSecOps</dd></div>
+              <div><dt data-i18n="id_stack">стек</dt><dd data-i18n="id_stack_v">Python · Wazuh · Linux · AD</dd></div>
+            </dl>
+            <div class="langs">
+              <div class="lang-row"><span class="lang-code">RU</span><div class="lang-track"><i style="--w:100%"></i></div><em>native</em></div>
+              <div class="lang-row"><span class="lang-code">BY</span><div class="lang-track"><i style="--w:100%"></i></div><em>native</em></div>
+              <div class="lang-row"><span class="lang-code">EN</span><div class="lang-track"><i style="--w:65%"></i></div><em>B1/B2</em></div>
+            </div>
+            <div class="idcard-cv-buttons">
+              <a href="cv.html" target="_blank" class="idcard-cv-btn">[ RU Резюме ]</a>
+              <a href="cv-en.html" target="_blank" class="idcard-cv-btn">[ EN CV ]</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="marquee reveal" aria-hidden="true">
+        <div class="marquee-track" id="marquee-track">
+          <span>Wazuh SIEM</span><span>·</span><span>BloodHound CE</span><span>·</span><span>Mimikatz</span><span>·</span>
+          <span>Nmap</span><span>·</span><span>Wireshark</span><span>·</span><span>TheHive</span><span>·</span>
+          <span>ELK / Winlogbeat</span><span>·</span><span>Sysmon</span><span>·</span><span>auditd</span><span>·</span>
+          <span>Impacket</span><span>·</span><span>Hashcat</span><span>·</span><span>Rubeus</span><span>·</span>
+          <span>MITRE ATT&amp;CK</span><span>·</span><span>OASIS SARIF</span><span>·</span><span>Shannon Entropy</span><span>·</span>
+          <span>Pytest</span><span>·</span><span>GitHub Actions</span><span>·</span><span>Kali Linux</span><span>·</span>
+          <span>PyPI threatpulse-cli</span><span>·</span><span>3D WebGL Threat Radar</span><span>·</span>
         </div>
       </div>
     </section>
 
-    <!-- 3D CYBER THREAT RADAR (POWERED BY THREATPULSE) -->
-    <section id="threat-radar" style="margin-top: 4.5rem; margin-bottom: 4.5rem;">
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1rem; margin-bottom: 1.5rem;">
-        <div>
-          <div class="status-pill" style="margin-bottom: 0.6rem;">
-            <span class="pulse-dot" style="background:#10b981;"></span>
-            <span data-lang="ru">Глобальная телеметрия: ThreatPulse TI Engine + Wazuh SIEM</span>
-            <span data-lang="en">Global Telemetry: ThreatPulse TI Engine + Wazuh SIEM</span>
+    <!-- ================= TAB: SKILLS ================= -->
+    <section class="panel" id="panel-skills" data-panel="skills">
+      <h2 class="section-title reveal"><span class="st-sign">$</span> <span data-i18n="skills_title">nmap --arsenal -A</span> <span class="muted" data-i18n="skills_sub">// чем я работаю</span></h2>
+
+      <div class="skills-grid">
+        <article class="skill-card reveal">
+          <div class="skill-head">
+            <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>
+            </svg>
+            <h3 data-i18n="sk1_t">Offensive Security &amp; AD</h3>
           </div>
-          <h2 class="sec-title" style="margin-bottom: 0.25rem;" data-lang="ru">🌐 3D-радар киберугроз в реальном времени</h2>
-          <h2 class="sec-title" style="margin-bottom: 0.25rem;" data-lang="en">🌐 Real-Time 3D Cyber Threat Radar</h2>
-          <p class="sec-sub" style="margin-bottom: 0;" data-lang="ru">Интерактивный 3D-глобус перехваченных атак. Визуализация сетевой телеметрии, Tor-узлов, DGA-ботнетов и вредоносных маяков, выявленных эвристиками ThreatPulse.</p>
-          <p class="sec-sub" style="margin-bottom: 0;" data-lang="en">Interactive 3D threat globe. Live telemetry of Tor relays, DGA botnets, and malware beacons intercepted by ThreatPulse heuristics in real-time.</p>
+          <div class="chips">
+            <span class="chip">Nmap (NSE)</span><span class="chip">BloodHound CE</span><span class="chip">SharpHound</span>
+            <span class="chip">Mimikatz</span><span class="chip">Impacket</span><span class="chip">ntlmrelayx</span>
+            <span class="chip">Rubeus</span><span class="chip">Kerberoasting</span><span class="chip">AS-REP Roasting</span>
+            <span class="chip">Pass-the-Hash</span><span class="chip">Hashcat</span><span class="chip">Hydra</span>
+            <span class="chip">OWASP Top 10</span><span class="chip">CVSS v3.1</span>
+          </div>
+          <div class="skbars">
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk1_b1">Active Directory attacks</span><b><span class="skbar-pct" data-count="90">0</span>%</b></div><div class="track"><i style="--w:90%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk1_b2">Web / AppSec</span><b><span class="skbar-pct" data-count="85">0</span>%</b></div><div class="track"><i style="--w:85%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk1_b3">Password attacks</span><b><span class="skbar-pct" data-count="80">0</span>%</b></div><div class="track"><i style="--w:80%"></i></div></div>
+          </div>
+        </article>
+
+        <article class="skill-card reveal">
+          <div class="skill-head">
+            <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><circle cx="12" cy="8" r="1.4" fill="currentColor" stroke="none"/>
+            </svg>
+            <h3 data-i18n="sk2_t">Blue Team, SOC &amp; DFIR</h3>
+          </div>
+          <div class="chips">
+            <span class="chip">Wazuh SIEM</span><span class="chip">TheHive</span><span class="chip">ELK / Winlogbeat</span>
+            <span class="chip">Sysmon</span><span class="chip">auditd / FIM</span><span class="chip">Fail2ban</span>
+            <span class="chip">Ev. 4624 / 4625 / 4768 / 4769</span><span class="chip">Defender 1116 / 5001</span>
+            <span class="chip">WER AppCrash</span><span class="chip">MITRE ATT&amp;CK</span><span class="chip">Log correlation</span>
+          </div>
+          <div class="skbars">
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk2_b1">DFIR &amp; forensics</span><b><span class="skbar-pct" data-count="90">0</span>%</b></div><div class="track"><i style="--w:90%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk2_b2">Detection engineering</span><b><span class="skbar-pct" data-count="88">0</span>%</b></div><div class="track"><i style="--w:88%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk2_b3">SIEM monitoring</span><b><span class="skbar-pct" data-count="85">0</span>%</b></div><div class="track"><i style="--w:85%"></i></div></div>
+          </div>
+        </article>
+
+        <article class="skill-card reveal">
+          <div class="skill-head">
+            <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <path d="M8 6l-5 6 5 6M16 6l5 6-5 6M13 4l-2 16"/>
+            </svg>
+            <h3 data-i18n="sk3_t">DevSecOps &amp; Tooling</h3>
+          </div>
+          <div class="chips">
+            <span class="chip">Python 3 · stdlib · OOP</span><span class="chip">pytest</span><span class="chip">Shannon Entropy</span>
+            <span class="chip">SAST</span><span class="chip">CIS Docker Benchmarks</span><span class="chip">GitHub Actions</span>
+            <span class="chip">OASIS SARIF 2.1.0</span><span class="chip">Bash</span><span class="chip">PowerShell</span>
+            <span class="chip">JS / HTML / CSS</span><span class="chip">AI-native workflow</span>
+          </div>
+          <div class="skbars">
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk3_b1">Python</span><b><span class="skbar-pct" data-count="92">0</span>%</b></div><div class="track"><i style="--w:92%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk3_b2">SAST / secret detection</span><b><span class="skbar-pct" data-count="85">0</span>%</b></div><div class="track"><i style="--w:85%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk3_b3">CI/CD security</span><b><span class="skbar-pct" data-count="80">0</span>%</b></div><div class="track"><i style="--w:80%"></i></div></div>
+          </div>
+        </article>
+
+        <article class="skill-card reveal">
+          <div class="skill-head">
+            <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/>
+              <path d="M7 7.5l3.5 8M17 7.5l-3.5 8M7.2 6h9.6"/>
+            </svg>
+            <h3 data-i18n="sk4_t">Networks &amp; SysAdmin</h3>
+          </div>
+          <div class="chips">
+            <span class="chip">TCP/IP</span><span class="chip">VLAN 802.1Q</span><span class="chip">STP / 802.1X</span>
+            <span class="chip">NAT · DHCP · DNS</span><span class="chip">GRE / SSH tunnels</span><span class="chip">Wireshark</span>
+            <span class="chip">Cisco Packet Tracer</span><span class="chip">Ubuntu / RHEL / Kali</span>
+            <span class="chip">systemd hardening</span><span class="chip">Windows Server · AD DS · GPO</span><span class="chip">WireGuard</span>
+          </div>
+          <div class="skbars">
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk4_b1">Linux</span><b><span class="skbar-pct" data-count="88">0</span>%</b></div><div class="track"><i style="--w:88%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk4_b2">Windows / AD admin</span><b><span class="skbar-pct" data-count="85">0</span>%</b></div><div class="track"><i style="--w:85%"></i></div></div>
+            <div class="skbar"><div class="skbar-top"><span data-i18n="sk4_b3">Networks</span><b><span class="skbar-pct" data-count="82">0</span>%</b></div><div class="track"><i style="--w:82%"></i></div></div>
+          </div>
+        </article>
+      </div>
+
+      <h3 class="subsection reveal"><span class="st-sign">$</span> <span data-i18n="std_title">ls /standards</span></h3>
+      <div class="chip-row reveal">
+        <span class="chip chip-std">MITRE ATT&amp;CK v15</span><span class="chip chip-std">PTES</span>
+        <span class="chip chip-std">NIST SP 800-115</span><span class="chip chip-std">OWASP Top 10</span>
+        <span class="chip chip-std">CIS Benchmarks</span><span class="chip chip-std">OASIS SARIF 2.1.0</span>
+        <span class="chip chip-std">CVSS v3.1</span>
+      </div>
+    </section>
+
+    <!-- ================= TAB: PROJECTS ================= -->
+    <section class="panel" id="panel-projects" data-panel="projects">
+      <h2 class="section-title reveal"><span class="st-sign">$</span> <span data-i18n="proj_title">ls -la ~/projects</span> <span class="muted" data-i18n="proj_sub">// флагманские разработки</span></h2>
+
+      <div class="projects-grid">
+
+        <article class="proj-card reveal" data-tilt>
+          <div class="proj-top"><span class="proj-num">01</span>
+            <svg class="proj-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M13 2L4.5 13.5H11L9.5 22 19 10h-6.5L13 2z"/></svg>
+          </div>
+          <h3>ThreatPulse <span class="ver">v1.0</span></h3>
+          <p class="proj-tag" data-i18n="p1_tag">Threat Intelligence &amp; SOC IOC-обогащение · Wazuh CDB Ready</p>
+          <ul class="proj-points">
+            <li data-i18n="p1_li1">мульти-IOC триаж: IPv4/IPv6, домены, URL, хэши MD5/SHA1/SHA256, defang/refang;</li>
+            <li data-i18n="p1_li2">оффлайн-эвристики: RFC 1918 / bogon-фильтр, DGA-ботнеты по энтропии Шеннона H(X)&gt;3.6, Tor exit nodes;</li>
+            <li data-i18n="p1_li3">скоринг 0–100, маппинг MITRE ATT&amp;CK, AbuseIPDB, экспорт в Wazuh CDB + SQLite-кэш.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">Python</span><span class="tag">zero-deps</span><span class="tag">PyPI</span><span class="tag">MITRE</span><span class="tag">Wazuh CDB</span></div>
+          <div class="proj-foot">
+            <div class="proj-stats"><span class="mini-stat">18 pytest</span><span class="mini-stat">SQLite cache</span></div>
+            <div class="proj-links">
+              <a href="https://pypi.org/project/threatpulse-cli/" target="_blank" rel="noopener" class="pypi-badge">PyPI v1.0</a>
+              <a href="https://github.com/Voobrazhenie21-lab/threat-pulse" target="_blank" rel="noopener">GitHub</a>
+              <a href="threat-pulse/" target="_blank" rel="noopener" data-i18n="link_demo">Demo</a>
+              <a href="#radar" data-tab-link="radar" data-i18n="link_radar">3D Radar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card reveal" data-tilt>
+          <div class="proj-top"><span class="proj-num">02</span>
+            <svg class="proj-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.4 9.4-8 11-4.6-1.6-8-6-8-11V5l8-3z"/><path d="M9 12l2 2 4-4.5"/></svg>
+          </div>
+          <h3>PipeShield <span class="ver">v1.1</span></h3>
+          <p class="proj-tag" data-i18n="p2_tag">DevSecOps SAST / CI-CD / JS Bundle Recon сканер</p>
+          <ul class="proj-points">
+            <li data-i18n="p2_li1">гибридный движок секретов: regex-провайдеры + энтропия Шеннона H(X)&gt;3.8 → −90% false positives;</li>
+            <li data-i18n="p2_li2">JsReconAnalyzer: скрытые /admin API, DOM-XSS синки (innerHTML/eval), утечки RFC1918 за WAF, .map SourceMaps;</li>
+            <li data-i18n="p2_li3">CIS Docker Benchmarks, аудит GitHub Actions, экспорт OASIS SARIF 2.1.0 + HTML-дашборд.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">Python</span><span class="tag">SAST</span><span class="tag">SARIF</span><span class="tag">CIS</span><span class="tag">CI/CD</span></div>
+          <div class="proj-foot">
+            <div class="proj-stats"><span class="mini-stat">33 pytest</span><span class="mini-stat">−90% FP</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Voobrazhenie21-lab/pipeshield" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card reveal" data-tilt>
+          <div class="proj-top"><span class="proj-num">03</span>
+            <svg class="proj-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>
+          </div>
+          <h3>Log Sentinel <span class="ver">v1.3</span></h3>
+          <p class="proj-tag" data-i18n="p3_tag">мультислойная корреляция логов Linux / Web / Windows-Sysmon</p>
+          <ul class="proj-points">
+            <li data-i18n="p3_li1">zero-dependency движок: auth.log / systemd, Apache access.log, Windows Security / Sysmon / WER;</li>
+            <li data-i18n="p3_li2">10 правил: веб-шеллы, SSH/RDP brute-force, Kerberoasting 0x17, AS-REP Roasting, PtH, Sysmon ID 10 (LSASS);</li>
+            <li data-i18n="p3_li3">маппинг MITRE ATT&amp;CK ⇄ Wazuh rules, экспорт JSON + интерактивный HTML-дашборд.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">Python</span><span class="tag">DFIR</span><span class="tag">MITRE</span><span class="tag">Wazuh</span></div>
+          <div class="proj-foot">
+            <div class="proj-stats"><span class="mini-stat">10 rules</span><span class="mini-stat">0 deps</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Voobrazhenie21-lab/log-sentinel" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card reveal" data-tilt>
+          <div class="proj-top"><span class="proj-num">04</span>
+            <svg class="proj-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z"/><circle cx="12" cy="12" r="2.6"/></svg>
+          </div>
+          <h3>DFIR: acme.skb <span class="ver" data-i18n="p4_ver">расследование</span></h3>
+          <p class="proj-tag" data-i18n="p4_tag">компрометация DMZ-веб-сервера и Active Directory — полный разбор</p>
+          <ul class="proj-points">
+            <li data-i18n="p4_li1">obfuscated web shell backdoor.php → root: Apache собран с -DBIG_SECURITY_HOLE, /etc/shadow украден;</li>
+            <li data-i18n="p4_li2">форензика WER AppCrash: восстановлен удалённый эксплойт CVE-2019-0623, mimikatz через \\tsclient, CVE-2019-1458;</li>
+            <li data-i18n="p4_li3">SIEM-стенд на 21 хосте: Wazuh agents + auditd + FIM whodata + Fail2ban + эскалация в TheHive.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">DFIR</span><span class="tag">Wazuh 4.3.9</span><span class="tag">MITRE</span><span class="tag">TheHive</span></div>
+          <div class="proj-foot">
+            <div class="proj-stats"><span class="mini-stat">21 host lab</span><span class="mini-stat">12 tactics</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Voobrazhenie21-lab/blue-team-incident-investigation" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card reveal" data-tilt>
+          <div class="proj-top"><span class="proj-num">05</span>
+            <svg class="proj-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h3 data-i18n="p5_t">AD Pentest Report <span class="ver">PTES / NIST</span></h3>
+          <p class="proj-tag" data-i18n="p5_tag">пентест корпоративного домена: от SMB-шара до Domain Admin &lt; 4 часов</p>
+          <ul class="proj-points">
+            <li data-i18n="p5_li1">цепочка: открытый SMB-шар с SSH-ключами (CVSS 9.8) → Kerberoasting (RC4) → NTLM Relay → GenericAll через BloodHound CE;</li>
+            <li data-i18n="p5_li2">верифицированные PoC, калькуляция CVSS v3.1, маппинг MITRE ATT&amp;CK;</li>
+            <li data-i18n="p5_li3">hardening-роадмап: SMB signing, LAPS, gMSA, защита от релей-атак.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">Pentest</span><span class="tag">BloodHound</span><span class="tag">PTES</span><span class="tag">CVSS</span></div>
+          <div class="proj-foot">
+            <div class="proj-stats"><span class="mini-stat">DA &lt; 4h</span><span class="mini-stat">CVSS 9.8</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Voobrazhenie21-lab/enterprise-pentest-report" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="proj-card reveal" data-tilt>
+          <div class="proj-top"><span class="proj-num">06</span>
+            <svg class="proj-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M12 15h5"/></svg>
+          </div>
+          <h3>MyProfile <span class="ver">v2.0</span></h3>
+          <p class="proj-tag" data-i18n="p6_tag">Python Security OOP-движок с криптографическим FIM (SHA-256)</p>
+          <ul class="proj-points">
+            <li data-i18n="p6_li1">строгая валидация, санитизация входных данных и маскирование PII;</li>
+            <li data-i18n="p6_li2">File Integrity Monitoring на SHA-256: отслеживание изменений профилей в реальном времени;</li>
+            <li data-i18n="p6_li3">security unit-тесты: edge cases, sanitization, tamper resistance.</li>
+          </ul>
+          <div class="proj-tags"><span class="tag">Python</span><span class="tag">OOP</span><span class="tag">FIM</span><span class="tag">SHA-256</span></div>
+          <div class="proj-foot">
+            <div class="proj-stats"><span class="mini-stat">SHA-256</span><span class="mini-stat">OOP</span></div>
+            <div class="proj-links">
+              <a href="https://github.com/Voobrazhenie21-lab/code-python-project" target="_blank" rel="noopener">GitHub</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB: 3D RADAR ================= -->
+    <section class="panel" id="panel-radar" data-panel="radar">
+      <div class="radar-controls-bar">
+        <div>
+          <h2 class="section-title" style="margin-bottom:6px;"><span class="st-sign">$</span> <span data-i18n="radar_title">3d-threat-radar --realtime</span> <span class="muted" data-i18n="radar_sub">// global telemetry: ThreatPulse + Wazuh SIEM</span></h2>
+          <p class="muted" style="font-size:0.83rem; max-width:700px;" data-i18n="radar_desc">
+            Интерактивный 3D-глобус перехваченных атак. Визуализация сетевой телеметрии, Tor-узлов, DGA-ботнетов и вредоносных маяков, выявленных эвристиками ThreatPulse в реальном времени.
+          </p>
         </div>
-        <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
-          <button class="cmd-pill active" id="btnFocusMinsk" onclick="focusNode('minsk')">🎯 Focus Minsk SOC</button>
-          <button class="cmd-pill" id="btnToggleRotate" onclick="toggleRotation()">⏸️ Pause</button>
-          <button class="cmd-pill" onclick="resetGlobeView()">🔄 Reset View</button>
+        <div class="radar-btn-group">
+          <button class="radar-btn active" onclick="focusRadarNode('minsk')" data-i18n="btn_focus_minsk">🎯 Focus Minsk SOC</button>
+          <button class="radar-btn" id="btnToggleRotate" onclick="toggleRadarRotation()" data-i18n="btn_pause">⏸️ Пауза</button>
+          <button class="radar-btn" onclick="resetRadarView()" data-i18n="btn_reset">🔄 Сброс вида</button>
         </div>
       </div>
 
-      <!-- Radar Layout Grid -->
       <div class="radar-container">
-        
         <!-- 3D Viewport Box -->
-        <div id="globeCanvasWrapper" style="position: relative; height: 530px; background: radial-gradient(circle at 50% 50%, #0d172e 0%, #060913 100%); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 12px; overflow: hidden; box-shadow: 0 0 35px rgba(14, 165, 233, 0.1);">
-          <div id="globe3d" style="width: 100%; height: 100%; cursor: grab;"></div>
-          
-          <!-- Top HUD Overlay -->
-          <div style="position: absolute; top: 14px; left: 16px; pointer-events: none; font-family: monospace; font-size: 0.76rem; color: #38bdf8; background: rgba(7, 11, 20, 0.75); padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.2); backdrop-filter: blur(6px);">
-            <span style="color:#10b981;">●</span> RADAR: <strong style="color:#fff;">60 FPS ACTIVE</strong> | SOC HUB: <strong style="color:#38bdf8;">MINSK, BY</strong>
+        <div class="radar-viewport">
+          <div id="globe3d"></div>
+          <div class="radar-hud-top">
+            <span style="color:var(--acc);">●</span> RADAR: <strong style="color:#fff;">60 FPS ACTIVE</strong> | SOC HUB: <strong style="color:var(--acc2);">MINSK, BY</strong>
           </div>
-
-          <!-- Bottom Left HUD Overlay -->
-          <div style="position: absolute; bottom: 14px; left: 16px; pointer-events: none; font-family: monospace; font-size: 0.74rem; color: var(--muted); background: rgba(7, 11, 20, 0.75); padding: 5px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(6px);">
+          <div class="radar-hud-bottom">
             🖱️ Вращение: ЛКМ / Touch &bull; Зум: Колесико
           </div>
         </div>
 
         <!-- Telemetry & ThreatPulse Inspector Card -->
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="radar-sidebar">
           
           <!-- Live Threat Stream Feed -->
-          <div class="project-card" style="padding: 1.25rem; flex: 1; border-color: rgba(56, 189, 248, 0.25);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
-              <strong style="color:#fff; font-size:0.88rem; display:flex; align-items:center; gap:0.4rem;">
-                <span class="pulse-dot" style="background:#ef4444; width:7px; height:7px;"></span>
-                LIVE THREAT STREAM (INTERCEPTED IOCs)
-              </strong>
-              <span style="font-family:monospace; font-size:0.75rem; color:var(--cyan);">8 NODES</span>
+          <div class="radar-box">
+            <div class="radar-box-head">
+              <span class="radar-box-title">
+                <span class="status-dot" style="background:var(--red);"></span>
+                <span data-i18n="radar_stream_title">LIVE THREAT STREAM (INTERCEPTED IOCs)</span>
+              </span>
+              <span style="font-size:0.72rem; color:var(--acc2);">8 NODES</span>
             </div>
-
-            <div id="threatStreamList" style="display: flex; flex-direction: column; gap: 0.5rem; max-height: 180px; overflow-y: auto; font-family: monospace; font-size: 0.76rem; padding-right: 4px;">
-              <!-- Dynamic stream items -->
+            <div class="threat-stream-list" id="threatStreamList">
+              <!-- Dynamically populated items -->
             </div>
           </div>
 
           <!-- Active ThreatPulse Inspector Card -->
-          <div class="project-card" style="padding: 1.25rem; border-color: rgba(248, 113, 113, 0.35); background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(24, 15, 28, 0.85));">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.6rem;">
-              <span class="tag" id="inspectorVerdict" style="background:rgba(239, 68, 68, 0.2); color:#f87171; border: 1px solid rgba(239,68,68,0.4);">
+          <div class="inspector-card alert-crit">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+              <span class="tag" id="inspectorVerdict" style="background:rgba(255, 59, 92, 0.2); color:var(--red); border-color:rgba(255,59,92,0.4);">
                 CRITICAL THREAT
               </span>
-              <span style="font-family:monospace; font-size:0.76rem; color:#94a3b8;" id="inspectorTime">LIVE NOW</span>
+              <span style="font-size:0.72rem; color:var(--mut);" id="inspectorTime">LIVE NOW</span>
             </div>
 
-            <div style="margin-bottom: 0.75rem;">
-              <div style="font-size:0.75rem; color:var(--muted); margin-bottom:0.15rem;">INTERCEPTED INDICATOR (IOC):</div>
-              <strong style="font-family:monospace; font-size:1.02rem; color:#fff;" id="inspectorIoc">185.220.101.5</strong>
-              <div style="font-size:0.76rem; color:#38bdf8; margin-top:0.2rem;" id="inspectorRoute">Frankfurt [Tor Relay] ➔ Minsk SOC [Honeypot #3]</div>
+            <div>
+              <div style="font-size:0.7rem; color:var(--mut);" data-i18n="radar_inspector_lbl">INTERCEPTED INDICATOR (IOC):</div>
+              <strong style="font-size:1.05rem; color:#fff;" id="inspectorIoc">185.220.101.5</strong>
+              <div style="font-size:0.75rem; color:var(--acc2); margin-top:2px;" id="inspectorRoute">Frankfurt [Tor Relay] ➔ Minsk SOC [Honeypot #3]</div>
             </div>
 
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem; margin-bottom:0.75rem; font-family:monospace; font-size:0.75rem;">
-              <div style="background:rgba(0,0,0,0.35); padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
-                <div style="color:#64748b; font-size:0.7rem;">SHANNON ENTROPY</div>
-                <div style="color:#38bdf8; font-weight:700;" id="inspectorEntropy">H(X) = 4.18 [DGA ALERT]</div>
+            <div class="inspector-grid">
+              <div class="inspector-box">
+                <div class="inspector-box-lbl">SHANNON ENTROPY</div>
+                <div style="color:var(--acc2); font-weight:700;" id="inspectorEntropy">H(X) = 4.18 [DGA ALERT]</div>
               </div>
-              <div style="background:rgba(0,0,0,0.35); padding:6px 8px; border-radius:6px; border:1px solid rgba(255,255,255,0.06);">
-                <div style="color:#64748b; font-size:0.7rem;">THREAT SCORE</div>
-                <div style="color:#f87171; font-weight:700;" id="inspectorScore">92 / 100 [BLOCKED]</div>
+              <div class="inspector-box">
+                <div class="inspector-box-lbl">THREAT SCORE</div>
+                <div style="color:var(--red); font-weight:700;" id="inspectorScore">92 / 100 [BLOCKED]</div>
               </div>
             </div>
 
-            <div style="background: #070b14; border: 1px solid #1e293b; border-radius: 6px; padding: 0.55rem 0.75rem; font-family: monospace; font-size: 0.72rem; margin-bottom: 0.75rem;">
-              <div style="color:#64748b; font-size:0.68rem; margin-bottom:0.15rem;">WAZUH CDB RULE GENERATED (/var/ossec/etc/lists/):</div>
-              <code style="color:#10b981;" id="inspectorWazuh">185.220.101.5:threat_tor:high_risk:block</code>
+            <div class="inspector-cdb">
+              <div style="color:var(--mut); font-size:0.66rem; margin-bottom:2px;">WAZUH CDB RULE (/var/ossec/etc/lists/):</div>
+              <code style="color:var(--acc);" id="inspectorWazuh">185.220.101.5:threat_tor:high_risk:block</code>
             </div>
 
-            <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
-              <code style="font-size:0.72rem; color:#cbd5e1; background:rgba(0,0,0,0.45); padding:4px 8px; border-radius:4px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="inspectorCliCmd">pip install threatpulse-cli</code>
-              <a href="https://pypi.org/project/threatpulse-cli/" target="_blank" class="proj-btn" style="padding:0.35rem 0.7rem; font-size:0.74rem; border-color:var(--cyan); color:var(--cyan); white-space:nowrap;">PyPI Package ↗</a>
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+              <code style="font-size:0.72rem; color:var(--txt2); background:rgba(0,0,0,0.5); padding:5px 8px; border:1px solid var(--line); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="inspectorCliCmd">pip install threatpulse-cli</code>
+              <a href="https://pypi.org/project/threatpulse-cli/" target="_blank" rel="noopener" class="pypi-badge">PyPI ↗</a>
             </div>
           </div>
 
@@ -737,736 +490,141 @@
       </div>
     </section>
 
-    <!-- INTERACTIVE PURPLE TEAM KILL-CHAIN MATRIX -->
-    <section id="purple-matrix">
-      <h2 class="sec-title" data-lang="ru">⚔️🛡️ Интерактивная матрица Purple Team: Атака vs Защита</h2>
-      <h2 class="sec-title" data-lang="en">⚔️🛡️ Interactive Purple Team Matrix: Attack vs. Defense</h2>
-      <p class="sec-sub" data-lang="ru">Нажмите на любой этап цепочки атаки, чтобы увидеть, как я провожу аудит уязвимости (Red Team) и как детектирую/блокирую её в SIEM и коде (Blue Team &amp; DevSecOps).</p>
-      <p class="sec-sub" data-lang="en">Select any stage of the intrusion kill-chain to inspect how I audit the vector (Red Team) vs. how I engineer its detection &amp; prevention (Blue Team &amp; DevSecOps).</p>
+    <!-- ================= TAB: EXPERIENCE ================= -->
+    <section class="panel" id="panel-experience" data-panel="experience">
+      <h2 class="section-title reveal"><span class="st-sign">$</span> <span data-i18n="exp_title">tail -f ~/history.log</span> <span class="muted" data-i18n="exp_sub">// опыт и образование</span></h2>
 
-      <div style="display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:1.25rem;">
-        <button class="cmd-pill active" onclick="showKillChain('stage1', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">1. 🕸️ Web &amp; JS Bundle Recon</button>
-        <button class="cmd-pill" onclick="showKillChain('stage2', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">2. 🐚 Web Shell &amp; Linux Root</button>
-        <button class="cmd-pill" onclick="showKillChain('stage3', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">3. 💥 Win32k LPE &amp; Crash Forensics</button>
-        <button class="cmd-pill" onclick="showKillChain('stage4', this)" style="padding:0.55rem 1rem; font-size:0.86rem;">4. 🔑 AD Pass-the-Hash &amp; Exfil</button>
-      </div>
-
-      <div id="kcContainer" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(380px, 1fr)); gap:1.25rem;"></div>
-    </section>
-
-    <!-- TECH ARSENAL -->
-    <section id="skills">
-      <h2 class="sec-title" data-lang="ru">🧰 Технический стек и компетенции</h2>
-      <h2 class="sec-title" data-lang="en">🧰 Technical Stack &amp; Security Arsenal</h2>
-      <p class="sec-sub" data-lang="ru">Комплексная подготовка на стыке защиты (Blue Team), анализа защищённости (Red Team) и сетевых технологий.</p>
-      <p class="sec-sub" data-lang="en">Cross-disciplinary capabilities spanning SOC incident response, offensive Active Directory testing, and network engineering.</p>
-
-      <div class="skills-grid">
-        <div class="skill-box">
-          <h4>👁️ Blue Team, SOC &amp; DFIR</h4>
-          <div class="pills">
-            <span class="pill">Wazuh SIEM 4.3.9</span>
-            <span class="pill">TheHive IRP</span>
-            <span class="pill">ELK / Winlogbeat</span>
-            <span class="pill">Fail2ban</span>
-            <span class="pill">Event ID 4624/4625/4769</span>
-            <span class="pill">Defender 1116/5001</span>
-            <span class="pill">WER AppCrash Forensics</span>
-            <span class="pill">LNK &amp; $Recycle.Bin</span>
-            <span class="pill">Linux auditd &amp; FIM</span>
-            <span class="pill">MITRE ATT&amp;CK v15</span>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="tl-marker tl-sec"></div>
+          <div class="tl-time">2025 — <span data-i18n="now">н.в.</span></div>
+          <div class="tl-body">
+            <h3 data-i18n="exp1_t">Cybersecurity Practitioner &amp; Open-Source Developer</h3>
+            <span class="tl-org" data-i18n="exp1_o">Independent · security projects &amp; labs</span>
+            <p data-i18n="exp1_p">Разработка и публикация open-source инструментов детектирования (PipeShield, Log Sentinel, ThreatPulse, MyProfile) с AI-assisted workflow, автоматическим CI-тестированием и production-grade отчётами (PTES / NIST).</p>
+            <span class="tl-note"><span class="tl-note-sign">&gt;&gt;</span> <span data-i18n="exp1_n">фокус: SOC / DFIR · AD Pentest · DevSecOps tooling</span></span>
           </div>
         </div>
 
-        <div class="skill-box">
-          <h4>🌐 Сети и протоколы (L2/L3)</h4>
-          <div class="pills">
-            <span class="pill">STP (802.1D / 802.1w)</span>
-            <span class="pill">IEEE 802.1Q VLAN</span>
-            <span class="pill">802.1X Port NAC</span>
-            <span class="pill">ARP / Gratuitous ARP</span>
-            <span class="pill">TCP/IP Handshake</span>
-            <span class="pill">DHCP (DORA) &amp; DNS</span>
-            <span class="pill">SSH / GRE Tunneling</span>
-            <span class="pill">WireGuard VPN</span>
-            <span class="pill">Wireshark &amp; iptables</span>
+        <div class="tl-item reveal">
+          <div class="tl-marker tl-work"></div>
+          <div class="tl-time">2023 — <span data-i18n="now2">н.в.</span></div>
+          <div class="tl-body">
+            <h3 data-i18n="exp2_t">Клинический психолог</h3>
+            <span class="tl-org" data-i18n="exp2_o">Минский областной клинический центр · частная практика</span>
+            <p data-i18n="exp2_p">Диагностика, кризисное консультирование, работа в условиях высокой эмоциональной нагрузки. Строгая конфиденциальная отчётность и защита персональных данных.</p>
+            <span class="tl-note"><span class="tl-note-sign">&gt;&gt;</span> <span data-i18n="exp2_n">связь с ИБ: human layer — фишинг, социнженерия, инсайдеры, стрессоустойчивость при инцидентах</span></span>
           </div>
         </div>
 
-        <div class="skill-box">
-          <h4>⚔️ Offensive &amp; Active Directory</h4>
-          <div class="pills">
-            <span class="pill">BloodHound CE</span>
-            <span class="pill">SharpHound</span>
-            <span class="pill">Mimikatz</span>
-            <span class="pill">Impacket (ntlmrelayx)</span>
-            <span class="pill">Rubeus (Kerberoasting)</span>
-            <span class="pill">Pass-the-Hash / Ticket</span>
-            <span class="pill">Nmap (NSE)</span>
-            <span class="pill">Hashcat &amp; John</span>
-            <span class="pill">OWASP Top 10</span>
+        <div class="tl-item reveal">
+          <div class="tl-marker tl-work"></div>
+          <div class="tl-time">2021 — 2022</div>
+          <div class="tl-body">
+            <h3 data-i18n="exp3_t">Преподаватель кафедры</h3>
+            <span class="tl-org" data-i18n="exp3_o">Барановичский государственный университет</span>
+            <p data-i18n="exp3_p">Академические дисциплины, практические семинары, публикации в научных сборниках.</p>
+            <span class="tl-note"><span class="tl-note-sign">&gt;&gt;</span> <span data-i18n="exp3_n">связь с ИБ: security awareness тренинги, понятные отчёты для C-level</span></span>
           </div>
         </div>
 
-        <div class="skill-box">
-          <h4>🐍 DevSecOps &amp; Инженерия</h4>
-          <div class="pills">
-            <span class="pill">Python 3 (CLI / OOP)</span>
-            <span class="pill">Pytest &amp; GitHub Actions</span>
-            <span class="pill">OASIS SARIF 2.1.0</span>
-            <span class="pill">Shannon Entropy SAST</span>
-            <span class="pill">CIS Docker Benchmarks</span>
-            <span class="pill">PowerShell &amp; Bash</span>
-            <span class="pill">CVSS v3.1 &amp; RACI</span>
+        <div class="tl-item reveal">
+          <div class="tl-marker tl-edu"></div>
+          <div class="tl-time">2025 — 2026</div>
+          <div class="tl-body">
+            <h3 data-i18n="exp4_t">«Специалист по кибербезопасности 2.0»</h3>
+            <span class="tl-org">Skillbox · <span data-i18n="exp4_o">профессиональная программа</span></span>
+            <p data-i18n="exp4_p">Пентест инфраструктуры, безопасность Active Directory, SOC-мониторинг и расследование инцидентов (Wazuh, TheHive, Sysmon), Linux/Windows-администрирование, сети, Python. Курс завершён на 100%, дипломный DFIR-проект защищён.</p>
           </div>
         </div>
-      </div>
 
-      <!-- Human Factor Edge -->
-      <div class="edge-banner" style="margin-top: 1.5rem;">
-        <div class="edge-item">
-          <h4 data-lang="ru">🧠 5 лет в клинической психологии</h4>
-          <h4 data-lang="en">🧠 5 Years in Clinical Psychology</h4>
-          <p data-lang="ru">Глубокое понимание человеческого фактора в ИБ: когнитивных уязвимостей при фишинге, претекстинге, социальной инженерии и психологии инсайдерских угроз.</p>
-          <p data-lang="en">In-depth understanding of cognitive vulnerabilities exploited in phishing, pretexting, social engineering, and insider threat scenarios.</p>
-        </div>
-        <div class="edge-item">
-          <h4 data-lang="ru">⚡ Стрессоустойчивость в SOC</h4>
-          <h4 data-lang="en">⚡ High-Stress Incident Composure</h4>
-          <p data-lang="ru">Опыт кризисной диагностики позволяет сохранять хладнокровие и действовать строго по плейбуку при разборе критических инцидентов и потоке алертов.</p>
-          <p data-lang="en">Clinical crisis intervention background ensures calm, methodical execution of incident response playbooks under alert pressure.</p>
-        </div>
-        <div class="edge-item">
-          <h4 data-lang="ru">📑 Академическая точность отчётов</h4>
-          <h4 data-lang="en">📑 Executive-Ready Documentation</h4>
-          <p data-lang="ru">Опыт преподавания в университете помогает оформлять безупречные паспорта инцидентов, RCA и переводить технические уязвимости на язык рисков бизнеса.</p>
-          <p data-lang="en">University lecturing experience translates into crystal-clear incident passports, Root Cause Analysis, and stakeholder communication.</p>
+        <div class="tl-item reveal">
+          <div class="tl-marker tl-edu"></div>
+          <div class="tl-time">2016 — 2021</div>
+          <div class="tl-body">
+            <h3 data-i18n="exp5_t">Психология: бакалавриат (2020) + магистратура (2021)</h3>
+            <span class="tl-org" data-i18n="exp5_o">Барановичский государственный университет</span>
+            <p data-i18n="exp5_p">Диагностика, исследовательская работа, публикации — аналитическая база, которая сегодня усиливает фазы расследования и социально-инженерные сценарии.</p>
+          </div>
         </div>
       </div>
     </section>
-  </div>
 
-  <footer>
-    <div class="container">
-      <p style="margin-bottom:0.5rem;">
-        <strong style="color:#fff;">Алексей Жарков (Aleksei Zharkou)</strong> &bull; Минск, Беларусь (Офис / Гибрид / Удалённо)
-      </p>
-      <p>
-        <a href="mailto:lyosha.zharkov.98@mail.ru">lyosha.zharkov.98@mail.ru</a> &bull;
-        <a href="https://t.me/Voobrazhenie_20" target="_blank">Telegram: @Voobrazhenie_20</a> &bull;
-        <a href="https://www.linkedin.com/in/aleksei-zharkou/" target="_blank">LinkedIn</a> &bull;
-        <a href="https://github.com/Voobrazhenie21-lab" target="_blank">GitHub</a>
-      </p>
-    </div>
+    <!-- ================= TAB: CONTACT ================= -->
+    <section class="panel" id="panel-contact" data-panel="contact">
+      <h2 class="section-title reveal"><span class="st-sign">$</span> <span data-i18n="ct_title">./connect.sh --secure</span> <span class="muted" data-i18n="ct_sub">// каналы связи</span></h2>
+
+      <div class="contact-grid">
+        <a class="contact-card reveal" href="https://t.me/Voobrazhenie_20" target="_blank" rel="noopener">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          <span class="c-name">Telegram</span>
+          <span class="c-val">@Voobrazhenie_20</span>
+          <span class="c-arrow">-&gt;</span>
+        </a>
+
+        <a class="contact-card reveal" href="mailto:lyosha.zharkov.98@mail.ru">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 4h20a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm10 8.7L3.6 6h16.8L12 12.7zM3 8.1V18h18V8.1l-9 6.9-9-6.9z"/></svg>
+          <span class="c-name">Email</span>
+          <span class="c-val">lyosha.zharkov.98@mail.ru</span>
+          <span class="c-arrow">-&gt;</span>
+        </a>
+
+        <a class="contact-card reveal" href="tel:+375295548055">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+          <span class="c-name" data-i18n="c_phone">Телефон</span>
+          <span class="c-val">+375 (29) 554-80-55</span>
+          <span class="c-arrow">-&gt;</span>
+        </a>
+
+        <a class="contact-card reveal" href="https://github.com/Voobrazhenie21-lab" target="_blank" rel="noopener">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          <span class="c-name">GitHub</span>
+          <span class="c-val">Voobrazhenie21-lab</span>
+          <span class="c-arrow">-&gt;</span>
+        </a>
+
+        <a class="contact-card reveal" href="https://linkedin.com/in/aleksei-zharkou" target="_blank" rel="noopener">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"/></svg>
+          <span class="c-name">LinkedIn</span>
+          <span class="c-val">aleksei-zharkou</span>
+          <span class="c-arrow">-&gt;</span>
+        </a>
+
+        <div class="contact-card reveal c-static">
+          <svg class="c-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
+          <span class="c-name" data-i18n="c_loc">Локация</span>
+          <span class="c-val" data-i18n="c_loc_v">Минск, Беларусь · remote / relocation</span>
+        </div>
+      </div>
+
+      <div class="cta-banner reveal">
+        <p data-i18n="ct_banner">Ищу: Junior SOC Analyst (L1/L2) · DFIR · Junior Pentester · Junior DevSecOps. Отвечаю быстро.</p>
+        <a class="btn btn-primary" href="mailto:lyosha.zharkov.98@mail.ru?subject=Offer%20/%20Security%20Engineer"><span class="btn-sign">&gt;</span><span data-i18n="ct_btn">обсудить оффер</span></a>
+      </div>
+
+      <div class="term-window reveal">
+        <div class="term-head">
+          <span class="w-dot r"></span><span class="w-dot y"></span><span class="w-dot g"></span>
+          <span class="term-title" data-i18n="term_title">guest@zharkov: interactive_shell</span>
+        </div>
+        <div class="term-body" id="term-body">
+          <div class="term-line term-welcome" id="term-welcome"></div>
+        </div>
+        <div class="term-input-row">
+          <span class="term-prompt">guest@zharkov:~$</span>
+          <input id="term-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" data-i18n-ph="term_ph" placeholder="введи 'help' и нажми Enter" aria-label="terminal input">
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="f-left">© 2026 <span data-i18n="id_name">Алексей Жарков</span></span>
+    <span class="f-mid">echo <span class="f-accent">"stay curious, stay paranoid"</span></span>
+    <button class="f-top" id="to-top" type="button" data-i18n="f_top">↑ наверх</button>
   </footer>
 
-  <script>
-    const termData = {
-      whoami: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">whoami --verbose</span>
-<span class="hl-cyan">[+] Candidate:</span> Aleksei Zharkou (Minsk, Belarus)
-<span class="hl-cyan">[+] Target Roles:</span> Junior SOC Analyst (L1/L2) | DFIR | Junior Pentester
-<span class="hl-cyan">[+] Education:</span>
-    • Skillbox «Cybersecurity Specialist 2.0» (<span class="hl-ok">100% Completed, DFIR Diploma Defended</span>)
-    • Master's Degree &amp; Bachelor's in Psychology (Baranavichy State University)
-<span class="hl-cyan">[+] Portfolio Status:</span> 4 Live Interactive Demos + 6 Open-Source Repositories`,
-
-      acme: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">dfir --case acme.skb --summary</span>
-<span class="hl-crit">[!] INCIDENT VERDICT:</span> Full AD Domain Compromise &amp; Data Exfiltration Proven
-<span class="hl-cyan">[1] Initial Access:</span> DVWA Unrestricted Upload -> backdoor.php (MD5: c97ba877...)
-<span class="hl-cyan">[2] Root Cause (RCA):</span> Apache 2.4.57 compiled with <span class="hl-crit">-DBIG_SECURITY_HOLE</span> running as root
-<span class="hl-cyan">[3] Pivoting &amp; Brute:</span> sshd -R tunnel -> Brute-RDP.py (28x EventID 4625, Wazuh Rule 60204)
-<span class="hl-cyan">[4] Host Forensics:</span>
-    • Deleted exploit <span class="hl-crit">CVE-2019-0623.exe</span> proven via WER AppCrash archive
-    • Attacker path exposed via RDP share: <span class="hl-ok">\\\\tsclient\\_home_kali_...\\mimikatz.exe</span>
-<span class="hl-cyan">[5] Domain Takeover:</span> Pass-the-Hash to dc01 (Wazuh Rule 92652) -> Exfil of TOP SECRET!.txt`,
-
-      threatpulse: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">threat-pulse 185.220.101.5 --format card</span>
-<span class="hl-cyan">[+] ThreatPulse v1.0.0 (Fast SOC TI &amp; IOC Triage)</span>
-<span class="hl-cyan">┌────────────────────────────────────────────────────────────────────────┐</span>
-<span class="hl-cyan">│</span> <b>ThreatPulse IOC Report</b>  [IPV4]
-<span class="hl-cyan">├────────────────────────────────────────────────────────────────────────┤</span>
-<span class="hl-cyan">│</span> <b>Indicator:</b>    185[.]220[.]101[.]5 <span class="hl-cyan">(raw: 185.220.101.5)</span>
-<span class="hl-cyan">│</span> <b>Risk Level:</b>   <span class="hl-crit">HIGH (85/100)</span>
-<span class="hl-cyan">│</span> <b>Verdict:</b>      High Risk Indicator: Tor Exit Node
-<span class="hl-cyan">│</span> <b>Tags:</b>         <span class="hl-ok">#Tor-Exit-Node #Anonymizer</span>
-<span class="hl-cyan">│</span> <b>MITRE ATT&amp;CK:</b> • <span class="hl-crit">T1090.003: Multi-hop Proxy: Tor</span>
-<span class="hl-cyan">│</span> <b>Details:</b>      • Reverse DNS: berlin01.tor-exit.artikel10.org
-<span class="hl-cyan">│</span> <b>SOC Action:</b>   <span class="hl-ok">Block at perimeter firewall; export to /var/ossec/etc/lists/</span>
-<span class="hl-cyan">└────────────────────────────────────────────────────────────────────────┘</span>
-<span class="hl-ok">[✓] Formats: ANSI Card | Batch Table | JSON | Markdown | Wazuh CDB List</span>`,
-
-      jsrecon: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">pipeshield scan frontend_bundle.js --fail-on high</span>
-<span class="hl-cyan">[+] PipeShield v1.1.0 (JsReconAnalyzer + Shannon Entropy SAST)</span>
-<span class="hl-crit">[HIGH] PS-JS-001 (CWE-200):</span> Hidden Admin Endpoint -> <span class="hl-ok">'/api/v1/admin/users/export'</span>
-<span class="hl-crit">[HIGH] PS-JS-004 (CWE-200):</span> Leaked Internal IP behind WAF -> <span class="hl-ok">'http://10.0.20.51:8080/status'</span>
-<span class="hl-crit">[HIGH] PS-JS-002 (CWE-79) :</span> Unsafe DOM XSS Sink -> <span class="hl-ok">document.getElementById('banner').innerHTML = ...</span>
-<span class="hl-cyan">[MED]  PS-JS-003 (CWE-540):</span> Production SourceMap Exposed -> <span class="hl-ok">//# sourceMappingURL=bundle.js.map</span>
-<span class="hl-ok">[✓] Pytest Suite: 33/33 passed | Exported OASIS SARIF v2.1.0</span>`,
-
-      stack: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">cat /etc/security_arsenal.conf</span>
-<span class="hl-cyan">[SIEM &amp; DFIR]</span>    Wazuh 4.3.9, TheHive, ELK/Winlogbeat, Fail2ban, EventLogs, WER/LNK
-<span class="hl-cyan">[NETWORK L2/L3]</span>  STP (802.1D/w), 802.1Q VLAN, 802.1X, ARP, DHCP DORA, TCP/IP, Wireshark
-<span class="hl-cyan">[OFFENSIVE AD]</span>   BloodHound CE, SharpHound, Mimikatz, Impacket, Rubeus, Nmap, Hashcat
-<span class="hl-cyan">[DEVSECOPS]</span>      Python 3, Pytest CI (33 tests), SARIF 2.1.0, Shannon Entropy, JS Recon`,
-
-      contact: `<span class="prompt">aleksei@sec-lab:~$</span> <span class="cmd-echo">./contact.sh</span>
-<span class="hl-ok">[+] Ready for technical interviews &amp; SOC L1/L2 case triage!</span>
-    • Phone    : +375 (29) 554-80-55
-    • Telegram : https://t.me/Voobrazhenie_20 (@Voobrazhenie_20)
-    • Email    : lyosha.zharkov.98@mail.ru
-    • LinkedIn : linkedin.com/in/aleksei-zharkou`
-    };
-
-    const killChainData = {
-      stage1: {
-        redTitle: "🔴 Red Team / Pentest: Разведка .js бандлов и периметра (50% успеха)",
-        redTitleEn: "🔴 Red Team / Pentest: Client-Side .js Bundle & Perimeter Recon",
-        redItems: [
-          "Извлечение скрытых маршрутов (<code>/api/v1/admin</code>, <code>/internal/debug</code>, <code>/graphql</code>, <code>/server-status</code>) и забытых <code>.js.map</code> SourceMaps из клиентских бандлов.",
-          "Поиск захардкоженных токенов и реальных внутренних IP-адресов (<code>10.x.x.x</code>) для обхода CDN/WAF.",
-          "Анализ параметров без фильтрации WAF: раскрутка HTML Injection до <b>DOM XSS</b> (<code>.innerHTML</code> / <code>eval</code>), проверка <b>IDOR</b> и безопасный PoC для <b>SQLi</b> без деструктивного дампа БД."
-        ],
-        redItemsEn: [
-          "Extracting hidden API routes (<code>/api/v1/admin</code>, <code>/internal/debug</code>, <code>/graphql</code>, <code>/server-status</code>) and exposed <code>.js.map</code> SourceMaps from frontend bundles.",
-          "Hunting hardcoded tokens and internal RFC1918 origin IPs (<code>10.x.x.x</code>) to bypass CDN/WAF.",
-          "Testing unfiltered parameters: escalating HTML Injection to <b>DOM XSS</b> (<code>.innerHTML</code>), auditing <b>IDOR</b> / Business Logic flaws, and proving <b>SQLi</b> safely without destructive dumps."
-        ],
-        blueTitle: "🔵 Blue Team & DevSecOps: Детекция в PipeShield v1.1 и WAF/SIEM",
-        blueTitleEn: "🔵 Blue Team & DevSecOps: PipeShield v1.1 SAST & WAF/SIEM Defense",
-        blueItems: [
-          "Автоматический перехват в CI/CD через мой анализатор <b>PipeShield v1.1 (<code>JsReconAnalyzer</code>)</b>: правила <code>PS-JS-001..005</code> + энтропия Шеннона ($H(X) &gt; 3.8$) блокируют утечку секретов, внутренних IP и <code>.map</code> файлов до деплоя.",
-          "Замена опасных синков <code>innerHTML</code> на <code>textContent</code> / DOMPurify и строгий серверный контроль доступа (RBAC) против IDOR.",
-          "Мониторинг сканирования директорий и 403/404 аномалий в <b>Wazuh SIEM</b> + автоматическая блокировка IP через <b>Fail2ban</b>."
-        ],
-        blueItemsEn: [
-          "Pre-commit & CI/CD blocking via <b>PipeShield v1.1 (<code>JsReconAnalyzer</code>)</b>: rules <code>PS-JS-001..005</code> + Shannon Entropy ($H(X) &gt; 3.8$) catch leaked secrets, internal IPs, and <code>.map</code> files before production.",
-          "Replacing unsafe <code>innerHTML</code> sinks with <code>textContent</code> / DOMPurify and enforcing server-side object-level authorization against IDOR.",
-          "Correlating web recon spikes (403/404/500) in <b>Wazuh SIEM</b> with automated active-response blocking via <b>Fail2ban</b>."
-        ]
-      },
-      stage2: {
-        redTitle: "🔴 Red Team: Загрузка веб-шелла и получение UID 0 (root) на Linux",
-        redTitleEn: "🔴 Red Team: Web Shell Upload & Instant Linux UID 0 (root)",
-        redItems: [
-          "Обход фильтра загрузки файлов и заливка обфусцированного PHP веб-шелла <code>backdoor.php</code> (<code>MD5: c97ba87745a4a9523e26c30a6529506a</code>).",
-          "Из-за опасной сборки Apache 2.4.57 с флагом <code>-DBIG_SECURITY_HOLE</code> и <code>User root</code> веб-шелл сразу получает права <b>UID 0 (root)</b>.",
-          "Чтение <code>/etc/shadow</code>, инъекция SSH-ключа в <code>/root/.ssh/authorized_keys</code> и проброс обратного туннеля <code>sshd -R</code> во внутреннюю сеть."
-        ],
-        redItemsEn: [
-          "Bypassing file upload validation to deploy an obfuscated PHP web shell <code>backdoor.php</code> (<code>MD5: c97ba87745a4a9523e26c30a6529506a</code>).",
-          "Because Apache 2.4.57 was compiled with <code>-DBIG_SECURITY_HOLE</code> and run as <code>User root</code>, the web shell immediately executes with <b>UID 0 (root)</b>.",
-          "Dumping <code>/etc/shadow</code>, injecting an SSH key into <code>/root/.ssh/authorized_keys</code>, and establishing an <code>sshd -R</code> reverse pivot tunnel."
-        ],
-        blueTitle: "🔵 Blue Team & DFIR: Криминалистика Linux и правила Wazuh / Log Sentinel",
-        blueTitleEn: "🔵 Blue Team & DFIR: Linux Daemon RCA, FIM & Log Sentinel Rules",
-        blueItems: [
-          "Детекция обращения к <code>/uploads/*.php</code> в <b>Log Sentinel (<code>LS-RULE-001</code>)</b> и <b>Wazuh Rule 31106</b> + контроль целостности <code>/root/.ssh/authorized_keys</code> через <b>Wazuh FIM (<code>whodata</code>)</b>.",
-          "Алерт на остановку службы мониторинга <code>wazuh-agent</code> (<b>Wazuh Rule 506</b> / <code>LS-RULE-008</code>) и корреляция брутфорса с последующим входом по SSH-ключу (<code>LS-RULE-002</code>).",
-          "<b>Hardening:</b> пересборка Apache без <code>-DBIG_SECURITY_HOLE</code>, запуск строго от <code>www-data</code>, запрет исполнения скриптов (<code>php_admin_flag engine off</code>) в <code>/uploads/</code>."
-        ],
-        blueItemsEn: [
-          "Detecting <code>/uploads/*.php</code> execution via <b>Log Sentinel (<code>LS-RULE-001</code>)</b> and <b>Wazuh Rule 31106</b> + monitoring <code>/root/.ssh/authorized_keys</code> with <b>Wazuh FIM (<code>whodata</code>)</b>.",
-          "Alerting on <code>wazuh-agent</code> service stop (<b>Wazuh Rule 506</b> / <code>LS-RULE-008</code>) and correlating brute-force followed by SSH publickey login (<code>LS-RULE-002</code>).",
-          "<b>Hardening:</b> recompiling Apache without <code>-DBIG_SECURITY_HOLE</code>, enforcing <code>User www-data</code>, and disabling script execution in <code>/uploads/</code>."
-        ]
-      },
-      stage3: {
-        redTitle: "🔴 Red Team: Win32k LPE эксплойты и зачистка следов на Windows 10",
-        redTitleEn: "🔴 Red Team: Win32k Kernel LPE Exploits & Anti-Forensics on Windows",
-        redItems: [
-          "Брутфорс RDP через SSH-туннель с помощью <code>Brute-RDP.py</code> до подбора пароля учётной записи <code>petrov</code>.",
-          "Отключение Real-Time защиты Windows Defender через групповые политики и реестр.",
-          "Запуск ядерных эксплойтов повышения привилегий <code>CVE-2019-0623.exe</code> (и последующее удаление файла с диска) и <code>cve-2019-1458.exe</code> для получения <code>NT AUTHORITY\\SYSTEM</code>."
-        ],
-        redItemsEn: [
-          "Pivoting RDP brute-force via <code>Brute-RDP.py</code> over the SSH tunnel to compromise domain user <code>petrov</code>.",
-          "Disabling Windows Defender real-time protection via Group Policy and registry tampering.",
-          "Executing Win32k kernel LPE exploits <code>CVE-2019-0623.exe</code> (subsequently deleted from disk to hide tracks) and <code>cve-2019-1458.exe</code> to gain <code>NT AUTHORITY\\SYSTEM</code>."
-        ],
-        blueTitle: "🔵 Blue Team & DFIR: Доказательство удалённого эксплойта через WER AppCrash",
-        blueTitleEn: "🔵 Blue Team & DFIR: Proving Deleted Exploit Execution via WER Forensics",
-        blueItems: [
-          "Детекция 28 неудачных входов RDP (<code>Event ID 4625</code>, <b>Wazuh Rule 60204</b>) и отключения защиты Defender (<code>Event ID 5001 / 5007</code>, <code>LS-RULE-006</code>).",
-          "<b>Форензика удалённого файла:</b> доказательство запуска стертого эксплойта <code>CVE-2019-0623.exe</code> через архив краш-репортов <b>Windows Error Reporting (<code>WER AppCrash</code>, Event ID 1001)</b> в <code>C:\\ProgramData\\Microsoft\\Windows\\WER\\ReportArchive\\</code>.",
-          "Деанонимизация хоста атакующего по пути проброшенного RDP-диска: <code>\\\\tsclient\\_home_kali_Desktop_Share\\mimikatz.exe</code> (<code>Event ID 1116</code>)."
-        ],
-        blueItemsEn: [
-          "Detecting 28 failed RDP logons (<code>Event ID 4625</code>, <b>Wazuh Rule 60204</b>) and Defender tampering (<code>Event ID 5001 / 5007</code>, <code>LS-RULE-006</code>).",
-          "<b>Deleted Binary Forensics:</b> proving execution of deleted <code>CVE-2019-0623.exe</code> via <b>Windows Error Reporting (<code>WER AppCrash</code>, Event ID 1001)</b> archives.",
-          "Unmasking attacker host paths via redirected RDP drive telemetry: <code>\\\\tsclient\\_home_kali_Desktop_Share\\mimikatz.exe</code> (<code>Event ID 1116</code>)."
-        ]
-      },
-      stage4: {
-        redTitle: "🔴 Red Team: Дамп LSASS (Mimikatz), Pass-the-Hash на DC01 и эксфильтрация",
-        redTitleEn: "🔴 Red Team: LSASS Dump (Mimikatz), Pass-the-Hash to DC01 & Exfiltration",
-        redItems: [
-          "Извлечение NTLM-хэша доменного администратора <code>a.admin</code> из памяти процесса <code>lsass.exe</code> с помощью <code>mimikatz.exe</code>.",
-          "Горизонтальное перемещение (Lateral Movement) на контроллер домена <code>dc01</code> методом <b>Pass-the-Hash</b> без знания открытого пароля.",
-          "Поиск и эксфильтрация секретного документа <code>C:\\Users\\a.admin\\Desktop\\Secret\\TOP SECRET!.txt</code>."
-        ],
-        redItemsEn: [
-          "Dumping Domain Admin (<code>a.admin</code>) NTLM credentials from <code>lsass.exe</code> memory using <code>mimikatz.exe</code>.",
-          "Performing <b>Pass-the-Hash</b> lateral movement to Domain Controller <code>dc01</code> without cracking the plaintext password.",
-          "Locating and exfiltrating classified file <code>C:\\Users\\a.admin\\Desktop\\Secret\\TOP SECRET!.txt</code>."
-        ],
-        blueTitle: "🔵 Blue Team & DFIR: Детекция Pass-the-Hash (4624 NTLM) и LNK-артефакты",
-        blueTitleEn: "🔵 Blue Team & DFIR: Pass-the-Hash Correlation (4624 NTLM) & LNK Forensics",
-        blueItems: [
-          "Безошибочная детекция <b>Pass-the-Hash</b> в <b>Wazuh Rule 92652</b> и <b>Log Sentinel (<code>LS-RULE-005</code>)</b>: событие <code>Event ID 4624</code> с <code>Logon Type 3</code> (или <code>10</code> при RestrictedAdmin) и пакетом аутентификации <code>NTLM (NtLmSsp)</code> вместо <code>Kerberos</code>.",
-          "Подтверждение факта утечки данных через криминалистику ярлыков <code>Recent\\TOP SECRET!.lnk</code> на <code>dc01</code> и анализ корзины <code>$Recycle.Bin\\$I2F9B20.txt</code> на <code>ws01</code>.",
-          "<b>Remediation:</b> включение <b>RunAsPPL (LSASS Protected Process Light)</b>, <b>Credential Guard</b>, запрет проброса дисков RDP (<code>fDisableCdm = 1</code>), группа <b>Protected Users</b>."
-        ],
-        blueItemsEn: [
-          "High-fidelity <b>Pass-the-Hash</b> detection via <b>Wazuh Rule 92652</b> and <b>Log Sentinel (<code>LS-RULE-005</code>)</b>: <code>Event ID 4624</code> with <code>Logon Type 3/10</code> and <code>LogonProcessName = NtLmSsp (NTLM)</code> instead of Kerberos.",
-          "Confirming data exfiltration via Windows shell link artifacts (<code>Recent\\TOP SECRET!.lnk</code> on <code>dc01</code>) and <code>$Recycle.Bin\\$I*</code> metadata.",
-          "<b>Remediation:</b> enabling <b>LSASS RunAsPPL</b>, <b>Credential Guard</b>, disabling RDP drive redirection (<code>fDisableCdm = 1</code>), and enforcing <b>Protected Users</b>."
-        ]
-      }
-    };
-
-    function showKillChain(stageKey, btn) {
-      if (btn) {
-        btn.parentElement.querySelectorAll('.cmd-pill').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-      }
-      const d = killChainData[stageKey];
-      const kc = document.getElementById('kcContainer');
-      if (!kc || !d) return;
-      kc.innerHTML = `
-        <div class="project-card" style="border-color: rgba(248, 113, 113, 0.35);">
-          <div>
-            <h3 style="color:#f87171; margin-bottom:0.75rem;" data-lang="ru">${d.redTitle}</h3>
-            <h3 style="color:#f87171; margin-bottom:0.75rem;" data-lang="en">${d.redTitleEn}</h3>
-            <ul data-lang="ru">${d.redItems.map(i => `<li>${i}</li>`).join('')}</ul>
-            <ul data-lang="en">${d.redItemsEn.map(i => `<li>${i}</li>`).join('')}</ul>
-          </div>
-        </div>
-        <div class="project-card" style="border-color: rgba(56, 189, 248, 0.4);">
-          <div>
-            <h3 style="color:#38bdf8; margin-bottom:0.75rem;" data-lang="ru">${d.blueTitle}</h3>
-            <h3 style="color:#38bdf8; margin-bottom:0.75rem;" data-lang="en">${d.blueTitleEn}</h3>
-            <ul data-lang="ru">${d.blueItems.map(i => `<li>${i}</li>`).join('')}</ul>
-            <ul data-lang="en">${d.blueItemsEn.map(i => `<li>${i}</li>`).join('')}</ul>
-          </div>
-        </div>
-      `;
-    }
-
-    function runCmd(key, btn) {
-      document.querySelectorAll('.terminal .cmd-pill').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-      document.getElementById('termOutput').innerHTML = termData[key];
-    }
-
-    function toggleLang() {
-      document.body.classList.toggle('en');
-    }
-
-    (function initLang() {
-      const params = new URLSearchParams(window.location.search);
-      const navLang = (navigator.language || '').toLowerCase();
-      if (params.get('lang') === 'en' || (navLang && !navLang.startsWith('ru') && !navLang.startsWith('be'))) {
-        document.body.classList.add('en');
-      }
-    })();
-
-    runCmd('whoami', document.querySelector('.terminal .cmd-pill'));
-    showKillChain('stage1', document.querySelector('#purple-matrix .cmd-pill'));
-
-    /* ========================================================
-       3D CYBER THREAT RADAR GLOBE (POWERED BY THREATPULSE)
-       ======================================================== */
-    (function initThreatGlobe() {
-      const container = document.getElementById('globe3d');
-      if (!container || typeof THREE === 'undefined') return;
-
-      let width = container.clientWidth || 600;
-      let height = container.clientHeight || 530;
-
-      // 1. Scene, Camera & WebGL Renderer
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1500);
-      camera.position.z = 285;
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-      renderer.setSize(width, height);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      container.appendChild(renderer.domElement);
-
-      const globeGroup = new THREE.Group();
-      scene.add(globeGroup);
-
-      const GLOBE_RADIUS = 100;
-
-      // 2. Dark Core Planet Sphere
-      const coreGeo = new THREE.SphereGeometry(GLOBE_RADIUS - 0.4, 36, 36);
-      const coreMat = new THREE.MeshBasicMaterial({ color: 0x050b18, transparent: true, opacity: 0.96 });
-      const coreMesh = new THREE.Mesh(coreGeo, coreMat);
-      globeGroup.add(coreMesh);
-
-      // 3. Latitude & Longitude Coordinate Wireframe Rings
-      const gridMat = new THREE.LineBasicMaterial({ color: 0x0e3a6a, transparent: true, opacity: 0.22 });
-      for (let lat = -60; lat <= 60; lat += 30) {
-        const r = GLOBE_RADIUS * Math.cos(lat * Math.PI / 180);
-        const y = GLOBE_RADIUS * Math.sin(lat * Math.PI / 180);
-        const ringGeo = new THREE.BufferGeometry();
-        const pts = [];
-        for (let a = 0; a <= 360; a += 10) {
-          const rad = a * Math.PI / 180;
-          pts.push(new THREE.Vector3(r * Math.cos(rad), y, r * Math.sin(rad)));
-        }
-        ringGeo.setFromPoints(pts);
-        globeGroup.add(new THREE.Line(ringGeo, gridMat));
-      }
-      for (let lon = 0; lon < 360; lon += 45) {
-        const rad = lon * Math.PI / 180;
-        const pts = [];
-        for (let lat = -90; lat <= 90; lat += 5) {
-          const phi = lat * Math.PI / 180;
-          pts.push(new THREE.Vector3(
-            GLOBE_RADIUS * Math.cos(phi) * Math.sin(rad),
-            GLOBE_RADIUS * Math.sin(phi),
-            GLOBE_RADIUS * Math.cos(phi) * Math.cos(rad)
-          ));
-        }
-        const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
-        globeGroup.add(new THREE.Line(lineGeo, gridMat));
-      }
-
-      // 4. Atmospheric Outer Glow
-      const atmosGeo = new THREE.SphereGeometry(GLOBE_RADIUS * 1.07, 32, 32);
-      const atmosMat = new THREE.MeshBasicMaterial({
-        color: 0x0284c7,
-        transparent: true,
-        opacity: 0.08,
-        side: THREE.BackSide
-      });
-      globeGroup.add(new THREE.Mesh(atmosGeo, atmosMat));
-
-      // 5. Starfield Dust Background
-      const starGeo = new THREE.BufferGeometry();
-      const starCoords = [];
-      for (let i = 0; i < 280; i++) {
-        starCoords.push(
-          (Math.random() - 0.5) * 850,
-          (Math.random() - 0.5) * 850,
-          -150 + Math.random() * -450
-        );
-      }
-      starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starCoords, 3));
-      const starMat = new THREE.PointsMaterial({ color: 0x38bdf8, size: 1.4, transparent: true, opacity: 0.45 });
-      scene.add(new THREE.Points(starGeo, starMat));
-
-      // 6. Geographic Projection & Continental Particle Matrix
-      function isLand(lat, lon) {
-        if (lat > 35 && lat < 71 && lon > -10 && lon < 42) return true; // Europe
-        if (lat > 10 && lat < 72 && lon >= 42 && lon < 145) return true; // Asia
-        if (lat > 14 && lat < 72 && lon > -168 && lon < -52) return true; // N. America
-        if (lat > -56 && lat <= 12 && lon > -82 && lon < -34) return true; // S. America
-        if (lat > -35 && lat < 37 && lon > -18 && lon < 52) return true; // Africa
-        if (lat > -44 && lat < -10 && lon > 112 && lon < 155) return true; // Australia
-        if (lat > 30 && lat < 46 && lon > 129 && lon < 146) return true; // Japan
-        if (lat > 50 && lat < 60 && lon > -11 && lon < 2) return true; // UK
-        return false;
-      }
-
-      function latLonToVec3(lat, lon, radius = GLOBE_RADIUS) {
-        const phi = (90 - lat) * (Math.PI / 180);
-        const theta = (lon + 180) * (Math.PI / 180);
-        return new THREE.Vector3(
-          -(radius * Math.sin(phi) * Math.cos(theta)),
-          radius * Math.cos(phi),
-          radius * Math.sin(phi) * Math.sin(theta)
-        );
-      }
-
-      const dotCoords = [];
-      const dotColors = [];
-      for (let lat = -70; lat <= 70; lat += 2.8) {
-        for (let lon = -180; lon <= 180; lon += 2.8) {
-          if (isLand(lat, lon)) {
-            const jLat = lat + (Math.random() - 0.5) * 0.7;
-            const jLon = lon + (Math.random() - 0.5) * 0.7;
-            const v = latLonToVec3(jLat, jLon, GLOBE_RADIUS + 0.5);
-            dotCoords.push(v.x, v.y, v.z);
-            if (Math.random() > 0.35) {
-              dotColors.push(0.22, 0.74, 0.97); // #38bdf8 cyan
-            } else {
-              dotColors.push(0.06, 0.72, 0.51); // #10b981 emerald
-            }
-          }
-        }
-      }
-      const dotGeo = new THREE.BufferGeometry();
-      dotGeo.setAttribute('position', new THREE.Float32BufferAttribute(dotCoords, 3));
-      dotGeo.setAttribute('color', new THREE.Float32BufferAttribute(dotColors, 3));
-      const dotMat = new THREE.PointsMaterial({ size: 1.8, vertexColors: true, transparent: true, opacity: 0.88 });
-      globeGroup.add(new THREE.Points(dotGeo, dotMat));
-
-      // 7. Global Nodes & Telemetry Infrastructure
-      const NODES = {
-        minsk: { id: 'minsk', name: 'Minsk [SOC Hub]', country: 'Belarus', lat: 53.90, lon: 27.56, role: 'defender', color: 0x10b981, ip: '10.244.0.12 (Internal Lab)', desc: 'Primary Defender SOC SIEM & ThreatPulse Engine' },
-        frankfurt: { id: 'frankfurt', name: 'Frankfurt [Tor Relay]', country: 'Germany', lat: 50.11, lon: 8.68, role: 'attacker', color: 0xef4444, ip: '185.220.101.5', desc: 'Known Malicious Tor Exit Node probing DMZ port 443' },
-        tokyo: { id: 'tokyo', name: 'Tokyo [DGA C2 Beacon]', country: 'Japan', lat: 35.67, lon: 139.65, role: 'attacker', color: 0xf59e0b, ip: 'xkjqpw987dfghk123498.top', desc: 'Algorithmic Domain Generation (DGA) entropy H=4.18' },
-        sanfrancisco: { id: 'sanfrancisco', name: 'San Francisco [Cloud Edge]', country: 'USA', lat: 37.77, lon: -122.41, role: 'cloud', color: 0x38bdf8, ip: '104.21.48.91 (Cloudflare)', desc: 'Reverse Proxy & Public CDN Gateway' },
-        saopaulo: { id: 'saopaulo', name: 'São Paulo [Ransomware C2]', country: 'Brazil', lat: -23.55, lon: -46.63, role: 'attacker', color: 0xef4444, ip: '177.136.250.88', desc: 'WannaCry Kill-switch Callback Beacon Attempt' },
-        singapore: { id: 'singapore', name: 'Singapore [Web Shell Host]', country: 'Singapore', lat: 1.35, lon: 103.81, role: 'attacker', color: 0xf43f5e, ip: '103.253.144.10', desc: 'Obfuscated PHP Web Shell staging IP' },
-        london: { id: 'london', name: 'London [SIEM Collector]', country: 'UK', lat: 51.50, lon: -0.12, role: 'defender', color: 0x10b981, ip: '51.15.42.180 (Wazuh Forwarder)', desc: 'Regional Centralized Syslog & Auditd Aggregator' },
-        sydney: { id: 'sydney', name: 'Sydney [Target DB]', country: 'Australia', lat: -33.86, lon: 151.20, role: 'relay', color: 0x38bdf8, ip: '139.130.4.5', desc: 'Exfiltration telemetry canary honeytoken' }
-      };
-
-      const nodePillars = [];
-      Object.values(NODES).forEach(node => {
-        const pos = latLonToVec3(node.lat, node.lon, GLOBE_RADIUS + 0.8);
-        
-        // Node marker dot
-        const sGeo = new THREE.SphereGeometry(1.6, 12, 12);
-        const sMat = new THREE.MeshBasicMaterial({ color: node.color });
-        const mesh = new THREE.Mesh(sGeo, sMat);
-        mesh.position.copy(pos);
-        mesh.userData = node;
-        globeGroup.add(mesh);
-
-        // Vertical glowing telemetry pillar
-        const normal = pos.clone().normalize();
-        const beamLen = node.role === 'defender' ? 14 : 9;
-        const beamGeo = new THREE.CylinderGeometry(0.3, 0.6, beamLen, 6);
-        beamGeo.translate(0, beamLen / 2, 0);
-        const beamMat = new THREE.MeshBasicMaterial({ color: node.color, transparent: true, opacity: 0.75 });
-        const beam = new THREE.Mesh(beamGeo, beamMat);
-        beam.position.copy(pos);
-        beam.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normal);
-        globeGroup.add(beam);
-        nodePillars.push(beam);
-      });
-
-      // 8. Attack Arcs (Quadratic Bézier Curves)
-      const ATTACK_ARCS = [
-        { from: 'frankfurt', to: 'minsk', color: 0xef4444, speed: 0.007, ioc: '185.220.101.5', type: 'Tor Exit Node Scan', entropy: '1.24 (Clean IP)', score: '92/100', wazuh: '185.220.101.5:threat_tor:high_risk:block', cat: 'CRITICAL THREAT' },
-        { from: 'tokyo', to: 'minsk', color: 0xf59e0b, speed: 0.005, ioc: 'xkjqpw987dfghk123498.top', type: 'DGA Domain Beacon', entropy: '4.18 (DGA ALERT)', score: '88/100', wazuh: 'xkjqpw987dfghk123498.top:threat_dga:entropy_4.18:block', cat: 'HIGH RISK' },
-        { from: 'saopaulo', to: 'london', color: 0xef4444, speed: 0.004, ioc: '177.136.250.88', type: 'Ransomware C2 Beacon', entropy: '0.98 (IP)', score: '96/100', wazuh: '177.136.250.88:threat_ransomware_c2:critical', cat: 'CRITICAL THREAT' },
-        { from: 'singapore', to: 'minsk', color: 0xf43f5e, speed: 0.006, ioc: '103.253.144.10', type: 'Web Shell Brute-Force', entropy: '1.15 (IP)', score: '82/100', wazuh: '103.253.144.10:threat_webshell_bruteforce:block', cat: 'HIGH RISK' },
-        { from: 'sanfrancisco', to: 'tokyo', color: 0x38bdf8, speed: 0.004, ioc: '104.21.48.91', type: 'Cloudflare Edge Proxy', entropy: '1.02 (Bogon Sanitized)', score: '15/100', wazuh: '104.21.48.91:proxy_edge:whitelisted', cat: 'BENIGN / PROXY' },
-        { from: 'minsk', to: 'sydney', color: 0x10b981, speed: 0.005, ioc: '10.244.0.12', type: 'ThreatPulse Honeytoken Sync', entropy: '0.85 (RFC 1918)', score: '0/100', wazuh: '10.244.0.0/16:private_bogon:allow', cat: 'DEFENDER SYNC' }
-      ];
-
-      const arcObjects = [];
-      ATTACK_ARCS.forEach(arcDef => {
-        const srcNode = NODES[arcDef.from];
-        const dstNode = NODES[arcDef.to];
-        const p1 = latLonToVec3(srcNode.lat, srcNode.lon, GLOBE_RADIUS);
-        const p2 = latLonToVec3(dstNode.lat, dstNode.lon, GLOBE_RADIUS);
-        const dist = p1.distanceTo(p2);
-        
-        // Midpoint lifted radially above surface
-        const mid = p1.clone().add(p2).multiplyScalar(0.5);
-        const altitude = GLOBE_RADIUS + dist * 0.38;
-        mid.normalize().multiplyScalar(altitude);
-
-        const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
-        const points = curve.getPoints(45);
-        const curveGeo = new THREE.BufferGeometry().setFromPoints(points);
-        const curveMat = new THREE.LineBasicMaterial({ color: arcDef.color, transparent: true, opacity: 0.55 });
-        const arcLine = new THREE.Line(curveGeo, curveMat);
-        globeGroup.add(arcLine);
-
-        // Moving glowing projectile particle
-        const partGeo = new THREE.SphereGeometry(1.4, 8, 8);
-        const partMat = new THREE.MeshBasicMaterial({ color: arcDef.color });
-        const projectile = new THREE.Mesh(partGeo, partMat);
-        globeGroup.add(projectile);
-
-        arcObjects.push({
-          def: arcDef,
-          curve: curve,
-          projectile: projectile,
-          progress: Math.random(),
-          speed: arcDef.speed
-        });
-      });
-
-      // 9. Interactive Drag to Rotate (Mouse + Touch)
-      let isDragging = false;
-      let prevMouseX = 0;
-      let prevMouseY = 0;
-      let targetRotationX = 0.35;
-      let targetRotationY = -0.55;
-      let autoRotate = true;
-
-      container.addEventListener('pointerdown', (e) => {
-        isDragging = true;
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-        container.style.cursor = 'grabbing';
-      });
-
-      window.addEventListener('pointermove', (e) => {
-        if (!isDragging) return;
-        const deltaX = e.clientX - prevMouseX;
-        const deltaY = e.clientY - prevMouseY;
-        prevMouseX = e.clientX;
-        prevMouseY = e.clientY;
-
-        targetRotationY += deltaX * 0.005;
-        targetRotationX += deltaY * 0.005;
-        targetRotationX = Math.max(-1.2, Math.min(1.2, targetRotationX));
-      });
-
-      window.addEventListener('pointerup', () => {
-        isDragging = false;
-        container.style.cursor = 'grab';
-      });
-
-      // Controlled wheel zoom without locking document scroll outside
-      container.addEventListener('wheel', (e) => {
-        e.preventDefault();
-        camera.position.z += e.deltaY * 0.15;
-        camera.position.z = Math.max(180, Math.min(380, camera.position.z));
-      }, { passive: false });
-
-      // 10. Global Controls API
-      window.focusNode = function(nodeId) {
-        const node = NODES[nodeId];
-        if (!node) return;
-        targetRotationY = -(node.lon + 180) * (Math.PI / 180) - Math.PI / 2;
-        targetRotationX = (node.lat) * (Math.PI / 180) * 0.6;
-        autoRotate = false;
-        updateInspector(ATTACK_ARCS[0]);
-      };
-
-      window.toggleRotation = function() {
-        autoRotate = !autoRotate;
-        const btn = document.getElementById('btnToggleRotate');
-        if (btn) btn.textContent = autoRotate ? '⏸️ Pause' : '▶️ Play';
-      };
-
-      window.resetGlobeView = function() {
-        targetRotationX = 0.35;
-        targetRotationY = -0.55;
-        camera.position.z = 285;
-        autoRotate = true;
-        const btn = document.getElementById('btnToggleRotate');
-        if (btn) btn.textContent = '⏸️ Pause';
-      };
-
-      // 11. Inspector Card Update Function
-      function updateInspector(arcDef) {
-        if (!arcDef) return;
-        const iocEl = document.getElementById('inspectorIoc');
-        const routeEl = document.getElementById('inspectorRoute');
-        const entropyEl = document.getElementById('inspectorEntropy');
-        const scoreEl = document.getElementById('inspectorScore');
-        const wazuhEl = document.getElementById('inspectorWazuh');
-        const verdictEl = document.getElementById('inspectorVerdict');
-        const cliEl = document.getElementById('inspectorCliCmd');
-        const timeEl = document.getElementById('inspectorTime');
-
-        if (iocEl) iocEl.textContent = arcDef.ioc;
-        if (routeEl) {
-          const src = NODES[arcDef.from].name;
-          const dst = NODES[arcDef.to].name;
-          routeEl.textContent = `${src} ➔ ${dst}`;
-        }
-        if (entropyEl) entropyEl.textContent = `H(X) = ${arcDef.entropy}`;
-        if (scoreEl) scoreEl.textContent = arcDef.score;
-        if (wazuhEl) wazuhEl.textContent = arcDef.wazuh;
-        if (verdictEl) {
-          verdictEl.textContent = arcDef.cat;
-          if (arcDef.cat.includes('CRITICAL')) {
-            verdictEl.style.background = 'rgba(239, 68, 68, 0.2)';
-            verdictEl.style.color = '#f87171';
-            verdictEl.style.borderColor = 'rgba(239,68,68,0.4)';
-          } else if (arcDef.cat.includes('HIGH')) {
-            verdictEl.style.background = 'rgba(245, 158, 11, 0.2)';
-            verdictEl.style.color = '#fbbf24';
-            verdictEl.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-          } else {
-            verdictEl.style.background = 'rgba(16, 185, 129, 0.2)';
-            verdictEl.style.color = '#34d399';
-            verdictEl.style.borderColor = 'rgba(16, 185, 129, 0.4)';
-          }
-        }
-        if (cliEl) cliEl.textContent = `threat-pulse ${arcDef.ioc} --format wazuh-cdb`;
-        if (timeEl) timeEl.textContent = new Date().toLocaleTimeString();
-      }
-
-      // 12. Populate Live Stream List
-      const streamContainer = document.getElementById('threatStreamList');
-      function addStreamItem(arcDef) {
-        if (!streamContainer) return;
-        const item = document.createElement('div');
-        item.className = 'threat-stream-item';
-        const isCrit = arcDef.cat.includes('CRITICAL');
-        const color = isCrit ? '#f87171' : (arcDef.cat.includes('HIGH') ? '#fbbf24' : '#38bdf8');
-        item.innerHTML = `
-          <div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%;">
-            <span style="color:${color}; font-weight:700;">[${arcDef.type}]</span>
-            <span style="color:#fff; margin-left:4px;">${arcDef.ioc}</span>
-          </div>
-          <span style="color:#64748b; font-size:0.72rem;">${new Date().toLocaleTimeString()}</span>
-        `;
-        item.onclick = () => updateInspector(arcDef);
-        streamContainer.insertBefore(item, streamContainer.firstChild);
-        while (streamContainer.children.length > 5) {
-          streamContainer.removeChild(streamContainer.lastChild);
-        }
-      }
-
-      // Seed initial items
-      ATTACK_ARCS.forEach(addStreamItem);
-      updateInspector(ATTACK_ARCS[0]);
-
-      // Periodic simulated live alert
-      let arcCycleIdx = 0;
-      setInterval(() => {
-        arcCycleIdx = (arcCycleIdx + 1) % ATTACK_ARCS.length;
-        const arc = ATTACK_ARCS[arcCycleIdx];
-        addStreamItem(arc);
-        if (arcObjects[arcCycleIdx]) {
-          arcObjects[arcCycleIdx].progress = 0;
-        }
-      }, 4200);
-
-      // 13. 60 FPS Render Loop
-      function animate() {
-        requestAnimationFrame(animate);
-
-        if (autoRotate && !isDragging) {
-          targetRotationY += 0.0018;
-        }
-        globeGroup.rotation.y += (targetRotationY - globeGroup.rotation.y) * 0.08;
-        globeGroup.rotation.x += (targetRotationX - globeGroup.rotation.x) * 0.08;
-
-        // Animate ballistic projectiles along arcs
-        arcObjects.forEach(obj => {
-          obj.progress += obj.speed;
-          if (obj.progress > 1) obj.progress = 0;
-          const pt = obj.curve.getPoint(obj.progress);
-          obj.projectile.position.copy(pt);
-        });
-
-        // Gentle pulse on node pillars
-        const time = Date.now() * 0.003;
-        nodePillars.forEach((p, idx) => {
-          const s = 1 + Math.sin(time + idx) * 0.25;
-          p.scale.set(1, s, 1);
-        });
-
-        renderer.render(scene, camera);
-      }
-
-      // 14. Responsive Resize
-      window.addEventListener('resize', () => {
-        if (!container) return;
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
-      });
-
-      animate();
-    })();
-  </script>
+  <noscript><div class="noscript-warn">Для полной работы сайта включите JavaScript / Please enable JavaScript.</div></noscript>
+  <script src="main.js"></script>
 </body>
 </html>
